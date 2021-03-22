@@ -1,0 +1,25 @@
+@font-face {
+	font-family: "Monoround";
+	src: url('Monoround.otf');
+}
+
+@font-face {
+	font-family: "Winter";
+	src: url('winter-miracle-sans.otf');
+}
+
+html, body {
+	position: relative;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #ffd081;
+	background-image: url('background.jpg');
+	background-size: cover;
+	color: #333;
+	box-sizing: border-box;
+	font-family: "Monoround", "Helvetica Neue", sans-serif;
+}
