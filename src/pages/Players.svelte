@@ -48,15 +48,17 @@
   </p>
 {/if}
 
+<p class="players">
 {#if !$players}
   Loading players...
 {:else}
-<p class="players">
   {#each $players as player}
     <Player {player} />
+  {:else}
+    No players registered yet!
   {/each}
-</p>
 {/if}
+</p>
 
 <style>
   p {

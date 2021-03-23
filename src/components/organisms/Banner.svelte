@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { me, api } from '../../stores';
+  import { me } from '../../stores';
 
   const logout = async () => {
-    await api('/auth/logout', { method: 'POST' });
+    await fetch(`${__myapp.env.API_URL}/auth/logout`, { method: 'POST', credentials: 'include' });
     location.reload();
   };
 </script>
