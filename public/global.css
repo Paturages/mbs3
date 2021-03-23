@@ -1,11 +1,11 @@
 @font-face {
 	font-family: "Monoround";
-	src: url('Monoround.otf');
+	src: url('/fonts/Monoround.otf');
 }
 
 @font-face {
 	font-family: "Winter";
-	src: url('winter-miracle-sans.otf');
+	src: url('/fonts/winter-miracle-sans.otf');
 }
 
 html, body {
@@ -17,9 +17,14 @@ html, body {
 
 body {
 	background-color: #ffd081;
-	background-image: url('background.jpg');
+	background-image: url('/images/background.jpg');
 	background-size: cover;
-	color: #333;
+	background-attachment: fixed;
+	color: #bf360c;
 	box-sizing: border-box;
 	font-family: "Monoround", "Helvetica Neue", sans-serif;
+}
+
+a {
+	color: #bf360c;
 }

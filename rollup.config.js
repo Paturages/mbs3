@@ -1,12 +1,19 @@
 import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import replace from '@rollup/plugin-replace';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import fs from 'fs';
+import path from 'path';
 
+// Get the Directus and UI URLs from the .env in a savage way to not pollute process.env
+const lines = fs.readFileSync(path.resolve(__dirname, '.env'), { encoding: 'utf8' }).split('\n');
+const API_URL = lines.find(l => l.startsWith('PUBLIC_URL=')).replace('PUBLIC_URL=', '').slice(1, -1);
+const UI_URL = lines.find(l => l.startsWith('UI_URL=')).replace('UI_URL=', '').slice(1, -1);
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
@@ -39,6 +46,18 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		// Inject environment variables
+		replace({
+			preventAssignment: true,
+			__myapp: JSON.stringify({
+				env: {
+					API_URL,
+					UI_URL,
+					isProd: production,
+				}
+			})
+		}),
+
 		svelte({
 			preprocess: sveltePreprocess({ sourceMap: !production }),
 			compilerOptions: {

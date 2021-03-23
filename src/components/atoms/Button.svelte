@@ -1,8 +1,9 @@
 <script lang="ts">
   export let href: string;
+  export let target: string = '';
 </script>
 
-<a {href} class="button">
+<a {href} {target} rel={target === '_blank' ? 'noopener' : undefined} class="button" on:click>
   <div class="text">
     <slot />
   </div>
@@ -10,6 +11,7 @@
 
 <style>
   .button {
+    white-space: nowrap;
     position: relative;
     display: flex;
     justify-content: center;
@@ -17,13 +19,18 @@
     width: 26.3em;
     height: 2.5em;
     padding: 1em;
-    background: url('button-background.png');
+    background: url('/images/button-background.png');
     background-size: contain;
     background-repeat: no-repeat;
     font-family: "Winter";
     font-weight: bold;
     text-decoration: none;
     color: #f97956;
+  }
+  .button:hover {
+    position: relative;
+    top: 1px;
+    left: 1px;
   }
   .text {
     font-size: 3em;
