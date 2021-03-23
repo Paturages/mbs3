@@ -21,7 +21,7 @@
   <div class="me">
     Logged in as
     <b>{$me.username}</b> -
-    <a href="javascript:void(0)" on:click={logout}>Log out</a>
+    <a href="#/" on:click={logout}>Log out</a>
   </div>
   {/if}
 </div>

@@ -6,7 +6,7 @@
     "postinstall": "node atrocities/patch",
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --host",
+    "start": "sirv docs --host",
     "validate": "svelte-check",
     "directus": "directus start"
   },
