@@ -21,7 +21,7 @@
       alert(res.errors[0].message);
     } else {
       me.set({ ...$me, player: res.data });
-      players.set($players.concat([res]).sort((a, b) => b.ranking - a.ranking));
+      players.set($players.concat([res.data]).sort((a, b) => b.ranking - a.ranking));
     }
     registering = false;
   };

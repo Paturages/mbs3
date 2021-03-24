@@ -17,6 +17,10 @@
       <div class="three"><span>3</span></div>
     </h1>
   </a>
+  <div class="hosts">
+    <div class="host-title">Hosted by</div>
+    Paturages & Davvy
+  </div>
   {#if $me}
   <div class="me">
     Logged in as
@@ -29,6 +33,22 @@
 <style>
   .banner {
     position: relative;
+  }
+  .hosts {
+    color: #f97956;
+    text-align: center;
+    margin-top: 1.5em;
+    font-size: 1.5em;
+  }
+  .host-title {
+    font-size: 1.5em;
+    font-family: "Winter";
+    text-shadow:
+      1px 1px #fff,
+      -1px 1px #fff,
+      1px -1px #fff,
+      -1px -1px #fff,
+      1px 1px 5px #f97956;
   }
 
   .logo {
