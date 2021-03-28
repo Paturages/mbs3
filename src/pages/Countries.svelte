@@ -1,0 +1,63 @@
+<script lang="ts">
+  import Player from '../components/molecules/Player.svelte';
+  import { players } from '../stores';
+  import type { Player as IPlayer } from '../stores';
+
+  $: countries = Object.values(
+    ($players?.reduce((obj, player) => {
+      if (!obj[player.country]) obj[player.country] = { country: player.country, players: [] };
+      obj[player.country].players.push(player);
+      return obj;
+    }, {}) || {}) as Record<string, { country: string, players: IPlayer[] }>
+  ).sort((a, b) => a.players.length < b.players.length ? 1 : -1);
+
+  let selectedCountry: string;
+  const selectCountry = (country: string) => (selectedCountry = selectedCountry == country ? null : country);
+</script>
+
+<div class="countries">
+  {#each countries as { players, country }}
+    <div class="country" on:click={() => selectCountry(country)}>
+      <div class="label">
+        {country}: {players.length} player{players.length == 1 ? '' : 's'}
+      </div>
+      <div class="pointer">{selectedCountry == country ? '▼' : '►'}</div>
+    </div>
+    {#if selectedCountry == country}
+    <div class="players">
+      {#each players as player}
+        <Player {player} />
+      {/each}
+    </div>
+    {/if}
+  {:else}
+    Loading...
+  {/each}
+</div>
+
+<style>
+  .countries {
+    text-align: center;
+  }
+  .country {
+    cursor: pointer;
+    text-align: left;
+    margin: 1em auto;
+    width: 40em;
+    padding: 1em 4em;
+    border-radius: 1em;
+    background: #ffaa7e;
+    box-shadow: 0 0 2px #f97956;
+    display: flex;
+    align-items: center;
+  }
+  .country:nth-child(2n) {
+    background: #ffa06d;
+  }
+  .label {
+    flex: 1;
+  }
+  .players :global(.player) {
+    margin: .5em auto;
+  }
+</style>

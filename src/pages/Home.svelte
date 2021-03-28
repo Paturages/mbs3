@@ -16,6 +16,7 @@
       Discord
     </Button>
     <Button href="#/players">Players</Button>
+    <Button href="#/countries">Countries</Button>
   </div>
 </main>
 

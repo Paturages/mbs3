@@ -23,10 +23,12 @@ export const players = writable<Player[]>(null);
 
 export const page = writable<string>(null);
 
+const pages = new Set(['players', 'countries'])
 const onHashChange = () => {
   const { hash } = location;
-  if (hash == '#/players') {
-    page.set('players');
+  const [, query] = hash.split('/');
+  if (pages.has(query)) {
+    page.set(query);
   } else {
     page.set('home');
     if (hash != '#/') {
