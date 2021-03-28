@@ -39,6 +39,7 @@
     height: 3em;
   }
   .name {
+    text-align: center;
     font-size: 1.5em;
     margin: 0 1em;
     flex: 1;
