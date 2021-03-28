@@ -36,7 +36,6 @@ module.exports = function registerHook({ database, env, exceptions }) {
 
       // Deny people outside rank range
       const { global_rank } = rankStatus;
-      console.log(user, input);
       if (global_rank > 40000) {
         throw new InvalidPayloadException(`4K Rank = ${global_rank}: Your rank is too low! Farm a little bit more and try again!`);
       }

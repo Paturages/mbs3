@@ -13,8 +13,8 @@ import path from 'path';
 // Get the Directus and UI URLs from the .env in a savage way to not pollute process.env
 const production = !process.env.ROLLUP_WATCH;
 const lines = fs.readFileSync(path.resolve(__dirname, '.env' + (production ? '.prod' : '')), { encoding: 'utf8' }).split('\n');
-const API_URL = lines.find(l => l.startsWith('PUBLIC_URL=')).replace('PUBLIC_URL=', '').slice(1, -1);
-const UI_URL = lines.find(l => l.startsWith('UI_URL=')).replace('UI_URL=', '').slice(1, -1);
+const API_URL = lines.find(l => l.startsWith('PUBLIC_URL=')).replace('PUBLIC_URL=', '').replace(/"/g, '').trim();
+const UI_URL = lines.find(l => l.startsWith('UI_URL=')).replace('UI_URL=', '').replace(/"/g, '').trim();
 
 function serve() {
 	let server;

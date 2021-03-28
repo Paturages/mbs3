@@ -41,10 +41,9 @@
       Confirm registration
     </Button>
     {/if}
-  </p>
-{:else}
-  <p class="registration">
-    List of players
+    Don't forget to
+    <a href="https://discord.gg/uNSqksR" target="_blank" rel="noopener">join the Discord server</a>
+    (this is also required!)
   </p>
 {/if}
 
@@ -52,6 +51,7 @@
 {#if !$players}
   Loading players...
 {:else}
+  <div class="stats">Total players: {$players.length}</div>
   {#each $players as player}
     <Player {player} />
   {:else}
