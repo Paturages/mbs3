@@ -50,7 +50,7 @@ export const api = (path: string, options: Parameters<typeof fetch>[1] = { heade
 
 let access_token;
 (async () => {
-  const { data: playersPayload } = await api('/items/players?fields=id,username,country,avatar,timezone,ranking,pp&sort=ranking');
+  const { data: playersPayload } = await api('/items/players?fields=id,username,country,avatar,timezone,ranking,pp&sort=ranking&limit=-1');
   players.set(playersPayload);
   const res = await fetch(`${API_URL}/auth/refresh`, {
     method: 'POST',

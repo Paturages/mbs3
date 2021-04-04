@@ -48,7 +48,21 @@ const pool = new Pool({
       (v) => v.variant === "4k"
     );
     console.log(player.id.padEnd(10), player.username.padEnd(20), player.ranking, '->', rankStatus.global_rank);
-    await pool.query('update players set date_updated = now(), ranking = $2 where id = $1', [player.id, rankStatus.global_rank]);
-    await new Promise(r => setTimeout(r, 750));
+    await pool.query(`update players
+    set date_updated = now(),
+      ranking = $2,
+      pp = $3,
+      username = $4,
+      country = $5,
+      avatar = $6
+    where id = $1`, [
+      player.id,
+      rankStatus.global_rank,
+      rankStatus.pp,
+      user.username,
+      user.country.name,
+      user.avatar_url,
+    ]);
+    await new Promise(r => setTimeout(r, 150));
   }
 })();
