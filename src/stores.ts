@@ -21,6 +21,14 @@ export interface Player {
 }
 export const players = writable<Player[]>(null);
 
+export interface Stage {
+  slug: string;
+  name: string;
+  date_start: string;
+  date_end: string;
+}
+export const stages = writable<Stage[]>([]);
+
 export const page = writable<string>(null);
 
 const pages = new Set(['players', 'countries'])
@@ -52,6 +60,8 @@ let access_token;
 (async () => {
   const { data: playersPayload } = await api('/items/players?fields=id,username,country,avatar,timezone,ranking,pp&sort=ranking&limit=-1');
   players.set(playersPayload);
+  const { data: stagesPayload } = await api('/items/stages?sort=sort');
+  stages.set(stagesPayload);
   const res = await fetch(`${API_URL}/auth/refresh`, {
     method: 'POST',
     credentials: 'include'

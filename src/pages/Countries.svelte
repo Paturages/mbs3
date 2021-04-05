@@ -16,7 +16,7 @@
 </script>
 
 <div class="countries">
-  {#each countries as { players, country }}
+  {#each countries as { players, country } (country)}
     <div class="country" on:click={() => selectCountry(country)}>
       <div class="label">
         {country}: {players.length} player{players.length == 1 ? '' : 's'}
@@ -46,13 +46,13 @@
     width: 40em;
     padding: 1em 4em;
     border-radius: 1em;
-    background: #ffaa7e;
-    box-shadow: 0 0 2px #f97956;
+    background: #ffd08180;
+    box-shadow: 0 0 2px #ffd081;
     display: flex;
     align-items: center;
   }
   .country:nth-child(2n) {
-    background: #ffa06d;
+    background: #ffd081c0;
   }
   .label {
     flex: 1;

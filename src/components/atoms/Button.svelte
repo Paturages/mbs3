@@ -3,46 +3,64 @@
   export let target: string = '';
 </script>
 
-<a {href} {target} rel={target === '_blank' ? 'noopener' : undefined} class="button" on:click>
-  <div class="text">
-    <slot />
-  </div>
-</a>
+<span class="button">
+  <a {href} {target} rel={target === '_blank' ? 'noopener' : undefined} class="link" on:click>
+    <div class="text">
+      <slot />
+    </div>
+  </a>
+</span>
 
 <style>
-  .button {
+  .link {
     white-space: nowrap;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 26.3em;
+    min-width: 6em;
     height: 2.5em;
-    padding: 1em;
-    background: url('/images/button-background.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+    padding: 1em 2em;
+    margin: 0 3.7em;
+    background: center/contain url('/images/button-background-center.png');
     font-family: "Winter";
     font-weight: bold;
     text-decoration: none;
     color: #f97956;
   }
-  .button:hover {
+  .link::before {
+    z-index: 0;
+    content: '';
+    position: absolute;
+    left: -3.5em;
+    top: 0;
+    height: 4.5em;
+    min-width: 6em;
+    background: no-repeat left/contain url('/images/button-background-left.png');
+  }
+  .link::after {
+    z-index: 0;
+    content: '';
+    position: absolute;
+    right: -3.5em;
+    top: 0;
+    height: 4.5em;
+    min-width: 6em;
+    background: no-repeat right/contain url('/images/button-background-right.png');
+  }
+  .link:hover {
     position: relative;
     top: 1px;
     left: 1px;
   }
   .text {
+    z-index: 1;
     font-size: 3em;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     text-shadow:
-      1px 1px #fff,
-      -1px 1px #fff,
-      1px -1px #fff,
-      -1px -1px #fff,
-      1px 1px 5px #f97956;
+      .02em .02em #fff,
+      -.02em .02em #fff,
+      .02em -.02em #fff,
+      -.02em -.02em #fff,
+      .02em .02em .1em #f97956;
   }
 </style>

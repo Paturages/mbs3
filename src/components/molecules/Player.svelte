@@ -21,15 +21,15 @@
   .player {
     display: flex;
     align-items: center;
-    background: #ffaa7e;
+    background: #ffd08180;
     width: 40em;
-    padding: 1em 4em;
+    padding: 0 4em;
     border-radius: 1em;
     text-decoration: none;
-    box-shadow: 0 0 2px #f97956;
+    box-shadow: 0 0 2px #ffd081;
   }
   .player:nth-child(2n) {
-    background: #ffa06d;
+    background: #ffd081c0;
   }
   .avatar {
     border-radius: 50%;

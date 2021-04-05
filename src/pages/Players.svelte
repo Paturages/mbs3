@@ -52,7 +52,7 @@
   Loading players...
 {:else}
   <div class="stats">Total players: {$players.length}</div>
-  {#each $players as player}
+  {#each $players as player (player.id)}
     <Player {player} />
   {:else}
     No players registered yet!
@@ -65,12 +65,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 4em;
   }
   .confirm :global(.button) :global(.text) {
     font-size: 2em;
   }
   .players :global(.player) {
-    margin: .5em 0;
+    margin: .25em 0;
   }
 </style>

@@ -12,11 +12,6 @@
         Register here!
       </Button>
     </div>
-    <Button href="https://discord.gg/uNSqksR" target="_blank">
-      Discord
-    </Button>
-    <Button href="#/players">Players</Button>
-    <Button href="#/countries">Countries</Button>
   </div>
 </main>
 
