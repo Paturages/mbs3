@@ -5,6 +5,11 @@
 <nav>
   <ul>
     <li>
+      <Button href="https://osu.ppy.sh/community/forums/topics/1280306" target="_blank">
+        Forum post
+      </Button>
+    </li>
+    <li>
       <Button href="https://discord.gg/uNSqksR" target="_blank">
         Discord
       </Button>

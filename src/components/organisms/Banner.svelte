@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { me } from '../../stores';
+  import { me, referees } from '../../stores/core';
 
   const logout = async () => {
     await fetch(`${__myapp.env.API_URL}/auth/logout`, { method: 'POST', credentials: 'include' });
     location.reload();
   };
+  const loginUrl = `${__myapp.env.API_URL}/auth/oauth/osu?redirect=${__myapp.env.UI_URL}`;
 </script>
 
 <div class="banner">
@@ -21,13 +22,27 @@
     <div class="host-title">Hosted by</div>
     Paturages & Davvy
   </div>
-  {#if $me}
   <div class="me">
-    Logged in as
-    <b>{$me.username}</b> -
-    <a href="#/" on:click={logout}>Log out</a>
+    {#if $me}
+      Logged in as
+      <b>{$me.username}</b> -
+      {#if $me.player}
+        Player -
+      {/if}
+      {#if $me.referee}
+        Referee -
+      {/if}
+      {#if $me.commentator}
+        Commentator -
+      {/if}
+      {#if $me.streamer}
+        Streamer -
+      {/if}
+      <a href="#/" on:click={logout}>Log out</a>
+    {:else if $referees.length}
+      <a href={loginUrl}>Login</a>
+    {/if}
   </div>
-  {/if}
 </div>
 
 <style>
@@ -103,6 +118,6 @@
   .me {
     position: absolute;
     right: 1em;
-    bottom: -2em;
+    bottom: 4em;
   }
 </style>

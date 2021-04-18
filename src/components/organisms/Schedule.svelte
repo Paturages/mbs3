@@ -12,7 +12,13 @@
 <div class="schedule">
   {#each stages as stage, i (stage.slug)}
     <div class="stage" class:active={!i || stages[i-1].date_end < now}>
-      <div class="stage-name">{stage.name}</div>
+      <div class="stage-name">
+        {#if stage.link}
+          <a href={stage.link}>{stage.name}</a>
+        {:else}
+          {stage.name}
+        {/if}
+      </div>
       <div class="stage-date">
         {displayDate(stage.date_start)}
       </div>

@@ -7,7 +7,7 @@ module.exports = function registerHook({ database, env, exceptions }) {
     "items.create.before": async function (input, { collection, accountability }) {
       if (collection !== "players") return input;
       // Force registration to be current user
-      const [currentUser] = await database.select('first_name as id').from('directus_users').where('id', accountability.user);
+      const [currentUser] = await database.select('email as id').from('directus_users').where('id', accountability.user);
       // const currentUser = input;
       
       const {
@@ -35,12 +35,12 @@ module.exports = function registerHook({ database, env, exceptions }) {
       );
 
       // Deny people outside rank range
-      const { global_rank } = rankStatus;
+      const { global_rank, pp } = rankStatus;
       if (global_rank > 40000) {
         throw new InvalidPayloadException(`4K Rank = ${global_rank}: Your rank is too low! Farm a little bit more and try again!`);
       }
-      if (global_rank < 10000) {
-        throw new InvalidPayloadException(`4K Rank = ${global_rank}: Sorry, you farmed a little bit too much! Try to let your rank decay and try again!`);
+      if (pp > 4750) {
+        throw new InvalidPayloadException(`4K Rank = ${global_rank}, pp = ${pp}: Sorry, you farmed a little bit too much (cutoff = 4750pp)! Try to let your rank decay and try again!`);
       }
 
       Object.assign(input, {

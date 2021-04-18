@@ -3,11 +3,12 @@
   import Nav from './components/organisms/Nav.svelte';
   import Schedule from './components/organisms/Schedule.svelte';
 
+	import Staff from './pages/Staff.svelte';
 	import Players from './pages/Players.svelte';
-	import Home from './pages/Home.svelte';
 	import Countries from './pages/Countries.svelte';
+	import Qualifiers from './pages/Qualifiers.svelte';
 
-	import { page, stages } from './stores';
+	import { page, stages } from './stores/core';
 
 </script>
 
@@ -20,8 +21,10 @@
 			<Players />
 		{:else if $page == 'countries'}
 			<Countries />
+		{:else if $page == 'qualifiers'}
+			<Qualifiers />
 		{:else}
-			<Home />
+			<Staff />
 		{/if}
 	</div>
 </div>
