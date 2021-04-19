@@ -31,7 +31,8 @@
 <div class="section">
   <Button>Donators</Button>
   <div class="container">
-    <a href="https://osu.ppy.sh/users/8642224" target="_blank" rel="noopener">Konohana Lucia</a>
+    <a href="https://osu.ppy.sh/users/8642224" target="_blank" rel="noopener">Konohana Lucia</a>&emsp;
+    <a href="https://osu.ppy.sh/users/8184715" target="_blank" rel="noopener">Syako</a>
   </div>
 </div>
 <div class="section">
