@@ -67,7 +67,7 @@
         {#if lobby.players[i]}
           <a href={`https://osu.ppy.sh/users/${lobby.players[i].id}`}>{lobby.players[i].username}</a>
         {:else}
-          <a>Free spot!</a>
+          <a class="free-spot">Free spot!</a>
         {/if}
       {/each}
     </div>
@@ -87,6 +87,10 @@
   }
   .lobby:nth-child(2n) {
     background: #ffd081c0;
+  }
+
+  .free-spot {
+    opacity: .5;
   }
 
   .name {
