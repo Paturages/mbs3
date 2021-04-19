@@ -11,7 +11,7 @@ module.exports = function registerEndpoint(router, { database }) {
       res.status(403);
       return res.send({ errors: [{ message: 'There are already 8 players in this lobby! If you absolutely cannot make any other time, please reach out in #reschedules.' }] });
     }
-    const [player] = await database('players').where('id', 13661408).update({ qualifier }, ['id']);
+    const [player] = await database('players').where('id', currentUser.id).update({ qualifier }, ['id']);
     if (!player) {
       res.status(403);
       return res.send({ errors: [{ message: "Wait... you're not a player, how did you get here?" }] });
