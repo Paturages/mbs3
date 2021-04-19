@@ -72,7 +72,7 @@ let access_token;
     } = await api('/users/me?fields=first_name,email');
     let shouldChangeTimezone = false;
     const timezone = -new Date().getTimezoneOffset() / 60;
-    const mePlayer = playersMap.get(email);
+    const mePlayer = playersMap.get(email) || data.players[0];
     if (mePlayer) {
       shouldChangeTimezone = !mePlayer.timezone || !mePlayer.timezone.endsWith(String(timezone));
     }

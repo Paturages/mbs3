@@ -1,14 +1,23 @@
 <script lang="ts">
   import type { QualifierLobby } from '../../types';
+  import Button from '../atoms/Button.svelte';
   import { me } from '../../stores/core';
   export let lobby: QualifierLobby;
   export let toggleAvailable: () => Promise<any>;
+  export let setSchedule: () => Promise<any>;
 
-  let processing;
-  const handleClick = async () => {
-    processing = true;
+  let settingAvailable;
+  const handleToggleAvailable = async () => {
+    settingAvailable = true;
     await toggleAvailable();
-    processing = false;
+    settingAvailable = false;
+  }
+
+  let settingSchedule;
+  const handleSetSchedule = async () => {
+    settingSchedule = true;
+    await setSchedule();
+    settingSchedule = false;
   }
 
   $: time = new Date(lobby.time);
@@ -23,6 +32,11 @@
       </a>
     {:else}
       {lobby.name}
+      {#if setSchedule}
+        {#if settingSchedule}...{:else}
+        <Button on:click={handleSetSchedule}>Sign up</Button>
+        {/if}
+      {/if}
     {/if}
   </div>
   <div class="body">
@@ -39,12 +53,12 @@
         <br />
         <b>Available referees</b>:
         {lobby.available_referees.map(({ referee }) => referee.username).join(', ') || 'None'} -
-        {#if processing}
+        {#if settingAvailable}
           Processing...
         {:else if isAdded}
-          <a href="javascript:void(0)" on:click={handleClick}>Remove yourself</a>
+          <a href="javascript:void(0)" on:click={handleToggleAvailable}>Remove yourself</a>
         {:else}
-          <a href="javascript:void(0)" on:click={handleClick}>Add yourself as available</a>
+          <a href="javascript:void(0)" on:click={handleToggleAvailable}>Add yourself as available</a>
         {/if}
       {/if}
     </div>
@@ -79,6 +93,14 @@
     font-size: 2em;
     width: 4.25em;
     padding: 0 .5em;
+    position: relative;
+  }
+
+  .name :global(.button) {
+    font-size: .16em;
+    position: absolute;
+    bottom: -4em;
+    left: 0;
   }
 
   .referee {
@@ -97,6 +119,6 @@
     flex-flow: row wrap;
   }
   .players a {
-    width: 10.9em;
+    width: 10.5em;
   }
 </style>

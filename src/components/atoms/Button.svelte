@@ -4,7 +4,7 @@
 </script>
 
 <span class="button">
-  <a {href} {target} rel={target === '_blank' ? 'noopener' : undefined} class="link" on:click>
+  <a href={href || 'javascript:void(0)'} {target} rel={target === '_blank' ? 'noopener' : undefined} class="link" on:click>
     <div class="text">
       <slot />
     </div>

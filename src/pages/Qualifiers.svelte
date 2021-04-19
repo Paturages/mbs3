@@ -35,25 +35,43 @@
       }));
     }
   };
+
+  const setSchedule = (lobby: IQualifierLobby) => async () => {
+    const res = await api(`/custom/qualifiers/schedule`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        qualifier: lobby.name
+      })
+    });
+    if (res.errors) alert(res.errors[0].message);
+    location.reload();
+  };
   
   $: time = new Date($me?.qualifier?.time);
 </script>
 
-{#if $me?.qualifier}
+{#if $me?.player}
 <p class="intro">
-  You are in <b>Lobby {$me.qualifier.name}</b> happening on
-  <b>{time.toUTCString().replace(':00 GMT', ' UTC+0')}</b><br />
-  (converted to your local time: <b>{time.toTimeString().replace(':00 GMT', ' UTC')}</b>).
-  <br /><br />
-  The referee will ping you on Discord (make sure you are in our Discord) <b>15 minutes</b> before the time<br />
-  and will invite you in the multiplayer lobby <b>5 minutes</b> before the time. Make sure you are logged in the game by then!
-  <br /><br />
-  Once you are in the game, you will play all maps <b>2 times</b>:<br />
-  the best score on each map will count in the final qualifiers leaderboard and determine your seed.
-  <br /><br />
-  If you need to reschedule your qualifier, please ask for it in the #reschedules channel in the Discord
-  specifying a lobby name with a "free spot" in it (e.g. "Q5", "Q18", ...).<br />
-  If there is no lobby that suits you, please specify a time instead: we will try to organize a special extra lobby.
+  {#if $me.qualifier}
+    You are in <b>Lobby {$me.qualifier.name}</b> happening on
+    <b>{time.toUTCString().replace(':00 GMT', ' UTC+0')}</b><br />
+    (converted to your local time: <b>{time.toTimeString().replace(':00 GMT', ' UTC')}</b>).
+    <br /><br />
+    The referee will ping you on Discord (make sure you are in our Discord) <b>15 minutes</b> before the time<br />
+    and will invite you in the multiplayer lobby <b>5 minutes</b> before the time. Make sure you are logged in the game by then!
+    <br /><br />
+    Once you are in the game, you will play all maps <b>2 times</b>:<br />
+    the best score on each map will count in the final qualifiers leaderboard and determine your seed.
+    <br /><br />
+  {:else}
+    Welcome, player {$me.username}!<br /><br />
+    You can feel free to put yourself in any qualifier with a free spot in it.<br /><br />
+    If there is no lobby that suits you, please specify a time in the #reschedules channel in the Discord:<br />
+    we will try to organize a special extra lobby.
+  {/if}
 </p>
 {/if}
 {#if !$qualifierLobbies}
@@ -66,7 +84,7 @@
   </p>
   <p class="lobbies">
   {#each $qualifierLobbies as lobby (lobby.name)}
-    <QualifierLobby {lobby} toggleAvailable={$me?.referee && toggleAvailable(lobby)} />
+    <QualifierLobby {lobby} toggleAvailable={$me?.referee && toggleAvailable(lobby)} setSchedule={$me?.player && setSchedule(lobby)} />
   {/each}
   </p>
 {/if}
