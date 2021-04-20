@@ -66,7 +66,7 @@
       {#each [0, 1, 2, 3, 4, 5, 6, 7] as i}
         {#if lobby.players[i]}
           <a href={`https://osu.ppy.sh/users/${lobby.players[i].id}`}>{lobby.players[i].username}</a>
-        {:else}
+        {:else if !lobby.link}
           <a class="free-spot">Free spot!</a>
         {/if}
       {/each}
