@@ -57,8 +57,7 @@ const pool = new Pool({
       username = $4,
       country = $5,
       country_code = $6,
-      avatar = $7,
-      discord = coalesce($8, discord)
+      avatar = $7
     where id = $1`, [
       player.id,
       rankStatus.global_rank,
@@ -66,8 +65,7 @@ const pool = new Pool({
       user.username,
       user.country.name,
       user.country.code,
-      user.avatar_url,
-      user.discord
+      user.avatar_url
     ]);
     
     let summary = await fs.readFile(path.resolve(__dirname, '..', 'profiles', `${player.id}.txt`)).catch(() => {
