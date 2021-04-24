@@ -1,6 +1,6 @@
 const got = require("got");
 
-module.exports = function registerHook({ database, env }) {
+module.exports = function registerHook({ env }) {
   const { OAUTH_OSU_KEY, OAUTH_OSU_SECRET } = env;
   return {
     "items.create.before": async function (input, { collection }) {

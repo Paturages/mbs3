@@ -68,7 +68,7 @@ const pool = new Pool({
       user.avatar_url
     ]);
     
-    let summary = await fs.readFile(path.resolve(__dirname, '..', 'profiles', `${player.id}.txt`)).catch(() => {
+    let summary = await fs.readFile(path.resolve(__dirname, '..', 'profiles', `${player.username.replace(/[^A-z0-9_\- ]/g, '')}.txt`)).catch(() => {
       console.log('New player!');
       return '';
     });
@@ -113,10 +113,10 @@ const pool = new Pool({
         const entry = `${(''+score).padStart(7)} (${(100 * accuracy).toFixed(2)}%)\t${c320} / ${c300} / ${c200} / ${c100} / ${c50} / ${c0} (${max_combo}) [${mods.join(', ') || 'No mod'}]`;
         return song.padEnd(175) + entry;
       }).join('\n') + '\n';
-      await new Promise(r => setTimeout(r, 150));
+      await new Promise(r => setTimeout(r, 100));
     } while (recent.length);
 
-    await fs.writeFile(path.resolve(__dirname, '..', 'profiles', `${player.id}.txt`), summary);
+    await fs.writeFile(path.resolve(__dirname, '..', 'profiles', `${player.username.replace(/[^A-z0-9_\- ]/g, '')}.txt`), summary);
 
     await new Promise(r => setTimeout(r, 150));
   }

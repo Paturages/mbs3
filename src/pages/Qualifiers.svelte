@@ -84,7 +84,7 @@
   </p>
   <p class="lobbies">
   {#each $qualifierLobbies as lobby (lobby.name)}
-    <QualifierLobby {lobby} toggleAvailable={$me?.referee && toggleAvailable(lobby)} setSchedule={$me?.player && setSchedule(lobby)} />
+    <QualifierLobby {lobby} toggleAvailable={$me?.referee && toggleAvailable(lobby)} setSchedule={$me?.player && !$me?.qualifier?.link && setSchedule(lobby)} />
   {/each}
   </p>
 {/if}

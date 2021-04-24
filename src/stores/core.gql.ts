@@ -18,6 +18,7 @@ export default `{
     pp
     qualifier {
       name
+      link
       time
     }
   }

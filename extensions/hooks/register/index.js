@@ -53,8 +53,8 @@ module.exports = function registerHook({ database, env, exceptions }) {
       return input;
     },
     "items.create": async function ({ collection, payload }) {
-      if (collection !== "players") return input;
-      const webhooks = await database.select("name", "url").from("webhooks");
+      if (collection !== "players") return;
+      const webhooks = await database.select("name", "url").from("webhooks").where('name', 'register');
       for (const webhook of webhooks) {
         for (const item of payload) {
           await got.post(webhook.url, {

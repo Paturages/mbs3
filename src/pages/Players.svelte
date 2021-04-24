@@ -34,7 +34,7 @@
       Register
     </Button>
   </p>
-{:else if !$me.player}
+<!-- {:else if !$me.player}
   <p class="confirm">
     {#if registering}Registering...{:else}
     <Button on:click={register} href="javascript:void(0)">
@@ -44,7 +44,7 @@
     Don't forget to
     <a href="https://discord.gg/uNSqksR" target="_blank" rel="noopener">join the Discord server</a>
     (this is also required!)
-  </p>
+  </p> -->
 {/if}
 
 <p class="players">
