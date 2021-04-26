@@ -3,7 +3,7 @@
   import QualifierLobby from '../components/molecules/QualifierLobby.svelte';
   import Map from '../components/molecules/Map.svelte';
   import { me, api } from '../stores/core';
-  import { qualifierLobbies, qualifierMaps, init } from '../stores/qualifiers';
+  import { qualifierLobbies, qualifierMaps, init } from '../stores/qualifierLobbies';
 
   if (!$qualifierLobbies) init();
 
@@ -53,6 +53,10 @@
   $: time = new Date($me?.qualifier?.time);
 </script>
 
+<div class="links">
+  <a href="#/qualifiers!maps">Rankings per map</a>
+  <a href="#/qualifiers">Player ranking</a>
+</div>
 {#if $me?.player}
 <p class="intro">
   {#if $me.qualifier}
@@ -112,5 +116,12 @@
   }
   .lobbies :global(.lobby) {
     margin: .25em 0;
+  }
+  .links {
+    font-size: 1.25em;
+    display: flex;
+    width: 20em;
+    justify-content: space-between;
+    margin: auto;
   }
 </style>

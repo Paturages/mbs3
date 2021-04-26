@@ -21,8 +21,6 @@ export default `{
     od
     hp
     sr
-    rice
-    ln
     cover
   }
   qualifier_lobbies(sort: "time") {

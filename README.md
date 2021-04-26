@@ -20,3 +20,10 @@ if it's different for you). You can launch the thing with `yarn directus` (or `n
 
 Keep in mind you'll need to run Directus before launching the backend to actually fetch things.
 `yarn dev` starts the frontend dev environment. `yarn build` builds the frontend package into `public/build`.
+
+## Notes for future iterations
+
+* Try to have players fill the Discord information of their osu! profile, have a Discord username form or try to ensure that players are in the
+  tournament Discord through a bot (+ Discord OAuth?)
+* If a bot is implemented, enforce osu! username in the Discord
+* Probably have a referee guide for qualifiers

@@ -94,17 +94,20 @@
   }
 
   .name {
+    text-align: center;
     font-size: 2em;
-    width: 4.25em;
+    width: 4em;
     padding: 0 .5em;
     position: relative;
+    flex-shrink: 0;
   }
 
   .name :global(.button) {
     font-size: .16em;
     position: absolute;
-    bottom: -4em;
-    left: 0;
+    bottom: -5em;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .referee {
@@ -123,6 +126,6 @@
     flex-flow: row wrap;
   }
   .players a {
-    width: 10.5em;
+    width: 10em;
   }
 </style>

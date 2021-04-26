@@ -1,6 +1,6 @@
 import type { QualifierLobby, Map } from '../types';
 import { writable } from 'svelte/store';
-import query from './qualifiers.gql';
+import query from './qualifierLobbies.gql';
 import { api } from './core';
 
 export const qualifierLobbies = writable<QualifierLobby[]>(null);

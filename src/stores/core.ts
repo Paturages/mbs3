@@ -12,7 +12,16 @@ export const streamers = writable<Streamer[]>([]);
 export const stages = writable<Stage[]>([]);
 
 export const page = writable<string>(null);
-export const pages = new Set(['players', 'countries', 'qualifiers'])
+export const pages = new Set([
+  'players',
+  'countries',
+  'qualifiers',
+  'qualifiers!maps',
+  'qualifiers!elite',
+  'qualifiers!elite!maps',
+  'qualifiers!lobbies',
+  'scuffed!drawing',
+])
 const onHashChange = () => {
   const { hash } = location;
   const [, query] = hash.split('/');

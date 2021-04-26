@@ -6,12 +6,20 @@
 	import Staff from './pages/Staff.svelte';
 	import Players from './pages/Players.svelte';
 	import Countries from './pages/Countries.svelte';
-	import Qualifiers from './pages/Qualifiers.svelte';
+	import QualifierLobbies from './pages/QualifierLobbies.svelte';
+	import QualifierMaps from './pages/QualifierMaps.svelte';
+	import QualifierPlayers from './pages/QualifierPlayers.svelte';
+	import EliteQualifierMaps from './pages/EliteQualifierMaps.svelte';
+	import EliteQualifierPlayers from './pages/EliteQualifierPlayers.svelte';
+	import ScuffedDrawing from './pages/ScuffedDrawing.svelte';
 
 	import { page, stages } from './stores/core';
 
 </script>
 
+{#if $page == 'scuffed!drawing'}
+	<ScuffedDrawing />
+{:else}
 <Banner />
 <div class="body">
 	<Nav />
@@ -22,12 +30,20 @@
 		{:else if $page == 'countries'}
 			<Countries />
 		{:else if $page == 'qualifiers'}
-			<Qualifiers />
-		{:else}
+			<QualifierPlayers />
+		{:else if $page == 'qualifiers!maps'}
+			<QualifierMaps />
+		{:else if $page == 'qualifiers!elite'}
+			<EliteQualifierPlayers />
+		{:else if $page == 'qualifiers!elite!maps'}
+			<EliteQualifierMaps />
+		{:else if $page == 'qualifiers!lobbies'}
+			<QualifierLobbies />
 			<Staff />
 		{/if}
 	</div>
 </div>
+{/if}
 
 <style>
 	.body {

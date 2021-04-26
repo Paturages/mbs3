@@ -1,8 +1,6 @@
 require('dotenv').config();
 
 const {
-  OAUTH_OSU_KEY,
-  OAUTH_OSU_SECRET,
   DB_HOST,
   DB_PORT,
   DB_DATABASE,
@@ -10,9 +8,6 @@ const {
   DB_PASSWORD
 } = process.env;
 
-const fs = require("fs").promises;
-const path = require("path");
-const got = require("got");
 const { Pool } = require('pg');
 const pool = new Pool({
   user: DB_USER,
@@ -23,18 +18,6 @@ const pool = new Pool({
 });
 
 (async () => {
-  const {
-    body: { access_token },
-  } = await got.post("https://osu.ppy.sh/oauth/token", {
-    json: {
-      client_id: OAUTH_OSU_KEY,
-      client_secret: OAUTH_OSU_SECRET,
-      grant_type: "client_credentials",
-      scope: "public",
-    },
-    responseType: "json",
-  });
-
   const { rows } = await pool.query(`
     select q.name, q_rf.username as ref, array_agg(rf.username) as refs
     from qualifier_lobbies q

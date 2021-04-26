@@ -72,6 +72,20 @@ export interface QualifierLobby {
   }[];
 };
 
+export interface Score {
+  position: number;
+  map: Map;
+  player: Player;
+  score: number;
+  combo: number;
+  c320: number;
+  c300: number;
+  c200: number;
+  c100: number;
+  c50: number;
+  c0: number;
+}
+
 export interface Map {
   id: string;
   artist: string;

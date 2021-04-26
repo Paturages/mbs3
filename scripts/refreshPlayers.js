@@ -68,56 +68,56 @@ const pool = new Pool({
       user.avatar_url
     ]);
     
-    let summary = await fs.readFile(path.resolve(__dirname, '..', 'profiles', `${player.username.replace(/[^A-z0-9_\- ]/g, '')}.txt`)).catch(() => {
-      console.log('New player!');
-      return '';
-    });
-    let recent;
-    let offset = 0;
-    do {
-      ({ body: recent } = await got(
-        `https://osu.ppy.sh/api/v2/users/${player.id}/scores/recent?include_fails=1&mode=mania&limit=25&offset=${offset}`,
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-          responseType: "json",
-        }
-      ));
-      console.log(offset, '->', offset + recent.length);
-      offset += recent.length;
-      summary += recent.map(({
-        score,
-        accuracy,
-        max_combo,
-        mods,
-        statistics: {
-          count_50: c50,
-          count_100: c100,
-          count_300: c300,
-          count_geki: c320,
-          count_katu: c200,
-          count_miss: c0
-        },
-        beatmap: {
-          url,
-          version
-        },
-        beatmapset: {
-          artist,
-          title,
-          creator,
-        }
-      }) => {
-        const song = `${url}\t${artist} - ${title} [${version}] (${creator})`;
-        const entry = `${(''+score).padStart(7)} (${(100 * accuracy).toFixed(2)}%)\t${c320} / ${c300} / ${c200} / ${c100} / ${c50} / ${c0} (${max_combo}) [${mods.join(', ') || 'No mod'}]`;
-        return song.padEnd(175) + entry;
-      }).join('\n') + '\n';
-      await new Promise(r => setTimeout(r, 100));
-    } while (recent.length);
+    // let summary = await fs.readFile(path.resolve(__dirname, '..', 'profiles', `${player.username.replace(/[^A-z0-9_\- ]/g, '')}.txt`)).catch(() => {
+    //   console.log('New player!');
+    //   return '';
+    // });
+    // let recent;
+    // let offset = 0;
+    // do {
+    //   ({ body: recent } = await got(
+    //     `https://osu.ppy.sh/api/v2/users/${player.id}/scores/recent?include_fails=1&mode=mania&limit=25&offset=${offset}`,
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${access_token}`,
+    //       },
+    //       responseType: "json",
+    //     }
+    //   ));
+    //   console.log(offset, '->', offset + recent.length);
+    //   offset += recent.length;
+    //   summary += recent.map(({
+    //     score,
+    //     accuracy,
+    //     max_combo,
+    //     mods,
+    //     statistics: {
+    //       count_50: c50,
+    //       count_100: c100,
+    //       count_300: c300,
+    //       count_geki: c320,
+    //       count_katu: c200,
+    //       count_miss: c0
+    //     },
+    //     beatmap: {
+    //       url,
+    //       version
+    //     },
+    //     beatmapset: {
+    //       artist,
+    //       title,
+    //       creator,
+    //     }
+    //   }) => {
+    //     const song = `${url}\t${artist} - ${title} [${version}] (${creator})`;
+    //     const entry = `${(''+score).padStart(7)} (${(100 * accuracy).toFixed(2)}%)\t${c320} / ${c300} / ${c200} / ${c100} / ${c50} / ${c0} (${max_combo}) [${mods.join(', ') || 'No mod'}]`;
+    //     return song.padEnd(175) + entry;
+    //   }).join('\n') + '\n';
+    //   await new Promise(r => setTimeout(r, 100));
+    // } while (recent.length);
 
-    await fs.writeFile(path.resolve(__dirname, '..', 'profiles', `${player.username.replace(/[^A-z0-9_\- ]/g, '')}.txt`), summary);
+    // await fs.writeFile(path.resolve(__dirname, '..', 'profiles', `${player.username.replace(/[^A-z0-9_\- ]/g, '')}.txt`), summary);
 
-    await new Promise(r => setTimeout(r, 150));
+    await new Promise(r => setTimeout(r, 100));
   }
 })();
