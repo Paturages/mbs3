@@ -39,6 +39,7 @@
 			<EliteQualifierMaps />
 		{:else if $page == 'qualifiers!lobbies'}
 			<QualifierLobbies />
+		{:else}
 			<Staff />
 		{/if}
 	</div>

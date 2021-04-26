@@ -20,42 +20,44 @@ const pool = new Pool({
 });
 
 (async () => {
-  const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', ['qualifiers']);
-  await got.post(ANNOUNCEMENT_HOOK, {
-    json: {
-      "content": "**Qualifiers**",
-      "embeds": maps.map(map => {
-        let color;
-        if (map.category.toLowerCase().match(/rice|tech/)) {
-          color = 0x2196f3;
-        } else if (map.category.toLowerCase().includes('ln')) {
-          color = 0xf44336;
-        } else if (map.category.toLowerCase().includes('hybrid')) {
-          color = 0xffeb3b;
-        } else if (map.category.toLowerCase().includes('tiebreaker')) {
-          color = 0x880e4f;
-        }
-
-        return {
-          color,
-          fields: [
-            {
-              name: "Mapset by",
-              value: map.charter,
-              inline: true
-            },
-            {
-              name: `⭐ ${map.sr} ⏰ ${map.length} 🎵 ${map.bpm} BPM`,
-              value: `🎯 OD ${map.od} ❤️ HP ${map.hp}`,
-              inline: true
-            }
-          ],
-          author: {
-            name: `[${map.category}] ${map.artist} - ${map.name} [${map.difficulty}]`,
-            url: `https://osu.ppy.sh/beatmaps/${map.id}`
+  const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', ['groups']);
+  for (let i = 0; i < maps.length; i += 4) {
+    await got.post(ANNOUNCEMENT_HOOK, {
+      json: {
+        "content": i ? null : "**Group stage**",
+        "embeds": maps.slice(i, i+4).map(map => {
+          let color;
+          if (map.category.toLowerCase().includes('tiebreaker')) {
+            color = 0x880e4f;
+          } else if (map.category.toLowerCase().match(/rice|tech/)) {
+            color = 0x2196f3;
+          } else if (map.category.toLowerCase().includes('ln')) {
+            color = 0xf44336;
+          } else if (map.category.toLowerCase().includes('hybrid')) {
+            color = 0xffeb3b;
           }
-        };
-      })
-    }
-  });
+  
+          return {
+            color,
+            fields: [
+              {
+                name: "Mapset by",
+                value: map.charter,
+                inline: true
+              },
+              {
+                name: `⭐ ${map.sr} ⏰ ${map.length} 🎵 ${map.bpm} BPM`,
+                value: `🎯 OD ${map.od} ❤️ HP ${map.hp}`,
+                inline: true
+              }
+            ],
+            author: {
+              name: `[${map.category}] ${map.artist} - ${map.name} [${map.difficulty}]`,
+              url: `https://osu.ppy.sh/beatmaps/${map.id}`
+            }
+          };
+        })
+      }
+    }).catch(err => console.log(err.body));
+  }
 })();
