@@ -11,6 +11,8 @@ export interface Me {
 
 export interface Player {
   id: string;
+  seed?: number;
+  elite?: boolean;
   username: string;
   discord: string;
   country: string;
@@ -20,6 +22,11 @@ export interface Player {
   ranking: number;
   pp: number;
   qualifier: QualifierLobby;
+  group?: Group;
+}
+
+export interface Group {
+  id: string;
 }
 
 export interface Referee {
@@ -70,7 +77,21 @@ export interface QualifierLobby {
     rel_id: number;
     referee: Referee;
   }[];
-};
+}
+
+export interface Match {
+  id: number;
+  time: string;
+  link: string | null;
+  players: {
+    player: Player;
+  }[];
+  referee: Referee | null;
+  streamer: Streamer | null;
+  commentators: {
+    commentator: Commentator;
+  }[];
+}
 
 export interface Score {
   position: number;

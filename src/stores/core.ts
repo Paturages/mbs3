@@ -20,6 +20,7 @@ export const pages = new Set([
   'qualifiers!elite',
   'qualifiers!elite!maps',
   'qualifiers!lobbies',
+  'groups',
   'scuffed!drawing',
 ])
 const onHashChange = () => {
@@ -97,11 +98,19 @@ let access_token;
     if (meStreamer && !shouldChangeTimezone) {
       shouldChangeTimezone = !meStreamer.timezone || !meStreamer.timezone.endsWith(String(timezone));
     }
+
+    // const mockPlayer = data.players.find(player => player.group);
+
     me.set({
       avatar,
       username: first_name,
+
+      // id: mockPlayer.id,
+      // player: mockPlayer,
+      
       id: email,
       player: mePlayer,
+      
       referee: meReferee,
       commentator: meCommentator,
       streamer: meStreamer,

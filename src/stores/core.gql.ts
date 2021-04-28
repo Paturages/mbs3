@@ -8,6 +8,11 @@ export default `{
   }
   players(sort: "ranking", limit: -1) {
     id
+    seed
+    group {
+      id
+    }
+    elite
     username
     discord
     country

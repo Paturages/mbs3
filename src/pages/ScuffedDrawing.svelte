@@ -57,9 +57,9 @@
 <div class="groups">
   {#each groups as group, i}
     <div class="group" class:active={currentGroup == i}>
-      <h3 on:click={() => (currentGroup = i)}>Group {i+1}</h3>
+      <h3>Group {i+1}</h3>
       {#each group as player, j}
-        <div class="player" on:click={() => removePlayer(i,j)}>{player.username}</div>
+        <div class="player">{player.username}</div>
       {/each}
     </div>
   {/each}

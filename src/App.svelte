@@ -11,6 +11,7 @@
 	import QualifierPlayers from './pages/QualifierPlayers.svelte';
 	import EliteQualifierMaps from './pages/EliteQualifierMaps.svelte';
 	import EliteQualifierPlayers from './pages/EliteQualifierPlayers.svelte';
+	import GroupsMatches from './pages/GroupsMatches.svelte';
 	import ScuffedDrawing from './pages/ScuffedDrawing.svelte';
 
 	import { page, stages } from './stores/core';
@@ -39,6 +40,8 @@
 			<EliteQualifierMaps />
 		{:else if $page == 'qualifiers!lobbies'}
 			<QualifierLobbies />
+		{:else if $page == 'groups'}
+			<GroupsMatches />
 		{:else}
 			<Staff />
 		{/if}
