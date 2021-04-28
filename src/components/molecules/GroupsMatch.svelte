@@ -34,7 +34,7 @@
       {#if match.streamer}
         <a href={`https://osu.ppy.sh/users/${match.streamer.id}`}>{match.streamer.username}</a>
       {:else}
-        To be defined
+        -
       {/if}-
       <b>Commentators</b>:
       {#if match.commentators.length}
@@ -43,7 +43,7 @@
           <a href={`https://osu.ppy.sh/users/${commentator.id}`}>{commentator.username}</a>
         {/each}
       {:else}
-        To be defined
+        -
       {/if}
     </div>
     <div class="players">
