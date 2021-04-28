@@ -25,7 +25,7 @@
   };
   const sortByTime = () => {
     sortedByGroup = false;
-    displayMatches = $groupsMatches;
+    displayMatches = displayMatches.sort((a, b) => a.time < b.time ? -1 : 1);
   }
 
   let displayMatches: IMatch[];
