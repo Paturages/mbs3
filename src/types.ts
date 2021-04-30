@@ -81,6 +81,8 @@ export interface QualifierLobby {
 
 export interface Match {
   id: number;
+  points1?: number;
+  points2?: number;
   time: string;
   link: string | null;
   players: {
@@ -91,10 +93,39 @@ export interface Match {
   commentators: {
     commentator: Commentator;
   }[];
+  rolls: Roll[];
+  protects: Protect[];
+  bans: Ban[];
+  picks: Pick[];
+  scores: Score[];
+}
+
+export interface Roll {
+  id: number;
+  player: Player;
+  value: number;
+}
+
+export interface Protect {
+  id: number;
+  player: Player;
+  map: Map;
+}
+
+export interface Ban {
+  id: number;
+  player: Player;
+  map: Map;
+}
+
+export interface Pick {
+  id: number;
+  player: Player;
+  map: Map;
 }
 
 export interface Score {
-  position: number;
+  position?: number;
   map: Map;
   player: Player;
   score: number;

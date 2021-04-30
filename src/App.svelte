@@ -12,7 +12,9 @@
 	import EliteQualifierMaps from './pages/EliteQualifierMaps.svelte';
 	import EliteQualifierPlayers from './pages/EliteQualifierPlayers.svelte';
 	import GroupsMatches from './pages/GroupsMatches.svelte';
+
 	import ScuffedDrawing from './pages/ScuffedDrawing.svelte';
+	import RefereeHelper from './pages/RefereeHelper.svelte';
 
 	import { page, stages } from './stores/core';
 
@@ -20,6 +22,8 @@
 
 {#if $page == 'scuffed!drawing'}
 	<ScuffedDrawing />
+{:else if $page == 'referee!helper'}
+	<RefereeHelper />
 {:else}
 <Banner />
 <div class="body">

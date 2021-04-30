@@ -21,7 +21,9 @@ export const pages = new Set([
   'qualifiers!elite!maps',
   'qualifiers!lobbies',
   'groups',
+
   'scuffed!drawing',
+  'referee!helper'
 ])
 const onHashChange = () => {
   const { hash } = location;

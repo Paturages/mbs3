@@ -10,6 +10,7 @@
   class:ln={map.category.toLowerCase().includes('ln')}
   class:hybrid={map.category.toLowerCase().includes('hybrid')}
   class:tiebreaker={map.category.toLowerCase().includes('tiebreaker')}
+  on:click
 >
   <div class="container">
     <div class="header">

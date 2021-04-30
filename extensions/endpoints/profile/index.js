@@ -1,6 +1,4 @@
 module.exports = function registerEndpoint(router, { database, exceptions }) {
-  const { ForbiddenException } = exceptions;
-
 	router.patch('/timezone', async (req, res) => {
     if (!req.accountability || !req.accountability.user) {
       res.status(403);

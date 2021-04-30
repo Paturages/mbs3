@@ -62,5 +62,43 @@ export default `{
         username
       }
     }
+
+    rolls {
+      id
+      player { id username }
+      value
+    }
+    protects {
+      id
+      player { id username }
+      map { id }
+    }
+    bans {
+      id
+      player { id username }
+      map { id }
+    }
+    picks {
+      id
+      player { id username }
+      map { id category }
+    }
+
+    scores {
+      id
+      player { id }
+      map { id }
+      score
+      combo
+      c320
+      c300
+      c200
+      c100
+      c50
+      c0
+    }
+    wbd {
+      id
+    }
   }
 }`;

@@ -8,7 +8,7 @@
   $: time = new Date(match.time);
 </script>
 
-<div class="match" class:my-match={$me?.id == topPlayer.id || $me?.id == bottomPlayer.id}>
+<div class="match" class:my-match={$me?.id == topPlayer.id || $me?.id == bottomPlayer.id} on:click>
   <div class="name">
     {#if match.link}
       <a href={match.link} target="_blank" rel="noopener">
@@ -58,6 +58,7 @@
       </div>
     </div>
   </div>
+  <div class="score">{match.points1 || 0} - {match.points2 || 0}</div>
 </div>
 
 <style>
@@ -120,5 +121,14 @@
     width: 1.5em;
     border-radius: 50%;
     margin-right: 1em;
+  }
+
+  .body {
+    flex: 1;
+  }
+
+  .score {
+    font-size: 1.5em;
+    width: 4em;
   }
 </style>
