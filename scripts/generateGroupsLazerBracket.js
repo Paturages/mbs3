@@ -34,6 +34,7 @@ const BRACKET = {
   const { rows: matches } = await pool.query(`select * from matches`);
   const { rows: matchesPlayers } = await pool.query(`select * from matches_players`);
   const { rows: players } = await pool.query(`select * from players where seed is not null`);
+  const { rows: scores } = await pool.query(`select * from scores`);
 
   const stagesMap = new Map(stages.map(stage => [stage.slug, stage]));
   maps.forEach(map => {
@@ -44,17 +45,50 @@ const BRACKET = {
   });
   const playersMap = new Map(players.map(player => [player.id, player]));
   const matchesMap = new Map(matches.map(match => [match.id, match]));
+
+  scores.forEach(score => {
+    const match = matchesMap.get(score.match);
+    if (!match.picks) match.picks = {};
+    if (!match.picks[score.map]) match.picks[score.map] = {};
+    match.picks[score.map][score.player] = score;
+  });
+
   matchesPlayers.forEach(({ matches_id, players_id }) => {
     const match = matchesMap.get(matches_id);
     const player = playersMap.get(players_id);
+
     // Use the group index to align matches from the same group
     match.groupIndex = +player.group;
+
+    // Properly align players as "higher seed" vs "lower seed"
     if (!match.players) {
       match.players = [player];
     } else if (player.seed < match.players[0].seed) {
       match.players.unshift(player);
     } else {
       match.players.push(player);
+    }
+  });
+
+  matches.forEach(match => {
+    // Compute match scores
+    if (match.wbd) {
+      match.points1 = match.wbd == match.players[0].id ? 4 : 0;
+      match.points2 = match.wbd == match.players[1].id ? 4 : 0;
+    } else if (match.picks) {
+      match.points1 = 0;
+      match.points2 = 0;
+      Object.entries(match.picks).forEach(([mapId, playerScores]) => {
+        const score1 = playerScores[match.players[0].id];
+        const score2 = playerScores[match.players[1].id];
+        if (score1 && score2) {
+          if (score1.score > score2.score) {
+            match.points1 += 1;
+          } else {
+            match.points2 += 1;
+          }
+        }
+      });
     }
   });
   
@@ -77,13 +111,12 @@ const BRACKET = {
     Matches: matches.map((match, i) => ({
       ID: match.id,
       Team1Acronym: match.players[0].username.toUpperCase(),
-      // TODO: Scores, picks and bans
-      Team1Score: null,
+      Team1Score: match.points1,
       Team2Acronym: match.players[1].username.toUpperCase(),
-      Team2Score: null,
-      Completed: false,
+      Team2Score: match.points2,
+      Completed: match.points1 == 4 || match.points2 == 4,
       Losers: false,
-      PicksBans: [],
+      PicksBans: [], // we don't care about the picks/bans outside of stream for bracket.json
       Current: !i, // select the first match to at least have the schedule I guess?
       Date: match.time,
       ConditionalMatches: [],

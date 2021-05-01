@@ -10,6 +10,9 @@
     selectedMatch = match;
     if (match) {
       localStorage.setItem('referee:match', String(match.id));
+      // As a workaround for performance and session length, refresh the page on every match selection
+      // (yes, this is scuffed)
+      location.reload();
     } else {
       localStorage.removeItem('referee:match');
     }
@@ -182,6 +185,7 @@
   let warmup1elt, warmup2elt;
   let rollelt, protectelt, banelt, pickelt, actionelt;
 
+  let onlyMyMatches = true;
   let mpLink = '';
   let warmup1 = '', warmup2 = '';
   let roll1, roll2;
@@ -253,10 +257,13 @@
 {:else if !$groupsMatches}
 Loading matches...
 {:else if !selectedMatch}
+<a href="#/referee!helper" on:click={() => onlyMyMatches = !onlyMyMatches}>
+  {onlyMyMatches ? 'Show all matches' : 'Show only my matches'}
+</a>
 <div class="matches">
   Select a match
   {#each $groupsMatches as match (match.id)}
-    {#if match.referee?.id == $me?.id}
+    {#if !onlyMyMatches || match.referee?.id == $me?.id}
       <div class="match-container">
         <GroupsMatch {match} on:click={$event => selectMatch($event, match)} />
       </div>
@@ -406,6 +413,8 @@ Loading matches...
       {#each $groupsMaps as map (map.id)}
         {#if !map.category.startsWith('Tiebreaker') && protect1.id != map.id}
           <Map {map} on:click={$event => protect($event, map, rollLoser)} />
+        {:else if protect1.id == map.id}
+          <div class="disabled"><Map {map} /></div>
         {/if}
       {/each}
     </div>
@@ -433,6 +442,8 @@ Loading matches...
       {#each $groupsMaps as map (map.id)}
         {#if !map.category.startsWith('Tiebreaker') && protect1?.id != map.id && protect2?.id != map.id}
           <Map {map} on:click={$event => ban($event, map, rollLoser)} />
+        {:else if protect1?.id == map.id || protect2?.id == map.id}
+          <div class="disabled"><Map {map} /></div>
         {/if}
       {/each}
     </div>
@@ -453,6 +464,8 @@ Loading matches...
       {#each $groupsMaps as map (map.id)}
         {#if !map.category.startsWith('Tiebreaker') && protect1?.id != map.id && protect2?.id != map.id && ban1.id != map.id}
           <Map {map} on:click={$event => ban($event, map, rollWinner)} />
+        {:else if protect1?.id == map.id || protect2?.id == map.id || ban1.id == map.id}
+          <div class="disabled"><Map {map} /></div>
         {/if}
       {/each}
     </div>
@@ -507,6 +520,8 @@ Loading matches...
       {#each $groupsMaps as map (map.id)}
         {#if !map.category.startsWith('Tiebreaker') && ban1?.id != map.id && ban2?.id != map.id && !picks.find(p => p.map.id == map.id)}
           <Map {map} on:click={$event => pick($event, map)} />
+        {:else if ban1?.id == map.id || ban2?.id == map.id || picks.find(p => p.map.id == map.id)}
+          <div class="disabled"><Map {map} /></div>
         {/if}
       {/each}
     </div>
@@ -633,5 +648,13 @@ Loading matches...
 
   .win {
     margin: 1em;
+  }
+
+  .disabled {
+    opacity: .6;
+  }
+  .maps .disabled :global(.map:hover) {
+    cursor: not-allowed;
+    opacity: 1;
   }
 </style>
