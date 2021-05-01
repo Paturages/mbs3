@@ -534,7 +534,7 @@ Loading matches...
   {/if}
   {/if}
 
-  {#if points1 == 3 && points2 == 3 && scorePending}
+  {#if points1 == 3 && points2 == 3 && !scorePending}
   <div class="picks">
     <center>
       Woah, that's a tiebreaker situation! {riceCount} rice, {lnCount} LN/Hybrid, TB = {riceCount < lnCount ? 'Tiebreaker (rice)' : 'Tiebreaker (hybrid)'}<br />
