@@ -20,7 +20,7 @@ const pool = new Pool({
 });
 
 (async () => {
-  const { rows: matches } = await pool.query(`select id, link from matches where link is not null`);
+  const { rows: matches } = await pool.query(`select id, link from matches where link is not null and id not in (select match from scores)`);
   const { rows: maps } = await pool.query(`select id from maps where stage = $1`, ['groups']);
   const mapsSet = new Set(maps.map(m => m.id));
   

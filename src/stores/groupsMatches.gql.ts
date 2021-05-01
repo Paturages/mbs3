@@ -71,17 +71,17 @@ export default `{
     protects {
       id
       player { id username }
-      map { id }
+      map { id name category }
     }
     bans {
       id
       player { id username }
-      map { id }
+      map { id name category }
     }
     picks {
       id
       player { id username }
-      map { id category }
+      map { id name category }
     }
 
     scores {

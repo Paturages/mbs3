@@ -2,6 +2,7 @@
   import type { Match as IMatch, Map as IMap, Player as IPlayer } from '../types';
   import { me, api } from '../stores/core';
   import { groupsMatches, groupsMaps, init } from '../stores/groupsMatches';
+  import MatchFeed from '../components/atoms/MatchFeed.svelte';
   import GroupsMatch from '../components/molecules/GroupsMatch.svelte';
   import Map from '../components/molecules/Map.svelte';
 
@@ -273,6 +274,10 @@ Loading matches...
 {:else}
 <div class="match">
   <a href="#/referee!helper" on:click={$event => selectMatch($event)}>Back to matches</a>
+
+  <center>
+    <MatchFeed match={selectedMatch} />
+  </center>
 
   <center>
     <br /><br />
