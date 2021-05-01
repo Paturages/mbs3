@@ -22,7 +22,7 @@
   }
 
   const saveRolls = async () => {
-    if (!mpLink) return alert('Please fill the MP link!');
+    if (!mpLink && !selectedMatch.link) return alert('Please fill the MP link!');
     if (!roll1 || !roll2) return alert('Please set the rolls!');
     // Optimistic update
     selectedMatch = {
@@ -51,15 +51,17 @@
         }
       ])
     });
-    await api(`/items/matches/${selectedMatch.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        link: mpLink
-      })
-    });
+    if (!selectedMatch.link) {
+      await api(`/items/matches/${selectedMatch.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          link: mpLink
+        })
+      });
+    }
     if (res.errors) {
       alert(res.errors[0].message);
     } else {
@@ -348,7 +350,7 @@ Loading matches...
   <div class="rolls">
     Rolls
     <div class="call">
-      <input readonly value="Time to roll: each player will !roll, the highest one will protect and ban first!" bind:this={rollelt} />
+      <input readonly value="Time to roll: each player will !roll, the highest one will protect first and ban second!" bind:this={rollelt} />
       <a href="#/referee!helper" class="copy" on:click={() => copy(rollelt)}>📝 Copy</a>
     </div>
     {#if selectedMatch.rolls.length}

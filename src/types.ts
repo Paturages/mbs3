@@ -98,6 +98,7 @@ export interface Match {
   bans: Ban[];
   picks: Pick[];
   scores: Score[];
+  wbd?: Player;
 }
 
 export interface Roll {

@@ -20,22 +20,27 @@ export const init = async () => {
     match.players = match.players[0].player.seed < match.players[1].player.seed ? match.players : match.players.reverse();
 
     // Compute match scores
-    match.points1 = 0;
-    match.points2 = 0;
-    match.picks.forEach(pick => {
-      let scores = match.scores.filter(s => s.map.id == pick.map.id) || [];
-      if (scores[0]?.player.id != match.players[0].player.id) {
-        scores = scores.reverse();
-      }
-      const [score1, score2] = scores;
-      if (score1 && score2) {
-        if (score1.score > score2.score) {
-          match.points1 += 1;
-        } else {
-          match.points2 += 1;
+    if (match.wbd) {
+      match.points1 = match.wbd.id == match.players[0].player.id ? 'WBD' : 0;
+      match.points2 = match.wbd.id == match.players[1].player.id ? 'WBD' : 0;
+    } else {
+      match.points1 = 0;
+      match.points2 = 0;
+      match.picks.forEach(pick => {
+        let scores = match.scores.filter(s => s.map.id == pick.map.id) || [];
+        if (scores[0]?.player.id != match.players[0].player.id) {
+          scores = scores.reverse();
         }
-      }
-    });
+        const [score1, score2] = scores;
+        if (score1 && score2) {
+          if (score1.score > score2.score) {
+            match.points1 += 1;
+          } else {
+            match.points2 += 1;
+          }
+        }
+      });
+    }
   });
 
 

@@ -89,13 +89,6 @@ export default `{
       player { id }
       map { id }
       score
-      combo
-      c320
-      c300
-      c200
-      c100
-      c50
-      c0
     }
     wbd {
       id

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Match } from '../../types';
-  import { commentators, me } from '../../stores/core';
+  import { me } from '../../stores/core';
   export let match: Match;
 
   const [topPlayer, bottomPlayer] = match.players.map(({ player }) => player);
@@ -128,7 +128,9 @@
   }
 
   .score {
+    text-align: right;
     font-size: 1.5em;
-    width: 4em;
+    width: 5em;
+    margin-right: 1em;
   }
 </style>
