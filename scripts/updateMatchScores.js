@@ -20,9 +20,15 @@ const pool = new Pool({
 });
 
 (async () => {
-  const { rows: matches } = await pool.query(`select id, link from matches where link is not null and id not in (select match from scores)`);
+  const { rows: matches } = await pool.query(`select id, link from matches where link is not null and wbd is null and id not in (select match from scores)`);
   const { rows: maps } = await pool.query(`select id from maps where stage = $1`, ['groups']);
   const mapsSet = new Set(maps.map(m => m.id));
+  let { rows: matchesPlayers } = await pool.query(`select matches_id, players_id from matches_players`);
+  matchesPlayers = matchesPlayers.reduce((obj, mp) => {
+    if (!obj[mp.matches_id]) obj[mp.matches_id] = [];
+    obj[mp.matches_id].push(mp.players_id);
+    return obj;
+  }, {}); 
   
   for (const { id, link } of matches) {
     const mpId = link.split('/').pop();
@@ -50,6 +56,11 @@ const pool = new Pool({
         count300,
         countgeki,
       } of game.scores) {
+        if (!matchesPlayers[user_id]) {
+          console.warn(user_id, 'should not be in match', id);
+          continue;
+        }
+
         await pool.query(`
           insert into scores
           (player, map, match, score, combo, c320, c300, c200, c100, c50, c0)

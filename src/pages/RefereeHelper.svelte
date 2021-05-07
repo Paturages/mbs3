@@ -11,11 +11,9 @@
     selectedMatch = match;
     if (match) {
       localStorage.setItem('referee:match', String(match.id));
-      // As a workaround for performance and session length, refresh the page on every match selection
-      // (yes, this is scuffed)
-      location.reload();
     } else {
       localStorage.removeItem('referee:match');
+      init(); // Refresh matches
     }
   }
 
@@ -80,10 +78,13 @@
   const protect = async ($event: MouseEvent, map: IMap, player: IPlayer) => {
     $event.preventDefault();
     // Optimistic update
-    selectedMatch.protects = [...(selectedMatch.protects || []), {
-      player,
-      map
-    } as any];
+    selectedMatch = {
+      ...selectedMatch,
+      protects: [...(selectedMatch.protects || []), {
+        player,
+        map
+      } as any]
+    };
     const res = await api('/items/protects', {
       method: 'POST',
       headers: {
@@ -105,10 +106,13 @@
   const ban = async ($event: MouseEvent, map: IMap, player: IPlayer) => {
     $event.preventDefault();
     // Optimistic update
-    selectedMatch.bans = [...(selectedMatch.bans || []), {
-      player,
-      map
-    } as any];
+    selectedMatch = {
+      ...selectedMatch,
+      bans: [...(selectedMatch.bans || []), {
+        player,
+        map
+      } as any]
+    };
     const res = await api('/items/bans', {
       method: 'POST',
       headers: {
@@ -130,10 +134,13 @@
   const pick = async ($event: MouseEvent, map: IMap) => {
     $event.preventDefault();
     // Optimistic update
-    selectedMatch.picks = [...(selectedMatch.picks || []), {
-      player: picker,
-      map
-    } as any];
+    selectedMatch = {
+      ...selectedMatch,
+      picks: [...(selectedMatch.picks || []), {
+        player: picker,
+        map
+      } as any]
+    };
     const res = await api('/items/picks', {
       method: 'POST',
       headers: {
@@ -166,27 +173,39 @@
     if (res.errors) {
       alert(res.errors[0].message);
     } else {
-      selectedMatch.scores = res;
+      selectedMatch = { ...selectedMatch, scores: res };
     }
   };
 
   const overrideScores = async (map: IMap, player: IPlayer) => {
     const loser = player.id == selectedMatch.players[0].player.id ? 1 : 0;
-    selectedMatch.scores = [
-      ...selectedMatch.scores,
-      { map, player, score: 1 } as any,
-      { map, player: selectedMatch.players[loser].player, score: 0 } as any
-    ];
+    selectedMatch = {
+      ...selectedMatch,
+      scores: [
+        ...selectedMatch.scores,
+        { map, player, score: 1 } as any,
+        { map, player: selectedMatch.players[loser].player, score: 0 } as any
+      ]
+    };
   };
 
-  $: if ($me && !$groupsMatches) init();
+  $: if ($me && !$groupsMatches) {
+    let storedMatchId = localStorage.getItem('referee:match');
+    init().then(() => {
+      selectedMatch = $groupsMatches.find(m => String(m.id) == storedMatchId);
+      riceTiebreaker = $groupsMaps.find(m => m.category == 'Tiebreaker (rice)');
+      hybridTiebreaker = $groupsMaps.find(m => m.category == 'Tiebreaker (hybrid)');
+    });
+  }
   let picker: IPlayer;
   let selectedMatch: IMatch;
   let init1, init2, init3, init4, init5, init6;
   let warmup1elt, warmup2elt;
   let rollelt, protectelt, banelt, pickelt, actionelt;
+  let riceTiebreaker, hybridTiebreaker;
 
   let onlyMyMatches = true;
+  let showPastMatches = false;
   let mpLink = '';
   let warmup1 = '', warmup2 = '';
   let roll1, roll2;
@@ -195,12 +214,19 @@
   let riceCount = 0, lnCount = 0;
   let scorePending;
 
-  $: rollWinner = roll1 > roll2 ? selectedMatch?.players[0].player : selectedMatch?.players[1].player;
-  $: rollLoser = roll1 > roll2 ? selectedMatch?.players[1].player : selectedMatch?.players[0].player;
-  $: [protect1, protect2] = selectedMatch?.protects?.map(p => p.map) || [];
-  $: [ban1, ban2] = selectedMatch?.bans?.map(b => b.map) || [];
+  const getPlayerByRoll = (match: IMatch | undefined, which: 'winner' | 'loser') => {
+    if (!match) return null;
+    const [roll1, roll2] = match.rolls;
+    if (!roll1 || !roll2) return null;
+    const [player1, player2] = match.players;
+    if (roll1.value > roll2.value) {
+      return which == 'winner' ? player1.player : player2.player;
+    }
+    return which == 'winner' ? player2.player : player1.player;
+  }
+
   $: {
-    picker = rollWinner;
+    picker = getPlayerByRoll(selectedMatch, 'winner');
     points1 = 0;
     points2 = 0;
     riceCount = 0;
@@ -240,16 +266,6 @@
       picker == null; // tiebreaker
     }
   }
-
-  let storedMatchId = localStorage.getItem('referee:match');
-  $: if (storedMatchId && $groupsMatches) {
-    selectedMatch = $groupsMatches.find(m => String(m.id) == storedMatchId);
-  }
-  let riceTiebreaker, hybridTiebreaker;
-  $: if ($groupsMaps) {
-    riceTiebreaker = $groupsMaps.find(m => m.category == 'Tiebreaker (rice)');
-    hybridTiebreaker = $groupsMaps.find(m => m.category == 'Tiebreaker (hybrid)');
-  }
 </script>
 
 <div class="container">
@@ -261,10 +277,14 @@ Loading matches...
 <a href="#/referee!helper" on:click={() => onlyMyMatches = !onlyMyMatches}>
   {onlyMyMatches ? 'Show all matches' : 'Show only my matches'}
 </a>
+&nbsp;&nbsp;&nbsp;
+<a href="#/referee!helper" on:click={() => showPastMatches = !showPastMatches}>
+  {showPastMatches ? 'Hide past matches' : 'Show past matches'}
+</a>
 <div class="matches">
   Select a match
   {#each $groupsMatches as match (match.id)}
-    {#if !onlyMyMatches || match.referee?.id == $me?.id}
+    {#if (!onlyMyMatches || match.referee?.id == $me?.id) && (showPastMatches || (match.points1 < 4 && match.points2 < 4 && !match.wbd))}
       <div class="match-container">
         <GroupsMatch {match} on:click={$event => selectMatch($event, match)} />
       </div>
@@ -381,7 +401,7 @@ Loading matches...
 
   {#if selectedMatch.protects[0]}
   <div class="protects">
-    {rollWinner.username}'s protect
+    {getPlayerByRoll(selectedMatch, 'winner').username}'s protect
     <Map map={$groupsMaps.find(m => m.id == selectedMatch.protects[0].map.id)} />
   </div>
   {:else if selectedMatch.rolls[1]}
@@ -391,13 +411,13 @@ Loading matches...
       Roll winner protects first
     </center>
     <div class="call">
-      <input readonly value={`${rollWinner.username} wins the roll and protects first! Pick a map to protect: this map will not be able to be banned.`} bind:this={protectelt} />
+      <input readonly value={`${getPlayerByRoll(selectedMatch, 'winner').username} wins the roll and protects first! Pick a map to protect: this map will not be able to be banned.`} bind:this={protectelt} />
       <a href="#/referee!helper" class="copy" on:click={() => copy(protectelt)}>📝 Copy</a>
     </div>
     <div class="maps">
       {#each $groupsMaps as map (map.id)}
         {#if !map.category.startsWith('Tiebreaker')}
-          <Map {map} on:click={$event => protect($event, map, rollWinner)} />
+          <Map {map} on:click={$event => protect($event, map, getPlayerByRoll(selectedMatch, 'winner'))} />
         {/if}
       {/each}
     </div>
@@ -405,20 +425,20 @@ Loading matches...
   {/if}
   {#if selectedMatch.protects[1]}
   <div class="protects">
-    {rollLoser.username}'s protect
+    {getPlayerByRoll(selectedMatch, 'loser').username}'s protect
     <Map map={$groupsMaps.find(m => m.id == selectedMatch.protects[1].map.id)} />
   </div>
   {:else if selectedMatch.protects[0]}
   <div class="protects">
     <div class="call">
-      <input readonly value={`${rollLoser.username} protects second: pick a map to protect`} bind:this={protectelt} />
+      <input readonly value={`${getPlayerByRoll(selectedMatch, 'loser').username} protects second: pick a map to protect`} bind:this={protectelt} />
       <a href="#/referee!helper" class="copy" on:click={() => copy(protectelt)}>📝 Copy</a>
     </div>
     <div class="maps">
       {#each $groupsMaps as map (map.id)}
-        {#if !map.category.startsWith('Tiebreaker') && protect1.id != map.id}
-          <Map {map} on:click={$event => protect($event, map, rollLoser)} />
-        {:else if protect1.id == map.id}
+        {#if !map.category.startsWith('Tiebreaker') && selectedMatch.protects[0]?.map.id != map.id}
+          <Map {map} on:click={$event => protect($event, map, getPlayerByRoll(selectedMatch, 'loser'))} />
+        {:else if selectedMatch.protects[0]?.map.id == map.id}
           <div class="disabled"><Map {map} /></div>
         {/if}
       {/each}
@@ -430,7 +450,7 @@ Loading matches...
 
   {#if selectedMatch.bans[0]}
   <div class="bans">
-    {rollLoser.username}'s ban
+    {getPlayerByRoll(selectedMatch, 'loser').username}'s ban
     <Map map={$groupsMaps.find(m => m.id == selectedMatch.bans[0].map.id)} />
   </div>
   {:else if selectedMatch.protects[1]}
@@ -440,14 +460,14 @@ Loading matches...
       Roll loser bans first
     </center>
     <div class="call">
-      <input readonly value={`${rollLoser.username} bans first! Pick a map to ban: this map will not be able to be picked in the match.`} bind:this={banelt} />
+      <input readonly value={`${getPlayerByRoll(selectedMatch, 'loser').username} bans first! Pick a map to ban: this map will not be able to be picked in the match.`} bind:this={banelt} />
       <a href="#/referee!helper" class="copy" on:click={() => copy(banelt)}>📝 Copy</a>
     </div>
     <div class="maps">
       {#each $groupsMaps as map (map.id)}
-        {#if !map.category.startsWith('Tiebreaker') && protect1?.id != map.id && protect2?.id != map.id}
-          <Map {map} on:click={$event => ban($event, map, rollLoser)} />
-        {:else if protect1?.id == map.id || protect2?.id == map.id}
+        {#if !map.category.startsWith('Tiebreaker') && selectedMatch.protects[0]?.map?.id != map.id && selectedMatch.protects[1]?.map?.id != map.id}
+          <Map {map} on:click={$event => ban($event, map, getPlayerByRoll(selectedMatch, 'loser'))} />
+        {:else if selectedMatch.protects[0]?.map?.id == map.id || selectedMatch.protects[1]?.map?.id == map.id}
           <div class="disabled"><Map {map} /></div>
         {/if}
       {/each}
@@ -456,20 +476,20 @@ Loading matches...
   {/if}
   {#if selectedMatch.bans[1]}
   <div class="bans">
-    {rollWinner.username}'s ban
+    {getPlayerByRoll(selectedMatch, 'winner').username}'s ban
     <Map map={$groupsMaps.find(m => m.id == selectedMatch.bans[1].map.id)} />
   </div>
   {:else if selectedMatch.bans[0]}
   <div class="bans">
     <div class="call">
-      <input readonly value={`${rollWinner.username}'s turn to ban: pick a map to ban`} bind:this={banelt} />
+      <input readonly value={`${getPlayerByRoll(selectedMatch, 'winner').username}'s turn to ban: pick a map to ban`} bind:this={banelt} />
       <a href="#/referee!helper" class="copy" on:click={() => copy(banelt)}>📝 Copy</a>
     </div>
     <div class="maps">
       {#each $groupsMaps as map (map.id)}
-        {#if !map.category.startsWith('Tiebreaker') && protect1?.id != map.id && protect2?.id != map.id && ban1.id != map.id}
-          <Map {map} on:click={$event => ban($event, map, rollWinner)} />
-        {:else if protect1?.id == map.id || protect2?.id == map.id || ban1.id == map.id}
+        {#if !map.category.startsWith('Tiebreaker') && selectedMatch.protects[0]?.map?.id != map.id && selectedMatch.protects[1]?.map?.id != map.id && selectedMatch.bans[0]?.map.id != map.id}
+          <Map {map} on:click={$event => ban($event, map, getPlayerByRoll(selectedMatch, 'winner'))} />
+        {:else if selectedMatch.protects[0]?.map?.id == map.id || selectedMatch.protects[1]?.map?.id == map.id || selectedMatch.bans[0]?.map.id == map.id}
           <div class="disabled"><Map {map} /></div>
         {/if}
       {/each}
@@ -523,9 +543,9 @@ Loading matches...
     </div>
     <div class="maps">
       {#each $groupsMaps as map (map.id)}
-        {#if !map.category.startsWith('Tiebreaker') && ban1?.id != map.id && ban2?.id != map.id && !picks.find(p => p.map.id == map.id)}
+        {#if !map.category.startsWith('Tiebreaker') && selectedMatch.bans[0]?.map?.id != map.id && selectedMatch.bans[1]?.map?.id != map.id && !picks.find(p => p.map.id == map.id)}
           <Map {map} on:click={$event => pick($event, map)} />
-        {:else if ban1?.id == map.id || ban2?.id == map.id || picks.find(p => p.map.id == map.id)}
+        {:else if selectedMatch.bans[0]?.map?.id == map.id || selectedMatch.bans[1]?.map?.id == map.id || picks.find(p => p.map.id == map.id)}
           <div class="disabled"><Map {map} /></div>
         {/if}
       {/each}

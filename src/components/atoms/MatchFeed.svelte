@@ -4,7 +4,7 @@
 
   const boldIf = (str: string | number, condition: boolean) => condition ? `**${str}**` : str;
 
-  const value = `Group Stage G${match.players[0].player.group.id}-${match.id}
+  $: value = `Group Stage G${match.players[0].player.group.id}-${match.id}
 ${boldIf(`${match.players[0].player.username} ${match.points1}`, match.points1 == 4)} | ${boldIf(`${match.points2} ${match.players[1].player.username}`, match.points2 == 4)}
 Rolls: ${match.rolls.map((roll, i) => boldIf(roll.value, roll.value > match.rolls[(i+1)%2]?.value)).join(' | ')}
 

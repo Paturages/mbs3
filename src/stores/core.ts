@@ -40,14 +40,29 @@ const onHashChange = () => {
 window.addEventListener('hashchange', onHashChange);
 onHashChange();
 
-export const api = (path: string, options: Parameters<typeof fetch>[1] = { headers: {} }) =>
+export const api = (path: string, options: Parameters<typeof fetch>[1] = { headers: {} }, retry?: boolean) =>
   fetch(`${API_URL}${path}`, {
     ...options,
     headers: {
       Authorization: access_token ? `Bearer ${access_token}` : undefined,
       ...options.headers
     }
-  }).then(res => res.json());
+  })
+    .then(async res => {
+      const json = await res.json();
+      if (json.errors?.[0]?.message == 'Token expired.' && !retry) {
+        const auth = await fetch(`${API_URL}/auth/refresh`, {
+          method: 'POST',
+          credentials: 'include'
+        });
+        if (auth.status == 200) {
+          const authJSON = await auth.json();
+          access_token = authJSON.data.access_token;
+          return api(path, options, true);
+        }
+      }
+      return json;
+    });
 
 let access_token;
 (async () => {
