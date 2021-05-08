@@ -25,8 +25,8 @@ const pool = new Pool({
   const mapsSet = new Set(maps.map(m => m.id));
   let { rows: matchesPlayers } = await pool.query(`select matches_id, players_id from matches_players`);
   matchesPlayers = matchesPlayers.reduce((obj, mp) => {
-    if (!obj[mp.matches_id]) obj[mp.matches_id] = [];
-    obj[mp.matches_id].push(mp.players_id);
+    if (!obj[mp.matches_id]) obj[mp.matches_id] = {};
+    obj[mp.matches_id][mp.players_id] = true;
     return obj;
   }, {}); 
   
@@ -56,7 +56,7 @@ const pool = new Pool({
         count300,
         countgeki,
       } of game.scores) {
-        if (!matchesPlayers[user_id]) {
+        if (!matchesPlayers[id][user_id]) {
           console.warn(user_id, 'should not be in match', id);
           continue;
         }
