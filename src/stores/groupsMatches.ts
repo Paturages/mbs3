@@ -28,6 +28,18 @@ export const init = async () => {
       match.points2 = 0;
       match.picks.forEach(pick => {
         let scores = match.scores.filter(s => s.map.id == pick.map.id) || [];
+
+        // If there's only one score for the pick, the other player most likely disconnected
+        if (scores.length == 1) {
+          scores.push({
+            ...scores[0],
+            player: match.players[
+              scores[0]?.player.id == match.players[0].player.id ? 1 : 0
+            ].player,
+            score: 0
+          });
+        }
+
         if (scores[0]?.player.id != match.players[0].player.id) {
           scores = scores.reverse();
         }

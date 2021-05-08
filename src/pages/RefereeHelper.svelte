@@ -236,6 +236,18 @@
         ...pick,
         scores: selectedMatch.scores?.filter(s => s.map.id == pick.map.id) || []
       };
+
+      // If there's only one score for the pick, the other player most likely disconnected
+      if (res.scores.length == 1) {
+        res.scores.push({
+          ...res.scores[0],
+          player: selectedMatch.players[
+            res.scores[0]?.player.id == selectedMatch.players[0].player.id ? 1 : 0
+          ].player,
+          score: 0
+        });
+      }
+
       if (res.scores[0]?.player.id != selectedMatch.players[0].player.id) {
         res.scores = res.scores.reverse();
       }
