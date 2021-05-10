@@ -143,6 +143,7 @@ export interface Map {
   id: string;
   artist: string;
   name: string;
+  weight: number;
   difficulty: string;
   charter: string;
   charter_id: string;

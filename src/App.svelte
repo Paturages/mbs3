@@ -15,6 +15,10 @@
 	import EliteQualifierPlayers from './pages/qualifiers/ElitePlayers.svelte';
 	
 	import GroupsMatches from './pages/groups/Matches.svelte';
+	import GroupsResults from './pages/groups/Results.svelte';
+
+	import BracketMaps from './pages/brackets/Maps.svelte';
+	import BracketRolls from './pages/brackets/Rolls.svelte';
 
 	import ScuffedDrawing from './pages/staff/ScuffedDrawing.svelte';
 	import RefereeHelper from './pages/staff/RefereeHelper.svelte';
@@ -49,6 +53,12 @@
 			<QualifierLobbies />
 		{:else if $page == 'groups'}
 			<GroupsMatches />
+		{:else if $page == 'groups!results'}
+			<GroupsResults />
+		{:else if $page == 'groups!maps'}
+			<BracketMaps stage="groups" />
+		{:else if $page == 'groups!rolls'}
+			<BracketRolls stage="groups" />
 		{:else}
 			<Staff />
 		{/if}

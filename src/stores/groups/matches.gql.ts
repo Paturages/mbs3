@@ -12,6 +12,7 @@ export default `{
     id
     artist
     name
+    weight
     difficulty
     charter
     charter_id

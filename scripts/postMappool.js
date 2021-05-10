@@ -20,11 +20,11 @@ const pool = new Pool({
 });
 
 (async () => {
-  const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', ['groups']);
+  const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', ['ro64']);
   for (let i = 0; i < maps.length; i += 4) {
     await got.post(ANNOUNCEMENT_HOOK, {
       json: {
-        "content": i ? null : "**Group stage**",
+        "content": i ? null : "**Round of 64**",
         "embeds": maps.slice(i, i+4).map(map => {
           let color;
           if (map.category.toLowerCase().includes('tiebreaker')) {
@@ -47,7 +47,7 @@ const pool = new Pool({
               },
               {
                 name: `⭐ ${map.sr} ⏰ ${map.length} 🎵 ${map.bpm} BPM`,
-                value: `🎯 OD ${map.od} ❤️ HP ${map.hp}`,
+                value: `🎯 OD ${map.od} ❤️ HP ${map.hp} ⚖️ Weight ${map.weight}`,
                 inline: true
               }
             ],

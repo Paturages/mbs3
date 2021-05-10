@@ -35,11 +35,13 @@
   }
   $: displayMatches = $groupsMatches;
 </script>
-<!--
+
 <div class="links">
   <a href="#/groups!maps">Rankings per map</a>
+  <a href="#/groups!results">Groups results</a>
+  <a href="#/groups!rolls">Roll leaderboard</a>
 </div>
--->
+
 {#if $me?.player?.group}
 <div class="intro">
   Welcome to the Group Stage!<br /><br />
@@ -110,7 +112,7 @@
   .links {
     font-size: 1.25em;
     display: flex;
-    width: 20em;
+    width: 30em;
     justify-content: space-between;
     margin: auto;
   }

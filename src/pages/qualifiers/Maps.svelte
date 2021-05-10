@@ -1,6 +1,6 @@
 <script lang="ts">
   import Map from '../../components/molecules/Map.svelte';
-  import QualifierScore from '../../components/molecules/QualifierScore.svelte';
+  import ScoreRow from '../../components/molecules/ScoreRow.svelte';
   import { me, players } from '../../stores/core';
   import {
     regularMapRanking,
@@ -35,7 +35,7 @@
     <Map {map} />
     {#if $myQualifier}
       <div class="my-qualifier">
-        <QualifierScore player={$myQualifier} score={$myQualifier.mapScores.get(map.id)[0]} />
+        <ScoreRow player={$myQualifier} score={$myQualifier.mapScores.get(map.id)[0]} />
       </div>
     {/if}
     <a href="javascript:void(0)" on:click={() => toggleHidden(map)}>
@@ -43,7 +43,7 @@
     </a>
     {#if !hiddenMaps[map.id]}
       {#each Array.from(map.players.values()) as player (player.id)}
-        <QualifierScore {player} score={player.mapScores.get(map.id)[0]} />
+        <ScoreRow {player} score={player.mapScores.get(map.id)[0]} />
       {/each}
     {/if}
   {/each}

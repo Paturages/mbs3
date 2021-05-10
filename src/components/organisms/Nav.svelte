@@ -10,6 +10,11 @@
       </Button>
     </li>
     <li>
+      <Button href="https://challonge.com/osumbs3" target="_blank">
+        Challonge
+      </Button>
+    </li>
+    <li>
       <Button href="https://discord.gg/uNSqksR" target="_blank">
         Discord
       </Button>

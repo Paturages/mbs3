@@ -39,6 +39,9 @@
         <span class="stat-item">
           ❤️ HP {map.hp}
         </span>
+        <span class="stat-item">
+          ⚖️ Weight {map.weight}
+        </span>
       </div>
     </div>
   </div>

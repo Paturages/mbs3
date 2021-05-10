@@ -20,7 +20,11 @@ export const pages = new Set([
   'qualifiers!elite',
   'qualifiers!elite!maps',
   'qualifiers!lobbies',
+  
   'groups',
+  'groups!results',
+  'groups!maps',
+  'groups!rolls',
 
   'scuffed!drawing',
   'referee!helper'

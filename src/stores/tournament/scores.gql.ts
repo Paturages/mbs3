@@ -12,6 +12,7 @@ export default `query GetScores($stage: String!) {
     id
     artist
     name
+    weight
     difficulty
     charter
     charter_id
@@ -22,6 +23,16 @@ export default `query GetScores($stage: String!) {
     hp
     sr
     cover
+    bans {
+      player {
+        username
+      }
+    }
+    protects {
+      player {
+        username
+      }
+    }
   }
   scores(sort: "-score", limit: -1) {
     player {
