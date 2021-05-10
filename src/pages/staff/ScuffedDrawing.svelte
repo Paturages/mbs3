@@ -1,13 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Button from '../components/atoms/Button.svelte';
-  import QualifierPlayer from '../components/molecules/QualifierPlayer.svelte';
-  import { players } from '../stores/core';
+  import Button from '../../components/atoms/Button.svelte';
+  import QualifierPlayer from '../../components/molecules/QualifierPlayer.svelte';
+  import { players } from '../../stores/core';
   import {
     regularMapRanking,
     regularPlayerRanking,
     init
-  } from '../stores/qualifierScores';
+  } from '../../stores/qualifiers/scores';
 
   let groups = new Array(32).fill(0).map(() => [{ id: '', username: '-' }, { id: '', username: '-' }, { id: '', username: '-' }, { id: '', username: '-' }]);
   let selectedPlayers = new Set();

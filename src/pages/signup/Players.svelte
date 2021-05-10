@@ -1,7 +1,7 @@
 <script>
-  import Button from '../components/atoms/Button.svelte';
-  import Player from '../components/molecules/Player.svelte';
-  import { me, players, api } from '../stores/core';
+  import Button from '../../components/atoms/Button.svelte';
+  import Player from '../../components/molecules/Player.svelte';
+  import { me, players, api } from '../../stores/core';
 
   let registering = false;
   const register = async () => {

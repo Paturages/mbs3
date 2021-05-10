@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { QualifierLobby as IQualifierLobby } from '../types';
-  import QualifierLobby from '../components/molecules/QualifierLobby.svelte';
-  import Map from '../components/molecules/Map.svelte';
-  import { me, api } from '../stores/core';
-  import { qualifierLobbies, qualifierMaps, init } from '../stores/qualifierLobbies';
+  import type { QualifierLobby as IQualifierLobby } from '../../types';
+  import QualifierLobby from '../../components/molecules/QualifierLobby.svelte';
+  import Map from '../../components/molecules/Map.svelte';
+  import { me, api } from '../../stores/core';
+  import { qualifierLobbies, qualifierMaps, init } from '../../stores/qualifiers/lobbies';
 
   if (!$qualifierLobbies) init();
 

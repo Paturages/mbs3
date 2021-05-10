@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button from '../components/atoms/Button.svelte';
-  import { me } from '../stores/core';
+  import { me } from '../../stores/core';
 
   $: registerUrl = $me ? '#/players' : `${__myapp.env.API_URL}/auth/oauth/osu?redirect=${__myapp.env.UI_URL}`;
 </script>

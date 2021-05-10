@@ -4,17 +4,20 @@
   import Schedule from './components/organisms/Schedule.svelte';
 
 	import Staff from './pages/Staff.svelte';
-	import Players from './pages/Players.svelte';
-	import Countries from './pages/Countries.svelte';
-	import QualifierLobbies from './pages/QualifierLobbies.svelte';
-	import QualifierMaps from './pages/QualifierMaps.svelte';
-	import QualifierPlayers from './pages/QualifierPlayers.svelte';
-	import EliteQualifierMaps from './pages/EliteQualifierMaps.svelte';
-	import EliteQualifierPlayers from './pages/EliteQualifierPlayers.svelte';
-	import GroupsMatches from './pages/GroupsMatches.svelte';
 
-	import ScuffedDrawing from './pages/ScuffedDrawing.svelte';
-	import RefereeHelper from './pages/RefereeHelper.svelte';
+	import Players from './pages/signup/Players.svelte';
+	import Countries from './pages/signup/Countries.svelte';
+
+	import QualifierLobbies from './pages/qualifiers/Lobbies.svelte';
+	import QualifierMaps from './pages/qualifiers/Maps.svelte';
+	import QualifierPlayers from './pages/qualifiers/Players.svelte';
+	import EliteQualifierMaps from './pages/qualifiers/EliteMaps.svelte';
+	import EliteQualifierPlayers from './pages/qualifiers/ElitePlayers.svelte';
+	
+	import GroupsMatches from './pages/groups/Matches.svelte';
+
+	import ScuffedDrawing from './pages/staff/ScuffedDrawing.svelte';
+	import RefereeHelper from './pages/staff/RefereeHelper.svelte';
 
 	import { page, stages } from './stores/core';
 

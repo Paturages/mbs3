@@ -1,7 +1,7 @@
-import type { Match, Map } from '../types';
+import type { Match, Map } from '../../types';
 import { writable } from 'svelte/store';
-import query from './groupsMatches.gql';
-import { api } from './core';
+import query from './matches.gql';
+import { api } from '../core';
 
 export const groupsMatches = writable<Match[]>(null);
 export const groupsMaps = writable<Map[]>(null);

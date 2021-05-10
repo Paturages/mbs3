@@ -1,13 +1,13 @@
 <script lang="ts">
-  import QualifierPlayer from '../components/molecules/QualifierPlayer.svelte';
-  import { me, players } from '../stores/core';
+  import QualifierPlayer from '../../components/molecules/QualifierPlayer.svelte';
+  import { me, players } from '../../stores/core';
   import {
     eliteMapRanking,
     elitePlayerRanking,
     myQualifier,
     init,
     initMyQualifier
-  } from '../stores/qualifierScores';
+  } from '../../stores/qualifiers/scores';
 
   $: if (!$elitePlayerRanking && $players) init($players);
   $: if (!$myQualifier && $elitePlayerRanking && $me) initMyQualifier($elitePlayerRanking, $me);

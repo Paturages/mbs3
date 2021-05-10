@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Map from '../components/molecules/Map.svelte';
-  import { qualifierLobbies, qualifierMaps, init } from '../stores/qualifierLobbies';
+  import Map from '../../components/molecules/Map.svelte';
+  import { qualifierLobbies, qualifierMaps, init } from '../../stores/qualifiers/lobbies';
 
   if (!$qualifierLobbies) init();
 </script>

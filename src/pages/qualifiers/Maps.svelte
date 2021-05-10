@@ -1,14 +1,14 @@
 <script lang="ts">
-  import Map from '../components/molecules/Map.svelte';
-  import QualifierScore from '../components/molecules/QualifierScore.svelte';
-  import { me, players } from '../stores/core';
+  import Map from '../../components/molecules/Map.svelte';
+  import QualifierScore from '../../components/molecules/QualifierScore.svelte';
+  import { me, players } from '../../stores/core';
   import {
-    eliteMapRanking,
-    elitePlayerRanking,
+    regularMapRanking,
+    regularPlayerRanking,
     myQualifier,
     init,
     initMyQualifier
-  } from '../stores/qualifierScores';
+  } from '../../stores/qualifiers/scores';
 
   let hiddenMaps = {};
   const toggleHidden = map => {
@@ -18,20 +18,20 @@
     }
   }
 
-  $: if (!$eliteMapRanking && $players) init($players);
-  $: if (!$myQualifier && $elitePlayerRanking && $me) initMyQualifier($elitePlayerRanking, $me);
+  $: if (!$regularMapRanking && $players) init($players);
+  $: if (!$myQualifier && $regularPlayerRanking && $me) initMyQualifier($regularPlayerRanking, $me);
 </script>
 
 <div class="links">
   <a href="#/qualifiers">Player rankings</a>
   <a href="#/qualifiers!lobbies">Qualifier lobbies</a>
-  <a href="#/qualifiers!maps">Regular players</a>
+  <a href="#/qualifiers!elite!maps">Elite players</a>
 </div>
-{#if !$eliteMapRanking}
+{#if !$regularMapRanking}
   <p class="lobbies">Loading qualifier scores...</p>
 {:else}
   <p class="maps">
-  {#each $eliteMapRanking as map (map.id)}
+  {#each $regularMapRanking as map (map.id)}
     <Map {map} />
     {#if $myQualifier}
       <div class="my-qualifier">

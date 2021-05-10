@@ -1,7 +1,7 @@
-import type { Me, Player, Score, Map as OsuMap } from '../types';
+import type { Me, Player, Score, Map as OsuMap } from '../../types';
 import { writable } from 'svelte/store';
-import query from './qualifierScores.gql';
-import { api } from './core';
+import query from './scores.gql';
+import { api } from '../core';
 
 export interface QualifierScore extends Score {
   lobby: {
@@ -29,30 +29,11 @@ export const elitePlayerRanking = writable<QualifierPlayer[]>(null);
 
 export const myQualifier = writable<QualifierPlayer>(null);
 
-const elite = new Set([
-  '9950122',
-  '2735466',
-  '18025458',
-  '15255368',
-  '15286154',
-  '13608389',
-  '17422924',
-  '17957861',
-  '9895270',
-  '5101133',
-  '13455818',
-  '19365665',
-  '6335238',
-  '2383766',
-  '13984214',
-  '8916149'
-]);
-
 // This assumes that the list of players has been fetched from stores/core,
 // so players have to be fed in the init.
 export const init = async (rawPlayers: Player[]) => {
-  const regularPlayers = rawPlayers.filter(p => !elite.has(p.id));
-  const elitePlayers = rawPlayers.filter(p => elite.has(p.id));
+  const regularPlayers = rawPlayers.filter(p => !p.elite);
+  const elitePlayers = rawPlayers.filter(p => p.elite);
 
   const { data } = await api('/graphql', {
     method: 'POST',

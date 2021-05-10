@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Match as IMatch } from '../types';
-  import GroupsMatch from '../components/molecules/GroupsMatch.svelte';
-  import Map from '../components/molecules/Map.svelte';
-  import { me } from '../stores/core';
-  import { groupsMatches, groupsMaps, init } from '../stores/groupsMatches';
+  import type { Match as IMatch } from '../../types';
+  import GroupsMatch from '../../components/molecules/GroupsMatch.svelte';
+  import Map from '../../components/molecules/Map.svelte';
+  import { me } from '../../stores/core';
+  import { groupsMatches, groupsMaps, init } from '../../stores/groups/matches';
 
   if (!$groupsMatches) init();
 

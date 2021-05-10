@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Player as IPlayer } from '../types';
-  import Player from '../components/molecules/Player.svelte';
-  import { players } from '../stores/core';
+  import type { Player as IPlayer } from '../../types';
+  import Player from '../../components/molecules/Player.svelte';
+  import { players } from '../../stores/core';
 
   $: countries = Object.values(
     ($players?.reduce((obj, player) => {
