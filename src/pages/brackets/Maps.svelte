@@ -2,7 +2,7 @@
   import Map from '../../components/molecules/Map.svelte';
   import ScoreRow from '../../components/molecules/ScoreRow.svelte';
   import { players } from '../../stores/core';
-  import { mapRanking, init } from '../../stores/tournament/scores';
+  import { stage as currentStage, mapRanking, init } from '../../stores/tournament/scores';
 
   export let stage: string;
 
@@ -14,7 +14,7 @@
     }
   }
 
-  $: if (!$mapRanking && $players) init(stage, $players);
+  $: if (($currentStage != stage || !$mapRanking) && $players) init(stage, $players);
 </script>
 
 <div class="links">

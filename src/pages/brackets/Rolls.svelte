@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { rolls, init } from '../../stores/tournament/rolls';
+  import { stage as currentStage, rolls, init } from '../../stores/tournament/rolls';
   export let stage: string;
 
-  if (!$rolls) init(stage);
+  if (!$rolls || $currentStage != stage) init(stage);
 </script>
 
 <div class="links">

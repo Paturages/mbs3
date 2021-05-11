@@ -12,10 +12,10 @@
   <div class="name">
     {#if match.link}
       <a href={match.link} target="_blank" rel="noopener">
-        G{topPlayer.group.id}-{match.id}
+        M{match.id}
       </a>
     {:else}
-      G{topPlayer.group.id}-{match.id}
+      M{match.id}
     {/if}
   </div>
   <div class="body">

@@ -16,7 +16,8 @@
 	
 	import GroupsMatches from './pages/groups/Matches.svelte';
 	import GroupsResults from './pages/groups/Results.svelte';
-
+	
+	import BracketMatches from './pages/brackets/Matches.svelte';
 	import BracketMaps from './pages/brackets/Maps.svelte';
 	import BracketRolls from './pages/brackets/Rolls.svelte';
 
@@ -41,6 +42,7 @@
 			<Players />
 		{:else if $page == 'countries'}
 			<Countries />
+
 		{:else if $page == 'qualifiers'}
 			<QualifierPlayers />
 		{:else if $page == 'qualifiers!maps'}
@@ -51,6 +53,7 @@
 			<EliteQualifierMaps />
 		{:else if $page == 'qualifiers!lobbies'}
 			<QualifierLobbies />
+
 		{:else if $page == 'groups'}
 			<GroupsMatches />
 		{:else if $page == 'groups!results'}
@@ -59,6 +62,14 @@
 			<BracketMaps stage="groups" />
 		{:else if $page == 'groups!rolls'}
 			<BracketRolls stage="groups" />
+
+		{:else if $page == 'ro64'}
+			<BracketMatches stage="ro64" />
+		{:else if $page == 'ro64!maps'}
+			<BracketMaps stage="ro64" />
+		{:else if $page == 'ro64!rolls'}
+			<BracketRolls stage="ro64" />
+
 		{:else}
 			<Staff />
 		{/if}
