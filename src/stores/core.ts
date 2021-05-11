@@ -105,24 +105,24 @@ let access_token;
         avatar
       }
     } = await api('/users/me?fields=first_name,email');
-    let shouldChangeTimezone = false;
-    const timezone = -new Date().getTimezoneOffset() / 60;
+    // let shouldChangeTimezone = false;
+    // const timezone = -new Date().getTimezoneOffset() / 60;
     const mePlayer = playersMap.get(email);
-    if (mePlayer) {
-      shouldChangeTimezone = !mePlayer.timezone || !mePlayer.timezone.endsWith(String(timezone));
-    }
+    // if (mePlayer) {
+    //   shouldChangeTimezone = !mePlayer.timezone || !mePlayer.timezone.endsWith(String(timezone));
+    // }
     const meReferee = refereesMap.get(email);
-    if (meReferee && !shouldChangeTimezone) {
-      shouldChangeTimezone = !meReferee.timezone || !meReferee.timezone.endsWith(String(timezone));
-    }
+    // if (meReferee && !shouldChangeTimezone) {
+    //   shouldChangeTimezone = !meReferee.timezone || !meReferee.timezone.endsWith(String(timezone));
+    // }
     const meCommentator = commentatorsMap.get(email);
-    if (meCommentator && !shouldChangeTimezone) {
-      shouldChangeTimezone = !meCommentator.timezone || !meCommentator.timezone.endsWith(String(timezone));
-    }
+    // if (meCommentator && !shouldChangeTimezone) {
+    //   shouldChangeTimezone = !meCommentator.timezone || !meCommentator.timezone.endsWith(String(timezone));
+    // }
     const meStreamer = streamersMap.get(email);
-    if (meStreamer && !shouldChangeTimezone) {
-      shouldChangeTimezone = !meStreamer.timezone || !meStreamer.timezone.endsWith(String(timezone));
-    }
+    // if (meStreamer && !shouldChangeTimezone) {
+    //   shouldChangeTimezone = !meStreamer.timezone || !meStreamer.timezone.endsWith(String(timezone));
+    // }
 
     // const mockPlayer = data.players.find(player => player.group);
 
@@ -142,14 +142,14 @@ let access_token;
       qualifier: mePlayer?.qualifier
     });
 
-    if (shouldChangeTimezone) {
-      await api('/custom/profile/timezone', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ offset: new Date().getTimezoneOffset() })
-      });
-    }
+    // if (shouldChangeTimezone) {
+    //   await api('/custom/profile/timezone', {
+    //     method: 'PATCH',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({ offset: new Date().getTimezoneOffset() })
+    //   });
+    // }
   }
 })();
