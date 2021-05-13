@@ -2,10 +2,37 @@
   import type { Match } from '../../types';
   import { me } from '../../stores/core';
   export let match: Match;
+  export let toggleRefereeAvailable: () => Promise<any>;
+  export let toggleStreamerAvailable: () => Promise<any>;
+  export let toggleCommentatorAvailable: () => Promise<any>;
 
   const [topPlayer, bottomPlayer] = match.players.map(({ player }) => player);
+  let time, isRefereeAdded, isStreamerAdded, isCommentatorAdded;
+  $: {
+    time = new Date(match.time);
+    isRefereeAdded = toggleRefereeAvailable && match.available_referees.find(({ referee }) => referee.id == $me.id);
+    isStreamerAdded = toggleStreamerAvailable && match.available_streamers.find(({ streamer }) => streamer.id == $me.id);
+    isCommentatorAdded = toggleCommentatorAvailable && match.available_commentators.find(({ commentator }) => commentator.id == $me.id);
+  }
 
-  $: time = new Date(match.time);
+  let settingRefereeAvailable;
+  const handleToggleRefereeAvailable = async () => {
+    settingRefereeAvailable = true;
+    await toggleRefereeAvailable();
+    settingRefereeAvailable = false;
+  }
+  let settingStreamerAvailable;
+  const handleToggleStreamerAvailable = async () => {
+    settingStreamerAvailable = true;
+    await toggleStreamerAvailable();
+    settingStreamerAvailable = false;
+  }
+  let settingCommentatorAvailable;
+  const handleToggleCommentatorAvailable = async () => {
+    settingCommentatorAvailable = true;
+    await toggleCommentatorAvailable();
+    settingCommentatorAvailable = false;
+  }
 </script>
 
 <div class="match" class:my-match={$me?.id == topPlayer.id || $me?.id == bottomPlayer.id} on:click>
@@ -42,6 +69,43 @@
           {#if i}, {/if}
           <a href={`https://osu.ppy.sh/users/${commentator.id}`}>{commentator.username}</a>
         {/each}
+      {/if}
+      
+      {#if toggleRefereeAvailable}
+        <br />
+        <b>Available referees</b>:
+        {match.available_referees.map(({ referee }) => referee.username).join(', ') || 'None'} -
+        {#if settingRefereeAvailable}
+          Processing...
+        {:else if isRefereeAdded}
+          <a href="javascript:void(0)" on:click={handleToggleRefereeAvailable}>Remove yourself</a>
+        {:else}
+          <a href="javascript:void(0)" on:click={handleToggleRefereeAvailable}>Add yourself as available</a>
+        {/if}
+      {/if}
+      {#if toggleStreamerAvailable}
+        <br />
+        <b>Available streamers</b>:
+        {match.available_streamers.map(({ streamer }) => streamer.username).join(', ') || 'None'} -
+        {#if settingStreamerAvailable}
+          Processing...
+        {:else if isStreamerAdded}
+          <a href="javascript:void(0)" on:click={handleToggleStreamerAvailable}>Remove yourself</a>
+        {:else}
+          <a href="javascript:void(0)" on:click={handleToggleStreamerAvailable}>Add yourself as available</a>
+        {/if}
+      {/if}
+      {#if toggleCommentatorAvailable}
+        <br />
+        <b>Available commentators</b>:
+        {match.available_commentators.map(({ commentator }) => commentator.username).join(', ') || 'None'} -
+        {#if settingCommentatorAvailable}
+          Processing...
+        {:else if isCommentatorAdded}
+          <a href="javascript:void(0)" on:click={handleToggleCommentatorAvailable}>Remove yourself</a>
+        {:else}
+          <a href="javascript:void(0)" on:click={handleToggleCommentatorAvailable}>Add yourself as available</a>
+        {/if}
       {/if}
     </div>
     <div class="players">

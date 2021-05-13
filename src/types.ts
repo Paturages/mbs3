@@ -99,6 +99,19 @@ export interface Match {
   picks: Pick[];
   scores: Score[];
   wbd?: Player;
+  
+  available_referees?: {
+    rel_id: number;
+    referee: Referee;
+  }[];
+  available_streamers?: {
+    rel_id: number;
+    streamer: Streamer;
+  }[];
+  available_commentators?: {
+    rel_id: number;
+    commentator: Commentator;
+  }[];
 }
 
 export interface Roll {

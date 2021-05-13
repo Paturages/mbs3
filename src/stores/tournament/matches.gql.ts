@@ -61,6 +61,28 @@ export default `query GetMatches($stage: String!) {
       }
     }
 
+    available_referees {
+      rel_id: id
+      referee: referees_id {
+        id
+        username
+      }
+    }
+    available_streamers {
+      rel_id: id
+      streamer: streamers_id {
+        id
+        username
+      }
+    }
+    available_commentators {
+      rel_id: id
+      commentator: commentators_id {
+        id
+        username
+      }
+    }
+
     rolls {
       id
       player { id username }
