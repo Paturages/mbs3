@@ -1,10 +1,13 @@
 <script lang="ts">
-  import type { Match as IMatch, Map as IMap, Player as IPlayer } from '../../types';
-  import { me, api } from '../../stores/core';
-  import { groupsMatches, groupsMaps, init } from '../../stores/groups/matches';
+  import type { Match as IMatch, Map as IMap, Player as IPlayer, Stage as IStage } from '../../types';
+  import { me, stages, api } from '../../stores/core';
+  import { matches, maps, init } from '../../stores/tournament/matches';
   import MatchFeed from '../../components/atoms/MatchFeed.svelte';
-  import GroupsMatch from '../../components/molecules/GroupsMatch.svelte';
+  import Match from '../../components/molecules/Match.svelte';
   import Map from '../../components/molecules/Map.svelte';
+
+  let stage: IStage;
+  let winCondition: number;
 
   const selectMatch = ($event: MouseEvent, match?: IMatch) => {
     $event.preventDefault();
@@ -13,7 +16,7 @@
       localStorage.setItem('referee:match', String(match.id));
     } else {
       localStorage.removeItem('referee:match');
-      init(); // Refresh matches
+      init(stage.slug); // Refresh matches
     }
   }
 
@@ -189,12 +192,16 @@
     };
   };
 
-  $: if ($me && !$groupsMatches) {
+  $: if ($me && $stages && !$matches) {
     let storedMatchId = localStorage.getItem('referee:match');
-    init().then(() => {
-      selectedMatch = $groupsMatches.find(m => String(m.id) == storedMatchId);
-      riceTiebreaker = $groupsMaps.find(m => m.category == 'Tiebreaker (rice)');
-      hybridTiebreaker = $groupsMaps.find(m => m.category == 'Tiebreaker (hybrid)');
+    // Subtract one day to account for "overtime", i.e. matches that technically happen on monday
+    const nowMinusOne = new Date(Date.now() - 3600 * 24 * 1000).toISOString();
+    stage = $stages.find(s => s.date_end > nowMinusOne);
+    winCondition = 1 + (stage.best_of / 2 >> 0);
+    init(stage.slug).then(() => {
+      selectedMatch = $matches.find(m => String(m.id) == storedMatchId);
+      riceTiebreaker = $maps.find(m => m.category == 'Tiebreaker (rice)');
+      hybridTiebreaker = $maps.find(m => m.category == 'Tiebreaker (hybrid)');
     });
   }
   let picker: IPlayer;
@@ -267,14 +274,14 @@
       }
 
       if (pick.map.category == 'Rice') {
-        riceCount += 1;
+        riceCount += pick.map.weight;
       } else {
-        lnCount += 1;
+        lnCount += pick.map.weight;
       }
 
       return res;
     });
-    if (points1 == 3 && points2 == 3) {
+    if (points1 == winCondition-1 && points2 == winCondition-1) {
       picker == null; // tiebreaker
     }
   }
@@ -283,7 +290,7 @@
 <div class="container">
 {#if !$me}
 <a href={`${__myapp.env.API_URL}/auth/oauth/osu?redirect=${__myapp.env.UI_URL}`}>Login</a>
-{:else if !$groupsMatches}
+{:else if !$matches}
 Loading matches...
 {:else if !selectedMatch}
 <a href="#/referee!helper" on:click={() => onlyMyMatches = !onlyMyMatches}>
@@ -294,11 +301,21 @@ Loading matches...
   {showPastMatches ? 'Hide past matches' : 'Show past matches'}
 </a>
 <div class="matches">
-  Select a match
-  {#each $groupsMatches as match (match.id)}
-    {#if (!onlyMyMatches || match.referee?.id == $me?.id) && (showPastMatches || (match.points1 < 4 && match.points2 < 4 && !match.wbd))}
+  <center>Select a match</center>
+  {#each $matches as match (match.id)}
+    {#if
+      (
+        !onlyMyMatches ||
+        match.referee?.id == $me?.id ||
+        match.streamer?.id == $me?.id ||
+        match.commentators.find(({ commentator }) => commentator.id == $me?.id)
+      ) && (
+        showPastMatches ||
+        (match.points1 < winCondition && match.points2 < winCondition && !match.wbd)
+      )
+    }
       <div class="match-container">
-        <GroupsMatch {match} on:click={$event => selectMatch($event, match)} />
+        <Match {match} on:click={$event => selectMatch($event, match)} />
       </div>
     {/if}
   {/each}
@@ -308,7 +325,7 @@ Loading matches...
   <a href="#/referee!helper" on:click={$event => selectMatch($event)}>Back to matches</a>
 
   <center>
-    <MatchFeed match={selectedMatch} />
+    <MatchFeed match={selectedMatch} {stage} />
   </center>
 
   <center>
@@ -331,6 +348,11 @@ Loading matches...
     <div class="points">{points2}</div>
   </div>
 
+  <center class="picks">
+    Weighted counts: {riceCount} rice vs. {lnCount} LN+Hybrid<br />
+    Current tiebreaker: {riceCount < lnCount ? 'Tiebreaker (rice)' : 'Tiebreaker (hybrid)'}
+  </center>
+
   <div class="init">
     Create and prepare your lobby
     <div>
@@ -346,7 +368,7 @@ Loading matches...
       <a href="#/referee!helper" class="copy" on:click={() => copy(init3)}>📝 Copy</a>
     </div>
     <div>
-      <input readonly value={`!mp addref ${selectedMatch.streamer?.username || 'Paturages'}`} bind:this={init4} />
+      <input readonly value={`!mp addref ${selectedMatch.streamer?.username || "whoever's currently streaming"}`} bind:this={init4} />
       <a href="#/referee!helper" class="copy" on:click={() => copy(init4)}>📝 Copy</a>
     </div>
     <div>
@@ -414,7 +436,7 @@ Loading matches...
   {#if selectedMatch.protects[0]}
   <div class="protects">
     {getPlayerByRoll(selectedMatch, 'winner').username}'s protect
-    <Map map={$groupsMaps.find(m => m.id == selectedMatch.protects[0].map.id)} />
+    <Map map={$maps.find(m => m.id == selectedMatch.protects[0].map.id)} />
   </div>
   {:else if selectedMatch.rolls[1]}
   <div class="protects">
@@ -427,7 +449,7 @@ Loading matches...
       <a href="#/referee!helper" class="copy" on:click={() => copy(protectelt)}>📝 Copy</a>
     </div>
     <div class="maps">
-      {#each $groupsMaps as map (map.id)}
+      {#each $maps as map (map.id)}
         {#if !map.category.startsWith('Tiebreaker')}
           <Map {map} on:click={$event => protect($event, map, getPlayerByRoll(selectedMatch, 'winner'))} />
         {/if}
@@ -438,7 +460,7 @@ Loading matches...
   {#if selectedMatch.protects[1]}
   <div class="protects">
     {getPlayerByRoll(selectedMatch, 'loser').username}'s protect
-    <Map map={$groupsMaps.find(m => m.id == selectedMatch.protects[1].map.id)} />
+    <Map map={$maps.find(m => m.id == selectedMatch.protects[1].map.id)} />
   </div>
   {:else if selectedMatch.protects[0]}
   <div class="protects">
@@ -447,7 +469,7 @@ Loading matches...
       <a href="#/referee!helper" class="copy" on:click={() => copy(protectelt)}>📝 Copy</a>
     </div>
     <div class="maps">
-      {#each $groupsMaps as map (map.id)}
+      {#each $maps as map (map.id)}
         {#if !map.category.startsWith('Tiebreaker') && selectedMatch.protects[0]?.map.id != map.id}
           <Map {map} on:click={$event => protect($event, map, getPlayerByRoll(selectedMatch, 'loser'))} />
         {:else if selectedMatch.protects[0]?.map.id == map.id}
@@ -463,7 +485,7 @@ Loading matches...
   {#if selectedMatch.bans[0]}
   <div class="bans">
     {getPlayerByRoll(selectedMatch, 'loser').username}'s ban
-    <Map map={$groupsMaps.find(m => m.id == selectedMatch.bans[0].map.id)} />
+    <Map map={$maps.find(m => m.id == selectedMatch.bans[0].map.id)} />
   </div>
   {:else if selectedMatch.protects[1]}
   <div class="bans">
@@ -476,7 +498,7 @@ Loading matches...
       <a href="#/referee!helper" class="copy" on:click={() => copy(banelt)}>📝 Copy</a>
     </div>
     <div class="maps">
-      {#each $groupsMaps as map (map.id)}
+      {#each $maps as map (map.id)}
         {#if !map.category.startsWith('Tiebreaker') && selectedMatch.protects[0]?.map?.id != map.id && selectedMatch.protects[1]?.map?.id != map.id}
           <Map {map} on:click={$event => ban($event, map, getPlayerByRoll(selectedMatch, 'loser'))} />
         {:else if selectedMatch.protects[0]?.map?.id == map.id || selectedMatch.protects[1]?.map?.id == map.id}
@@ -489,7 +511,7 @@ Loading matches...
   {#if selectedMatch.bans[1]}
   <div class="bans">
     {getPlayerByRoll(selectedMatch, 'winner').username}'s ban
-    <Map map={$groupsMaps.find(m => m.id == selectedMatch.bans[1].map.id)} />
+    <Map map={$maps.find(m => m.id == selectedMatch.bans[1].map.id)} />
   </div>
   {:else if selectedMatch.bans[0]}
   <div class="bans">
@@ -498,7 +520,7 @@ Loading matches...
       <a href="#/referee!helper" class="copy" on:click={() => copy(banelt)}>📝 Copy</a>
     </div>
     <div class="maps">
-      {#each $groupsMaps as map (map.id)}
+      {#each $maps as map (map.id)}
         {#if !map.category.startsWith('Tiebreaker') && selectedMatch.protects[0]?.map?.id != map.id && selectedMatch.protects[1]?.map?.id != map.id && selectedMatch.bans[0]?.map.id != map.id}
           <Map {map} on:click={$event => ban($event, map, getPlayerByRoll(selectedMatch, 'winner'))} />
         {:else if selectedMatch.protects[0]?.map?.id == map.id || selectedMatch.protects[1]?.map?.id == map.id || selectedMatch.bans[0]?.map.id == map.id}
@@ -515,7 +537,7 @@ Loading matches...
   <div class="picks">
     {#each picks as pick (pick.id)}
       {pick.player?.username || 'Tiebreaker'} picked
-      <Map map={$groupsMaps.find(m => m.id == pick.map.id)} />
+      <Map map={$maps.find(m => m.id == pick.map.id)} />
       {#if pick.scores.length}
         <div class="win">
           {pick.scores[0].score > pick.scores[1].score ? selectedMatch.players[0].player.username : selectedMatch.players[1].player.username}
@@ -543,7 +565,7 @@ Loading matches...
       {/if}
     {/each}
   </div>
-  {#if !scorePending && points1 < 4 && points2 < 4 && !(points1 == 3 && points2 == 3)}
+  {#if !scorePending && points1 < winCondition && points2 < winCondition && !(points1 == winCondition-1 && points2 == winCondition-1)}
   <div class="picks">
     Picks (Picked: {riceCount} rice, {lnCount} LN/Hybrid; current TB = {riceCount < lnCount ? 'Tiebreaker (rice)' : 'Tiebreaker (hybrid)'})
     <div class="call">
@@ -554,7 +576,7 @@ Loading matches...
       <a href="#/referee!helper" class="copy" on:click={() => copy(pickelt)}>📝 Copy</a>
     </div>
     <div class="maps">
-      {#each $groupsMaps as map (map.id)}
+      {#each $maps as map (map.id)}
         {#if !map.category.startsWith('Tiebreaker') && selectedMatch.bans[0]?.map?.id != map.id && selectedMatch.bans[1]?.map?.id != map.id && !picks.find(p => p.map.id == map.id)}
           <Map {map} on:click={$event => pick($event, map)} />
         {:else if selectedMatch.bans[0]?.map?.id == map.id || selectedMatch.bans[1]?.map?.id == map.id || picks.find(p => p.map.id == map.id)}
@@ -566,7 +588,7 @@ Loading matches...
   {/if}
   {/if}
 
-  {#if points1 == 3 && points2 == 3 && !scorePending}
+  {#if points1 == winCondition-1 && points2 == winCondition-1 && !scorePending}
   <div class="picks">
     <center>
       Woah, that's a tiebreaker situation! {riceCount} rice, {lnCount} LN/Hybrid, TB = {riceCount < lnCount ? 'Tiebreaker (rice)' : 'Tiebreaker (hybrid)'}<br />
@@ -582,7 +604,7 @@ Loading matches...
   </div>
   {/if}
 
-  {#if points1 >= 4}
+  {#if points1 >= winCondition}
   <div class="winner">
     <div class="call">
       <input readonly value={`${selectedMatch.players[0].player.username} ${points1} - ${points2} ${selectedMatch.players[1].player.username} | ${selectedMatch.players[0].player.username} wins the match! Congratulations!`} bind:this={actionelt} />
@@ -590,7 +612,7 @@ Loading matches...
     </div>
   </div>
   {/if}
-  {#if points2 >= 4}
+  {#if points2 >= winCondition}
   <div class="winner">
     <div class="call">
       <input readonly value={`${selectedMatch.players[0].player.username} ${points1} - ${points2} ${selectedMatch.players[1].player.username} | ${selectedMatch.players[1].player.username} wins the match! Congratulations!`} bind:this={actionelt} />
@@ -612,7 +634,6 @@ Loading matches...
     padding-bottom: 4em;
   }
   .matches {
-    text-align: center;
     margin: 2em auto;
   }
   .matches :global(.match) {

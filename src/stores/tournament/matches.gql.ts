@@ -101,7 +101,7 @@ export default `query GetMatches($stage: String!) {
     picks {
       id
       player { id username }
-      map { id name category }
+      map { id name category weight }
     }
 
     scores {

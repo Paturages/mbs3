@@ -5,6 +5,7 @@ export default `{
     date_start
     date_end
     link
+    best_of
   }
   players(sort: "ranking", limit: -1) {
     id

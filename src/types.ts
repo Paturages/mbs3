@@ -65,6 +65,7 @@ export interface Stage {
   date_start: string;
   date_end: string;
   link?: string;
+  best_of?: number;
 }
 
 export interface QualifierLobby {

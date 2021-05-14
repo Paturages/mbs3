@@ -2,9 +2,9 @@
   import type { Match } from '../../types';
   import { me } from '../../stores/core';
   export let match: Match;
-  export let toggleRefereeAvailable: () => Promise<any>;
-  export let toggleStreamerAvailable: () => Promise<any>;
-  export let toggleCommentatorAvailable: () => Promise<any>;
+  export let toggleRefereeAvailable: (() => Promise<any>) | null = null;
+  export let toggleStreamerAvailable: (() => Promise<any>) | null = null;
+  export let toggleCommentatorAvailable: (() => Promise<any>) | null = null;
 
   const [topPlayer, bottomPlayer] = match.players.map(({ player }) => player);
   let time, isRefereeAdded, isStreamerAdded, isCommentatorAdded;

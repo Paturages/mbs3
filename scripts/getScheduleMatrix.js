@@ -19,13 +19,14 @@ const pool = new Pool({
 
 (async () => {
   const { rows } = await pool.query(`
-    select q.name, q_rf.username as ref, array_agg(rf.username) as refs
-    from qualifier_lobbies q
-    left join qualifier_lobbies_referees r on qualifier_lobbies_name = q.name
-    left join referees rf on rf.id = referees_id
-    left join referees q_rf on q_rf.id = q.referee
-    group by q.name, q_rf.username
-    order by q.time
+    select m.id, m.time, m_rf.username as ref, array_agg(rf.username) as refs
+    from matches m
+    left join matches_referees r on matches_id = m.id
+    left join referees rf on rf.id = r.referees_id
+    left join referees m_rf on m_rf.id = m.referee
+    where m.stage = 'ro64'
+    group by m.id, m.time, m_rf.username
+    order by m.time
   `);
   
   const refs = new Set(rows.reduce((arr, { refs }) => refs[0] ? arr.concat(refs) : arr, []));
@@ -33,8 +34,9 @@ const pool = new Pool({
   const output = [columns];
   for (const row of rows) {
     output.push(
-      columns.map(c => !c ? row.name : (~row.refs.indexOf(c) ? '| X' : '|')).concat([row.ref])
+      columns.map(c => !c ? `${row.id} ${row.time}` : (~row.refs.indexOf(c) ? '| X' : '|')).concat([row.ref || ''])
     );
   }
-  console.log(output.map(r => r.map((x, i) => !i ? x.padEnd(5) : x.padEnd(15)).join('')).join('\n'));
+  console.log(output.map(r => r.map((x, i) => !i ? x.padEnd(23) : x.padEnd(15)).join('')).join('\n'));
+  process.exit(0);
 })();
