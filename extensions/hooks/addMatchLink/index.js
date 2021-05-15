@@ -6,6 +6,9 @@ module.exports = function registerHook({ database }) {
       if (collection != "matches") return;
       if (!payload.link) return;
       const webhooks = await database.select("name", "url").from("webhooks").where("name", "match");
+      const match = await database('matches')
+        .join('stages', 'stages.id', 'matches.stage')
+        .select('matches.id', 'stages.name as stage', 'stages.slug');
       let players = await database("matches_players")
         .join('players', 'players.id', 'matches_players.players_id')
         .select('players.username', 'players.group', 'players.seed')
@@ -18,13 +21,13 @@ module.exports = function registerHook({ database }) {
             content: null,
             embeds: [
               {
-                title: `Group Stage G${players[0].group}-${item}`,
+                title: `${match.stage} M${item}`,
                 description: players.map(p => `**${p.username}** (${p.seed})`).join(' vs. '),
                 url: payload.link,
                 color: null,
                 author: {
                   name: "Mania Beginner's Showdown 3",
-                  url: "https://mbs3.fightthe.pw/#/groups",
+                  url: `https://mbs3.fightthe.pw/#/${match.slug}`,
                 },
                 thumbnail: {
                   url: "https://mbs3.fightthe.pw/images/logo.png",
