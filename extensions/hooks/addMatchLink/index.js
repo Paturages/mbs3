@@ -6,9 +6,10 @@ module.exports = function registerHook({ database }) {
       if (collection != "matches") return;
       if (!payload.link) return;
       const webhooks = await database.select("name", "url").from("webhooks").where("name", "match");
-      const match = await database('matches')
+      const [match] = await database('matches')
         .join('stages', 'stages.slug', 'matches.stage')
-        .select('matches.id', 'stages.name', 'stages.slug');
+        .select('matches.id', 'stages.name', 'stages.slug')
+        .where('matches.id', +item);
       let players = await database("matches_players")
         .join('players', 'players.id', 'matches_players.players_id')
         .select('players.username', 'players.group', 'players.seed')
