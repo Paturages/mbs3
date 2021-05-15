@@ -8,7 +8,7 @@ module.exports = function registerHook({ database }) {
       const webhooks = await database.select("name", "url").from("webhooks").where("name", "match");
       const match = await database('matches')
         .join('stages', 'stages.slug', 'matches.stage')
-        .select('matches.id', 'stages.name as stage', 'stages.slug');
+        .select('matches.id', 'stages.name', 'stages.slug');
       let players = await database("matches_players")
         .join('players', 'players.id', 'matches_players.players_id')
         .select('players.username', 'players.group', 'players.seed')
@@ -21,7 +21,7 @@ module.exports = function registerHook({ database }) {
             content: null,
             embeds: [
               {
-                title: `${match.stage} M${item}`,
+                title: `${match.name} M${item}`,
                 description: players.map(p => `**${p.username}** (${p.seed})`).join(' vs. '),
                 url: payload.link,
                 color: null,

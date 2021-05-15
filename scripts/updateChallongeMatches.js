@@ -22,15 +22,26 @@ const pool = new Pool({
 });
 
 const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challonge.com/v1/tournaments/${CHALLONGE_TOURNAMENT_ID}`;
+const currentStage = 'ro64';
+
+// group_player_ids[0] is for group stage players, for some reason
+const getId = (participant, stage) => stage == 'groups' ? participant.group_player_ids[0] : participant.id;
 
 (async () => {
+  console.log('Fetching matches...');
+  const { body: challongeMatches } = await got(`${baseUrl}/matches.json?state=open`, { responseType: "json" });
   console.log('Fetching participants...');
   const { body: participants } = await got(`${baseUrl}/participants.json`, { responseType: "json" });
-  console.log('Fetching matches...');
-  const { body: challongeMatches } = await got(`${baseUrl}/matches.json`, { responseType: "json" });
 
   console.log('Fetching tournament data...');
-  const { rows: matches } = await pool.query(`select m.id, m.wbd, array_agg(players_id) as player_ids from matches_players mp join matches m on m.id = mp.matches_id group by m.id, m.wbd`);
+  const { rows: matches } = await pool.query(`
+    select m.id, m.wbd, m.stage, s.best_of, array_agg(players_id) as player_ids
+    from matches_players mp
+    join matches m on m.id = mp.matches_id
+    join stages s on s.slug = m.stage
+    where m.stage = $1
+    group by m.id, s.best_of
+  `, [currentStage]);
   const { rows: scores } = await pool.query(`select match, player, map, score from scores`);
   const { rows: picks } = await pool.query(`select match, map from picks`);
 
@@ -40,24 +51,24 @@ const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challong
     const matchPicks = picks.filter(p => p.match == match.id);
     if (!matchPicks.length && !match.wbd) continue;
     const participants = match.player_ids.map(id => participantsMap.get(id));
-    console.log(`${participants[0].name} (${participants[0].misc}) vs. ${participants[1].name} (${participants[1].misc})`);
     
-    // group_player_ids[0] is for group stage players, for some reason
     const challongeMatch = challongeMatches.find(m =>
-      (m.match.player1_id == participants[0].group_player_ids[0] && m.match.player2_id == participants[1].group_player_ids[0]) ||
-      (m.match.player1_id == participants[1].group_player_ids[0] && m.match.player2_id == participants[0].group_player_ids[0])
+      (m.match.player1_id == getId(participants[0]) && m.match.player2_id == getId(participants[1])) ||
+      (m.match.player1_id == getId(participants[1]) && m.match.player2_id == getId(participants[0]))
     ).match;
-
+      
     if (challongeMatch.state != 'open') continue;
+    console.log(`${participants[0].name} (${participants[0].misc}) vs. ${participants[1].name} (${participants[1].misc})`);
+    const winCondition = 1 + (match.best_of / 2 >> 0);
 
-    const [participant1, participant2] = challongeMatch.player1_id == participants[0].group_player_ids[0] ? participants : participants.reverse();
+    const [participant1, participant2] = challongeMatch.player1_id == getId(participants[0]) ? participants : participants.reverse();
     if (match.wbd) {
       console.log('WBD', match.wbd);
       await got.put(`${baseUrl}/matches/${challongeMatch.id}.json`, {
         json: {
           match: {
-            scores_csv: match.wbd == participant1.misc ? '4-0' : '0-4',
-            winner_id: match.wbd == participant1.misc ? participant1.group_player_ids[0] : participant2.group_player_ids[0]
+            scores_csv: match.wbd == participant1.misc ? `${winCondition}-0` : `0-${winCondition}`,
+            winner_id: match.wbd == participant1.misc ? getId(participant1) : getId(participant2)
           }
         }
       });
@@ -76,12 +87,12 @@ const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challong
     });
     console.log(score1, '-', score2);
     
-    if (score1 == 4 || score2 == 4) {
+    if (score1 == winCondition || score2 == winCondition) {
       await got.put(`${baseUrl}/matches/${challongeMatch.id}.json`, {
         json: {
           match: {
             scores_csv: `${score1}-${score2}`,
-            winner_id: score1 == 4 ? participant1.group_player_ids[0] : participant2.group_player_ids[0]
+            winner_id: score1 == winCondition ? getId(participant1) : getId(participant2)
           }
         }
       });
