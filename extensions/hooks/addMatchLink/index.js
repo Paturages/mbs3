@@ -7,7 +7,7 @@ module.exports = function registerHook({ database }) {
       if (!payload.link) return;
       const webhooks = await database.select("name", "url").from("webhooks").where("name", "match");
       const match = await database('matches')
-        .join('stages', 'stages.id', 'matches.stage')
+        .join('stages', 'stages.slug', 'matches.stage')
         .select('matches.id', 'stages.name as stage', 'stages.slug');
       let players = await database("matches_players")
         .join('players', 'players.id', 'matches_players.players_id')

@@ -31,7 +31,7 @@ const BRACKET = {
 (async () => {
   const { rows: stages } = await pool.query(`select * from stages where best_of is not null`);
   const { rows: maps } = await pool.query(`select * from maps order by "order"`);
-  const { rows: matches } = await pool.query(`select * from matches`);
+  const { rows: matches } = await pool.query(`select * from matches where stage != 'groups'`);
   const { rows: matchesPlayers } = await pool.query(`select * from matches_players`);
   const { rows: players } = await pool.query(`select * from players where seed is not null`);
   const { rows: scores } = await pool.query(`select * from scores`);
@@ -48,6 +48,7 @@ const BRACKET = {
 
   scores.forEach(score => {
     const match = matchesMap.get(score.match);
+    if (!match) return;
     if (!match.picks) match.picks = {};
     if (!match.picks[score.map]) match.picks[score.map] = {};
     match.picks[score.map][score.player] = score;
@@ -56,6 +57,7 @@ const BRACKET = {
   matchesPlayers.forEach(({ matches_id, players_id }) => {
     const match = matchesMap.get(matches_id);
     const player = playersMap.get(players_id);
+    if (!match || !player) return;
 
     // Use the group index to align matches from the same group
     match.groupIndex = +player.group;
@@ -71,10 +73,12 @@ const BRACKET = {
   });
 
   matches.forEach(match => {
+    match.stage = stagesMap.get(match.stage);
+    match.winCondition = 1 + (match.stage.best_of / 2 >> 0);
     // Compute match scores
     if (match.wbd) {
-      match.points1 = match.wbd == match.players[0].id ? 4 : 0;
-      match.points2 = match.wbd == match.players[1].id ? 4 : 0;
+      match.points1 = match.wbd == match.players[0].id ? match.winCondition : 0;
+      match.points2 = match.wbd == match.players[1].id ? match.winCondition : 0;
     } else if (match.picks) {
       match.points1 = 0;
       match.points2 = 0;
@@ -93,18 +97,18 @@ const BRACKET = {
   });
   
   // Sort matches by group
-  matches.sort((a, b) => {
-    if (a.players[0].group != b.players[0].group) {
-      return a.players[0].group < b.players[0].group ? -1 : 1;
-    }
-    const [topPlayerA, bottomPlayerA] = a.players;
-    const [topPlayerB, bottomPlayerB] = b.players;
+  // matches.sort((a, b) => {
+  //   if (a.players[0].group != b.players[0].group) {
+  //     return a.players[0].group < b.players[0].group ? -1 : 1;
+  //   }
+  //   const [topPlayerA, bottomPlayerA] = a.players;
+  //   const [topPlayerB, bottomPlayerB] = b.players;
 
-    if (topPlayerA.seed != topPlayerB.seed) {
-      return topPlayerA.seed < topPlayerB.seed ? -1 : 1;
-    }
-    return bottomPlayerA.seed < bottomPlayerB.seed ? -1 : 1;
-  });
+  //   if (topPlayerA.seed != topPlayerB.seed) {
+  //     return topPlayerA.seed < topPlayerB.seed ? -1 : 1;
+  //   }
+  //   return bottomPlayerA.seed < bottomPlayerB.seed ? -1 : 1;
+  // });
   
   console.log(JSON.stringify({
     Ruleset,
@@ -114,26 +118,32 @@ const BRACKET = {
       Team1Score: match.points1,
       Team2Acronym: match.players[1].username.toUpperCase(),
       Team2Score: match.points2,
-      Completed: match.points1 == 4 || match.points2 == 4,
+      Completed: match.points1 == match.winCondition || match.points2 == match.winCondition,
       Losers: false,
       PicksBans: [], // we don't care about the picks/bans outside of stream for bracket.json
       Current: !i, // select the first match to at least have the schedule I guess?
       Date: match.time,
       ConditionalMatches: [],
+      // Group stage
+      // Position: {
+      //   X: BRACKET.MATCH_WIDTH * (i % 6),
+      //   Y: BRACKET.MATCH_HEIGHT * match.groupIndex
+      // },
+
+      // Bracket stage
       Position: {
-        X: BRACKET.MATCH_WIDTH * (i % 6),
-        Y: BRACKET.MATCH_HEIGHT * match.groupIndex
+        Y: BRACKET.MATCH_HEIGHT * i
       },
       Acronyms: match.players.map(p => p.username.toUpperCase()),
-      WinnerColour: null,
-      PointsToWin: stagesMap.get(match.stage).best_of
+      WinnerColour: match.points1 == match.winCondition ? 'Red': 'Blue',
+      PointsToWin: match.winCondition
     })),
     Rounds: stages.map(stage => ({
       Name: stage.name,
       Description: stage.name,
       BestOf: stage.best_of,
       StartDate: stage.date_start,
-      Matches: matches.filter(match => match.stage == stage.slug).map(match => match.id),
+      Matches: matches.filter(match => match.stage.slug == stage.slug).map(match => match.id),
       beatmaps: stage.maps?.map(map => ({
         ID: map.id,
         Mods: map.category.split(' ')[0].toUpperCase(), // Only take the first word of "Tiebreaker (rice)"
