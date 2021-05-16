@@ -80,7 +80,7 @@ module.exports = function registerEndpoint(router, { database, env }) {
 
     const scores = await database.select().from('scores').where('match', matchId);
 
-    sendDiscordEmbedFromMatchId(entity.match, database);
+    sendDiscordEmbedFromMatchId(matchId, database);
     res.send(
       JSON.stringify(
         scores.map(score => ({
