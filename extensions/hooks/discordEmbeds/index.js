@@ -80,7 +80,7 @@ const sendDiscordEmbedFromMatchId = async (matchId, database) => {
   if (bans.length && bans[0].player != players[0].id) bans = bans.reverse();
   picks = await database('picks')
     .join('maps', 'maps.id', 'picks.map')
-    .select('maps.name', 'maps.category')
+    .select('maps.id', 'maps.name', 'maps.category')
     .where('picks.match', matchId);
   scores = await database('scores')
     .select('map', 'player', 'score')
@@ -90,8 +90,8 @@ const sendDiscordEmbedFromMatchId = async (matchId, database) => {
   match.points1 = 0;
   match.points2 = 0;
   picks.forEach(pick => {
-    const score1 = scores.find(s => s.map == pick.map && s.player == players[0].id);
-    const score2 = scores.find(s => s.map == pick.map && s.player == players[1].id);
+    const score1 = scores.find(s => s.map == pick.id && s.player == players[0].id);
+    const score2 = scores.find(s => s.map == pick.id && s.player == players[1].id);
     if (score1 || score2) {
       pick.score1 = (score1 || {}).score || 0;
       pick.score2 = (score2 || {}).score || 0;
@@ -127,10 +127,11 @@ const sendDiscordEmbedFromMatchId = async (matchId, database) => {
 
 module.exports = function registerHook({ database }) {
   return {
-    "items.create": async function (input, { collection }) {
+    "items.create": async function ({ collection, item }) {
       // On pick create and score create
       if (collection == 'picks' || collection == 'scores') {
-        await sendDiscordEmbedFromMatchId(input.match || input[0].match, database);
+        const [entity] = await database(collection).select('match').where('id', +item);
+        await sendDiscordEmbedFromMatchId(entity.match, database);
       }
     },
     "items.update": async function ({ collection, payload, item }) {
