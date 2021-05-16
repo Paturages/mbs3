@@ -1,3 +1,4 @@
+const { sendDiscordEmbedFromMatchId } = require('../../../common/discordEmbeds');
 const got = require('got');
 
 module.exports = function registerEndpoint(router, { database, env }) {
@@ -79,6 +80,7 @@ module.exports = function registerEndpoint(router, { database, env }) {
 
     const scores = await database.select().from('scores').where('match', matchId);
 
+    sendDiscordEmbedFromMatchId(entity.match, database);
     res.send(
       JSON.stringify(
         scores.map(score => ({
