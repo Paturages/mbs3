@@ -70,6 +70,13 @@
 		{:else if $page == 'ro64!rolls'}
 			<BracketRolls stage="ro64" />
 
+		{:else if $page == 'ro32'}
+			<BracketMatches stage="ro32" />
+		{:else if $page == 'ro32!maps'}
+			<BracketMaps stage="ro32" />
+		{:else if $page == 'ro32!rolls'}
+			<BracketRolls stage="ro32" />
+
 		{:else}
 			<Staff />
 		{/if}

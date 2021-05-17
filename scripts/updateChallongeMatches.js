@@ -39,7 +39,7 @@ const getId = (participant, stage) => stage == 'groups' ? participant.group_play
     from matches_players mp
     join matches m on m.id = mp.matches_id
     join stages s on s.slug = m.stage
-    where m.stage = $1
+    where m.stage = $1 and mp.players_id is not null
     group by m.id, s.best_of
   `, [currentStage]);
   const { rows: scores } = await pool.query(`select match, player, map, score from scores`);
@@ -55,9 +55,9 @@ const getId = (participant, stage) => stage == 'groups' ? participant.group_play
     const challongeMatch = challongeMatches.find(m =>
       (m.match.player1_id == getId(participants[0]) && m.match.player2_id == getId(participants[1])) ||
       (m.match.player1_id == getId(participants[1]) && m.match.player2_id == getId(participants[0]))
-    ).match;
+    )?.match;
       
-    if (challongeMatch.state != 'open') continue;
+    if (challongeMatch?.state != 'open') continue;
     console.log(`${participants[0].name} (${participants[0].misc}) vs. ${participants[1].name} (${participants[1].misc})`);
     const winCondition = 1 + (match.best_of / 2 >> 0);
 
