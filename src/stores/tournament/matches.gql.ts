@@ -43,6 +43,8 @@ export default `query GetMatches($stage: String!) {
         username
         avatar
         seed
+        country
+        country_code
       }
     }
     time
@@ -65,6 +67,7 @@ export default `query GetMatches($stage: String!) {
       rel_id: id
       referee: referees_id {
         id
+        avatar
         username
       }
     }
@@ -72,6 +75,7 @@ export default `query GetMatches($stage: String!) {
       rel_id: id
       streamer: streamers_id {
         id
+        avatar
         username
       }
     }
@@ -79,6 +83,7 @@ export default `query GetMatches($stage: String!) {
       rel_id: id
       commentator: commentators_id {
         id
+        avatar
         username
       }
     }

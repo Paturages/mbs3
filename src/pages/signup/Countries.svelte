@@ -5,8 +5,9 @@
 
   $: countries = Object.values(
     ($players?.reduce((obj, player) => {
-      if (!obj[player.country]) obj[player.country] = { country: player.country, players: [] };
+      if (!obj[player.country]) obj[player.country] = { country: player.country, players: [], aliveCount: 0 };
       obj[player.country].players.push(player);
+      if (player.alive) obj[player.country].aliveCount += 1;
       return obj;
     }, {}) || {}) as Record<string, { country: string, players: IPlayer[] }>
   ).sort((a, b) => a.players.length < b.players.length ? 1 : -1);
@@ -16,10 +17,13 @@
 </script>
 
 <div class="countries">
-  {#each countries as { players, country } (country)}
+  {#each countries as { players, country, aliveCount } (country)}
     <div class="country" on:click={() => selectCountry(country)}>
       <div class="label">
         {country}: {players.length} player{players.length == 1 ? '' : 's'}
+        {#if aliveCount}
+          ({aliveCount} alive)
+        {/if}
       </div>
       <div class="pointer">{selectedCountry == country ? '▼' : '►'}</div>
     </div>

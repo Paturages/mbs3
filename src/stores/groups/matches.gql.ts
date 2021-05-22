@@ -43,6 +43,8 @@ export default `{
         username
         avatar
         seed
+        country
+        country_code
         group {
           id
         }

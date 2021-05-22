@@ -28,10 +28,11 @@ const BRACKET = {
   MATCH_HEIGHT: 100
 };
 
+// Usage: node scripts/groups/generateLazerBracket.js > "C:\Users\Paturages\AppData\Roaming\osu\tournaments\mbs3\bracket.json"
 (async () => {
   const { rows: stages } = await pool.query(`select * from stages where best_of is not null`);
   const { rows: maps } = await pool.query(`select * from maps order by "order"`);
-  const { rows: matches } = await pool.query(`select * from matches where stage != 'groups'`);
+  const { rows: matches } = await pool.query(`select * from matches where stage = 'groups'`);
   const { rows: matchesPlayers } = await pool.query(`select * from matches_players`);
   const { rows: players } = await pool.query(`select * from players where seed is not null`);
   const { rows: scores } = await pool.query(`select * from scores`);
@@ -97,18 +98,18 @@ const BRACKET = {
   });
   
   // Sort matches by group
-  // matches.sort((a, b) => {
-  //   if (a.players[0].group != b.players[0].group) {
-  //     return a.players[0].group < b.players[0].group ? -1 : 1;
-  //   }
-  //   const [topPlayerA, bottomPlayerA] = a.players;
-  //   const [topPlayerB, bottomPlayerB] = b.players;
+  matches.sort((a, b) => {
+    if (a.players[0].group != b.players[0].group) {
+      return a.players[0].group < b.players[0].group ? -1 : 1;
+    }
+    const [topPlayerA, bottomPlayerA] = a.players;
+    const [topPlayerB, bottomPlayerB] = b.players;
 
-  //   if (topPlayerA.seed != topPlayerB.seed) {
-  //     return topPlayerA.seed < topPlayerB.seed ? -1 : 1;
-  //   }
-  //   return bottomPlayerA.seed < bottomPlayerB.seed ? -1 : 1;
-  // });
+    if (topPlayerA.seed != topPlayerB.seed) {
+      return topPlayerA.seed < topPlayerB.seed ? -1 : 1;
+    }
+    return bottomPlayerA.seed < bottomPlayerB.seed ? -1 : 1;
+  });
   
   console.log(JSON.stringify({
     Ruleset,
@@ -124,15 +125,9 @@ const BRACKET = {
       Current: !i, // select the first match to at least have the schedule I guess?
       Date: match.time,
       ConditionalMatches: [],
-      // Group stage
-      // Position: {
-      //   X: BRACKET.MATCH_WIDTH * (i % 6),
-      //   Y: BRACKET.MATCH_HEIGHT * match.groupIndex
-      // },
-
-      // Bracket stage
       Position: {
-        Y: BRACKET.MATCH_HEIGHT * i
+        X: BRACKET.MATCH_WIDTH * (i % 6),
+        Y: BRACKET.MATCH_HEIGHT * match.groupIndex
       },
       Acronyms: match.players.map(p => p.username.toUpperCase()),
       WinnerColour: match.points1 == match.winCondition ? 'Red': 'Blue',
@@ -155,7 +150,8 @@ const BRACKET = {
             Metadata: {
               Title: map.name,
               Artist: map.artist,
-              Creator: map.charter
+              Creator: map.charter,
+              user_id: 1
             },
             OnlineInfo: {
               Covers: {
@@ -167,7 +163,8 @@ const BRACKET = {
           Metadata: {
             Title: map.name,
             Artist: map.artist,
-            Creator: map.charter
+            Creator: map.charter,
+            user_id: 1
           },
           BaseDifficulty: {
             DrainRate: map.hp,
@@ -210,7 +207,37 @@ const BRACKET = {
           },
           Status: null,
           Activity: null,
-          statistics: {}
+          // we don't give a shit about stats but lazer fills it automatically if it doesn't exist and takes forever
+          cover: {
+            url: "https://osu.ppy.sh/images/headers/profile-covers/c3.jpg",
+            id: 3,
+          },
+          cover_url:
+            "https://osu.ppy.sh/images/headers/profile-covers/c3.jpg",
+          statistics: {
+            level: {
+              current: 79,
+              progress: 81,
+            },
+            global_rank: 14590,
+            country_rank: 1801,
+            pp: 4452.74,
+            ranked_score: 651216786,
+            hit_accuracy: 95.9422,
+            play_count: 14730,
+            play_time: 714206,
+            total_score: 3358042219,
+            total_hits: 6036172,
+            maximum_combo: 3541,
+            replays_watched_by_others: 6,
+            grade_counts: {
+              ssh: 1,
+              ss: 6,
+              sh: 0,
+              s: 509,
+              a: 180,
+            },
+          },
         }
       ]
     })),

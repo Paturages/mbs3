@@ -12,6 +12,7 @@ export interface Me {
 export interface Player {
   id: string;
   seed?: number;
+  alive: boolean;
   elite?: boolean;
   username: string;
   discord: string;
@@ -22,6 +23,9 @@ export interface Player {
   ranking: number;
   pp: number;
   qualifier: QualifierLobby;
+  matches: {
+    match: Match;
+  }[];
   group?: Group;
 }
 
@@ -86,6 +90,7 @@ export interface Match {
   points2?: number;
   time: string;
   link: string | null;
+  stage?: Stage;
   players: {
     player: Player;
   }[];

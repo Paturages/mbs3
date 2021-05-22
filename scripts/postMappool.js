@@ -20,11 +20,11 @@ const pool = new Pool({
 });
 
 (async () => {
-  const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', ['ro64']);
+  const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', ['ro32']);
   for (let i = 0; i < maps.length; i += 4) {
     await got.post(ANNOUNCEMENT_HOOK, {
       json: {
-        "content": i ? null : "**Round of 64**",
+        "content": i ? null : "**Round of 32**",
         "embeds": maps.slice(i, i+4).map(map => {
           let color;
           if (map.category.toLowerCase().includes('tiebreaker')) {

@@ -3,11 +3,11 @@
   import Match from '../../components/molecules/Match.svelte';
   import Map from '../../components/molecules/Map.svelte';
   import { me, api } from '../../stores/core';
-  import { matches, maps, init } from '../../stores/tournament/matches';
+  import { stage as currentStage, matches, maps, init } from '../../stores/tournament/matches';
 
   export let stage: string;
 
-  if (!$matches) init(stage);
+  if ($currentStage != stage || !$matches) init(stage);
 
   let myMatches: IMatch[];
   $: if ($matches && $me?.player?.group && !myMatches) {

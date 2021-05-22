@@ -7,12 +7,13 @@ export default `{
     link
     best_of
   }
-  players(sort: "ranking", limit: -1) {
+  players(sort: ["-elite", "seed", "ranking"], limit: -1) {
     id
     seed
     group {
       id
     }
+    alive
     elite
     username
     discord
@@ -26,6 +27,14 @@ export default `{
       name
       link
       time
+    }
+    matches {
+      match: matches_id {
+        id
+        stage {
+          name
+        }
+      }
     }
   }
   referees {

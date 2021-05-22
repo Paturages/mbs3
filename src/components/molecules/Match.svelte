@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Match } from '../../types';
   import { me } from '../../stores/core';
+  import PlayerCompact from '../atoms/PlayerCompact.svelte';
   export let match: Match;
   export let toggleRefereeAvailable: (() => Promise<any>) | null = null;
   export let toggleStreamerAvailable: (() => Promise<any>) | null = null;
@@ -74,7 +75,12 @@
       {#if toggleRefereeAvailable}
         <br />
         <b>Available referees</b>:
-        {match.available_referees.map(({ referee }) => referee.username).join(', ') || 'None'} -
+        {#each match.available_referees as { referee } (referee.id)}
+          <a class="staff-compact" title={referee.username} href={`https://osu.ppy.sh/users/${referee.id}`}>
+            <img alt={referee.id} src={referee.avatar} />
+          </a>
+        {:else}None{/each}
+        -
         {#if settingRefereeAvailable}
           Processing...
         {:else if isRefereeAdded}
@@ -86,7 +92,12 @@
       {#if toggleStreamerAvailable}
         <br />
         <b>Available streamers</b>:
-        {match.available_streamers.map(({ streamer }) => streamer.username).join(', ') || 'None'} -
+        {#each match.available_streamers as { streamer } (streamer.id)}
+          <a class="staff-compact" title={streamer.username} href={`https://osu.ppy.sh/users/${streamer.id}`}>
+            <img alt={streamer.id} src={streamer.avatar} />
+          </a>
+        {:else}None{/each}
+        -
         {#if settingStreamerAvailable}
           Processing...
         {:else if isStreamerAdded}
@@ -98,7 +109,11 @@
       {#if toggleCommentatorAvailable}
         <br />
         <b>Available commentators</b>:
-        {match.available_commentators.map(({ commentator }) => commentator.username).join(', ') || 'None'} -
+        {#each match.available_commentators as { commentator } (commentator.id)}
+          <a class="staff-compact" title={commentator.username} href={`https://osu.ppy.sh/users/${commentator.id}`}>
+            <img alt={commentator.id} src={commentator.avatar} />
+          </a>
+        {:else}None{/each} -
         {#if settingCommentatorAvailable}
           Processing...
         {:else if isCommentatorAdded}
@@ -109,15 +124,9 @@
       {/if}
     </div>
     <div class="players">
-      <div class="player">
-        <img alt="" src={topPlayer.avatar} />
-        <a href={`https://osu.ppy.sh/users/${topPlayer.id}`}>{topPlayer.username} (#{topPlayer.seed})</a>
-      </div>
+      <PlayerCompact player={topPlayer} />
       <div class="vs">vs.</div>
-      <div class="player">
-        <img alt="" src={bottomPlayer.avatar} />
-        <a href={`https://osu.ppy.sh/users/${bottomPlayer.id}`}>{bottomPlayer.username} (#{bottomPlayer.seed})</a>
-      </div>
+      <PlayerCompact player={bottomPlayer} />
     </div>
   </div>
   <div class="score">{match.points1 || 0} - {match.points2 || 0}</div>
@@ -172,21 +181,22 @@
     display: flex;
     align-items: center;
   }
-  .player {
-    display: flex;
-    align-items: center;
-  }
   .vs {
     margin: 0 1em;
-  }
-  .player img {
-    width: 1.5em;
-    border-radius: 50%;
-    margin-right: 1em;
   }
 
   .body {
     flex: 1;
+  }
+
+  .staff-compact {
+    margin: 0 .125em;
+  }
+
+  .staff-compact img {
+    height: 1em;
+    border-radius: 50%;
+    border: 1px solid #eee;
   }
 
   .score {

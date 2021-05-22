@@ -26,8 +26,29 @@
     document.execCommand("copy");
   }
 
+  const saveLink = async () => {
+    if (!mpLink) return alert('Please fill the MP link!');
+    const res = await api(`/items/matches/${selectedMatch.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        link: mpLink
+      })
+    });
+    if (res.errors) {
+      alert(res.errors[0].message);
+    } else {
+      selectedMatch = {
+        ...selectedMatch,
+        link: mpLink,
+        rolls: res.data
+      }
+    }
+  }
+
   const saveRolls = async () => {
-    if (!mpLink && !selectedMatch.link) return alert('Please fill the MP link!');
     if (!roll1 || !roll2) return alert('Please set the rolls!');
     // Optimistic update
     selectedMatch = {
@@ -56,17 +77,6 @@
         }
       ])
     });
-    if (!selectedMatch.link) {
-      await api(`/items/matches/${selectedMatch.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          link: mpLink
-        })
-      });
-    }
     if (res.errors) {
       alert(res.errors[0].message);
     } else {

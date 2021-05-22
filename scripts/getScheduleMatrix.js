@@ -24,10 +24,10 @@ const pool = new Pool({
     left join matches_referees r on matches_id = m.id
     left join referees rf on rf.id = r.referees_id
     left join referees m_rf on m_rf.id = m.referee
-    where m.stage = 'ro64'
+    where m.stage = $1
     group by m.id, m.time, m_rf.username
     order by m.time
-  `);
+  `, [process.argv[2]]);
   
   const refs = new Set(rows.reduce((arr, { refs }) => refs[0] ? arr.concat(refs) : arr, []));
   const columns = ['', ...refs];

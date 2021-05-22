@@ -22,7 +22,7 @@ const pool = new Pool({
 });
 
 const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challonge.com/v1/tournaments/${CHALLONGE_TOURNAMENT_ID}`;
-const results = require('../docs/data/groups-results.json');
+const results = require('../../docs/data/groups-results.json');
 
 (async () => {
   const { body: participants } = await got(`${baseUrl}/participants.json`, { responseType: "json" });
