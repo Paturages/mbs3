@@ -59,7 +59,7 @@ const getDiscordPayload = ({
 
 exports.sendDiscordEmbedFromMatchId = async (matchId, database) => {
   let stage, match, players, rolls = [], protects = [], bans = [], picks = [], scores = [];
-  [match] = await database('matches').select('id', 'link', 'stage', 'discord_message_id').where('id', matchId);
+  [match] = await database('matches').select('id', 'link', 'stage', 'discord_message_id', 'wbd').where('id', matchId);
   [stage] = await database('stages').select('slug', 'name', 'best_of').where('slug', match.stage);
   players = await database("matches_players")
     .join("players", "players.id", "matches_players.players_id")
@@ -87,8 +87,8 @@ exports.sendDiscordEmbedFromMatchId = async (matchId, database) => {
     .where('match', matchId);
 
   stage.winCondition = 1 + (stage.best_of / 2 >> 0);
-  match.points1 = 0;
-  match.points2 = 0;
+  match.points1 = match.wbd == players[0].id ? 'WBD' : 0;
+  match.points2 = match.wbd == players[1].id ? 'WBD' : 0;
   picks.forEach(pick => {
     const score1 = scores.find(s => s.map == pick.id && s.player == players[0].id);
     const score2 = scores.find(s => s.map == pick.id && s.player == players[1].id);
