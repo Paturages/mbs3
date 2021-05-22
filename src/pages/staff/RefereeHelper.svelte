@@ -42,8 +42,7 @@
     } else {
       selectedMatch = {
         ...selectedMatch,
-        link: mpLink,
-        rolls: res.data
+        link: mpLink
       }
     }
   }
@@ -82,7 +81,6 @@
     } else {
       selectedMatch = {
         ...selectedMatch,
-        link: mpLink,
         rolls: res.data
       }
     }
@@ -401,6 +399,7 @@ Loading matches...
     <div class="values">
       <input placeholder="MP Link" bind:value={mpLink} />
     </div>
+    <button on:click={saveLink}>Save and send MP link</button>
   </div>
   {/if}
 
@@ -439,7 +438,7 @@ Loading matches...
       <input placeholder="Roll 1" type="number" bind:value={roll1} />
       <input placeholder="Roll 2" type="number" bind:value={roll2} />
     </div>
-    <button on:click={() => saveRolls()}>Confirm rolls</button>
+    <button on:click={saveRolls}>Confirm rolls</button>
     {/if}
   </div>
 
