@@ -19,12 +19,15 @@ const pool = new Pool({
   port: DB_PORT
 });
 
+const stage = 'ro16';
+const label = 'Round of 16';
+
 (async () => {
-  const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', ['ro32']);
+  const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', [stage]);
   for (let i = 0; i < maps.length; i += 4) {
-    await got.post(ANNOUNCEMENT_HOOK, {
+    await got.patch(ANNOUNCEMENT_HOOK, {
       json: {
-        "content": i ? null : "**Round of 32**",
+        "content": i ? null : ("**" + label + "**"),
         "embeds": maps.slice(i, i+4).map(map => {
           let color;
           if (map.category.toLowerCase().includes('tiebreaker')) {

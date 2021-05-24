@@ -34,6 +34,10 @@ export const pages = new Set([
   'ro32!maps',
   'ro32!rolls',
 
+  'ro16',
+  'ro16!maps',
+  'ro16!rolls',
+
   'scuffed!drawing',
   'referee!helper'
 ])

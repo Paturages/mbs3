@@ -21,12 +21,11 @@ const pool = new Pool({
   port: DB_PORT
 });
 
-const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challonge.com/v1/tournaments/${CHALLONGE_TOURNAMENT_ID}`;
+const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challonge.com/v1/tournaments/${CHALLONGE_TOURNAMENT_ID}elite`;
 
 (async () => {
   const { body: participants } = await got(`${baseUrl}/participants.json`, { responseType: "json" });
-  //const { body: matches } = await got(`${baseUrl}/matches.json`, { responseType: "json" });
-  const { rows: players } = await pool.query(`select id, username from players where alive and not elite`);
+  const { rows: players } = await pool.query(`select id, username from players`);
 
   for (const { participant } of participants) {
     const player = players.find(p => p.username == participant.name);

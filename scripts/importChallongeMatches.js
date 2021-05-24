@@ -22,10 +22,7 @@ const pool = new Pool({
 });
 
 const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challonge.com/v1/tournaments/${CHALLONGE_TOURNAMENT_ID}`;
-const currentStage = 'ro32';
-
-// group_player_ids[0] is for group stage players, for some reason
-const getId = (participant, stage) => stage == 'groups' ? participant.group_player_ids[0] : participant.id;
+const currentStage = 'ro16';
 
 (async () => {
   console.log('Fetching matches...');
@@ -38,8 +35,9 @@ const getId = (participant, stage) => stage == 'groups' ? participant.group_play
     const { participant: p2 } = participants.find(({ participant }) => participant.id == challongeMatch.player2_id);
     console.log(p1.name, ' vs. ', p2.name);
     const { rows: [match] } = await pool.query(
-      `insert into matches (stage) values ($1) returning id`,
-      [currentStage]
+      `insert into matches (stage, loser) values ($1, $2) returning id`,
+      // Challonge round values are negative if they're in the loser's bracket, e.g. losers round 2 is "-2"
+      [currentStage, challongeMatch.round < 0]
     );
     await pool.query(
       `insert into matches_players (matches_id, players_id) values ($1, $2), ($1, $3)`,
