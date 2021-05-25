@@ -44,6 +44,7 @@ export default `query GetMatches($stage: String!) {
         username
         avatar
         seed
+        timezone
         country
         country_code
       }

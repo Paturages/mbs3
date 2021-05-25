@@ -43,6 +43,7 @@ export default `{
         username
         avatar
         seed
+        timezone
         country
         country_code
         group {

@@ -11,7 +11,7 @@
     <img src={`https://osu.ppy.sh/images/flags/${player.country_code}.png`} alt={player.country} />
   </div>
   <div class="name">
-    {player.username} (#{player.seed})
+    {player.username} (#{player.seed}, {player.timezone})
   </div>
 </a>
 

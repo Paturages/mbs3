@@ -22,7 +22,7 @@ const pool = new Pool({
 });
 
 const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challonge.com/v1/tournaments/${CHALLONGE_TOURNAMENT_ID}`;
-const currentStage = 'ro32';
+const currentStage = 'ro16';
 
 // group_player_ids[0] is for group stage players, for some reason
 const getId = (participant, stage) => stage == 'groups' ? participant.group_player_ids[0] : participant.id;
@@ -35,7 +35,7 @@ const getId = (participant, stage) => stage == 'groups' ? participant.group_play
 
   console.log('Fetching tournament data...');
   const { rows: matches } = await pool.query(`
-    select m.id, m.wbd, m.stage, s.best_of, array_agg(players_id) as player_ids
+    select m.id, m.wbd, m.dependencies, m.stage, s.best_of, array_agg(players_id) as player_ids
     from matches_players mp
     join matches m on m.id = mp.matches_id
     join stages s on s.slug = m.stage
@@ -96,6 +96,19 @@ const getId = (participant, stage) => stage == 'groups' ? participant.group_play
           }
         }
       });
+      // Clean up conditional matches
+      if (match.dependents) {
+        const { rows: deleted } = await pool.query(`delete from matches where $1 = any(regexp_split_to_array(dependencies, ',')) and id in (
+          select matches_id from matches_players where players_id = $2
+        ) returning id`, [
+          match.id,
+          score1 == winCondition ? participant2.misc : participant1.misc
+        ]);
+        // Cascade manually
+        await pool.query(`delete from matches_players where matches_id = any($1)`, deleted.map(m => m.id));
+        console.log('Deleted', deleted);
+      }
     }
   }
+  pool.end();
 })();
