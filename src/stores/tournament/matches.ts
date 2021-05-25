@@ -25,6 +25,15 @@ export const init = async (newStage: string) => {
     // Properly display seed order in matches
     match.players = match.players[0].player.seed < match.players[1].player.seed ? match.players : match.players.reverse();
 
+    // Set up dependencies
+    if (match.dependencies) {
+      match.dependencies = match.dependencies.split(',').map(id => data.matches.find(m => m.id == id)).filter(x => x);
+      match.dependencies.forEach(dep => {
+        if (!dep.dependents) dep.dependents = [];
+        dep.dependents.push(match);
+      });
+    }
+
     // Compute match scores
     if (match.wbd) {
       match.points1 = match.wbd.id == match.players[0].player.id ? 'WBD' : 0;

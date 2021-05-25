@@ -1,39 +1,16 @@
 <script lang="ts">
+  import { DateTime } from 'luxon';
   import type { Match } from '../../types';
   import { me } from '../../stores/core';
   import PlayerCompact from '../atoms/PlayerCompact.svelte';
   export let match: Match;
-  export let toggleRefereeAvailable: (() => Promise<any>) | null = null;
-  export let toggleStreamerAvailable: (() => Promise<any>) | null = null;
-  export let toggleCommentatorAvailable: (() => Promise<any>) | null = null;
 
   const [topPlayer, bottomPlayer] = match.players.map(({ player }) => player);
-  let time, isRefereeAdded, isStreamerAdded, isCommentatorAdded;
-  $: {
-    time = new Date(match.time);
-    isRefereeAdded = toggleRefereeAvailable && match.available_referees.find(({ referee }) => referee.id == $me.id);
-    isStreamerAdded = toggleStreamerAvailable && match.available_streamers.find(({ streamer }) => streamer.id == $me.id);
-    isCommentatorAdded = toggleCommentatorAvailable && match.available_commentators.find(({ commentator }) => commentator.id == $me.id);
-  }
-
-  let settingRefereeAvailable;
-  const handleToggleRefereeAvailable = async () => {
-    settingRefereeAvailable = true;
-    await toggleRefereeAvailable();
-    settingRefereeAvailable = false;
-  }
-  let settingStreamerAvailable;
-  const handleToggleStreamerAvailable = async () => {
-    settingStreamerAvailable = true;
-    await toggleStreamerAvailable();
-    settingStreamerAvailable = false;
-  }
-  let settingCommentatorAvailable;
-  const handleToggleCommentatorAvailable = async () => {
-    settingCommentatorAvailable = true;
-    await toggleCommentatorAvailable();
-    settingCommentatorAvailable = false;
-  }
+  const now = DateTime.now();
+  const time = DateTime.fromISO(match.time);
+  const utc = time.setZone('utc');
+  const matchHappened = time < now;
+  const diff = time.diff(now, ['days', 'hours', 'minutes']).toObject();
 </script>
 
 <div class="match" class:my-match={$me?.id == topPlayer.id || $me?.id == bottomPlayer.id} on:click>
@@ -45,12 +22,38 @@
     {:else}
       M{match.id}
     {/if}
+    {#if topPlayer.elite}
+      <div class="desc">Elite</div>
+    {/if}
+    <div class="desc">{match.loser ? 'Losers' : 'Winners'}</div>
+    {#if match.dependencies?.length}
+    <div class="desc">(conditional)</div>
+    {/if}
   </div>
   <div class="body">
     <div class="time">
-      <b>{time.toDateString()} {time.toTimeString().replace(':00 GMT', ' UTC')}</b>
-      <div class="utc">{time.toUTCString().replace(':00 GMT', ' UTC+0')}</div>
+      <b>{time.toLocaleString(DateTime.DATETIME_HUGE)}</b>
+      <div class="utc">
+        ({utc.toLocaleString(DateTime.DATETIME_FULL)}{#if !matchHappened},
+        in {diff.days} days, {diff.hours} hours and {diff.minutes >> 0} minutes{/if})
+      </div>
     </div>
+    {#if match.dependencies}
+    <div class="deps">
+      depends on{#each match.dependencies as dep, i (dep.id)}
+        {#if i}, {/if}
+        M{dep.id} ({DateTime.fromISO(dep.time).toLocaleString(DateTime.DATETIME_FULL)})
+      {/each}
+    </div>
+    {/if}
+    {#if match.dependents}
+    <div class="deps">
+      affects{#each match.dependents as dep, i (dep.id)}
+        {#if i}, {/if}
+        M{dep.id} ({DateTime.fromISO(dep.time).toLocaleString(DateTime.DATETIME_FULL)})
+      {/each}
+    </div>
+    {/if}
     <div class="staff">
       <b>Referee</b>:
       {#if match.referee}
@@ -70,57 +73,6 @@
           {#if i}, {/if}
           <a href={`https://osu.ppy.sh/users/${commentator.id}`}>{commentator.username}</a>
         {/each}
-      {/if}
-      
-      {#if toggleRefereeAvailable}
-        <br />
-        <b>Available referees</b>:
-        {#each match.available_referees as { referee } (referee.id)}
-          <a class="staff-compact" title={referee.username} href={`https://osu.ppy.sh/users/${referee.id}`}>
-            <img alt={referee.id} src={referee.avatar} />
-          </a>
-        {:else}None{/each}
-        -
-        {#if settingRefereeAvailable}
-          Processing...
-        {:else if isRefereeAdded}
-          <a href="javascript:void(0)" on:click={handleToggleRefereeAvailable}>Remove yourself</a>
-        {:else}
-          <a href="javascript:void(0)" on:click={handleToggleRefereeAvailable}>Add yourself as available</a>
-        {/if}
-      {/if}
-      {#if toggleStreamerAvailable}
-        <br />
-        <b>Available streamers</b>:
-        {#each match.available_streamers as { streamer } (streamer.id)}
-          <a class="staff-compact" title={streamer.username} href={`https://osu.ppy.sh/users/${streamer.id}`}>
-            <img alt={streamer.id} src={streamer.avatar} />
-          </a>
-        {:else}None{/each}
-        -
-        {#if settingStreamerAvailable}
-          Processing...
-        {:else if isStreamerAdded}
-          <a href="javascript:void(0)" on:click={handleToggleStreamerAvailable}>Remove yourself</a>
-        {:else}
-          <a href="javascript:void(0)" on:click={handleToggleStreamerAvailable}>Add yourself as available</a>
-        {/if}
-      {/if}
-      {#if toggleCommentatorAvailable}
-        <br />
-        <b>Available commentators</b>:
-        {#each match.available_commentators as { commentator } (commentator.id)}
-          <a class="staff-compact" title={commentator.username} href={`https://osu.ppy.sh/users/${commentator.id}`}>
-            <img alt={commentator.id} src={commentator.avatar} />
-          </a>
-        {:else}None{/each} -
-        {#if settingCommentatorAvailable}
-          Processing...
-        {:else if isCommentatorAdded}
-          <a href="javascript:void(0)" on:click={handleToggleCommentatorAvailable}>Remove yourself</a>
-        {:else}
-          <a href="javascript:void(0)" on:click={handleToggleCommentatorAvailable}>Add yourself as available</a>
-        {/if}
       {/if}
     </div>
     <div class="players">
@@ -157,13 +109,12 @@
     position: relative;
     flex-shrink: 0;
   }
+  .desc {
+    font-size: .75em;
+  }
 
-  .name :global(.button) {
-    font-size: .16em;
-    position: absolute;
-    bottom: -5em;
-    left: 50%;
-    transform: translateX(-50%);
+  .deps {
+    font-size: .75em;
   }
 
   .staff {
@@ -171,9 +122,9 @@
   }
 
   .utc {
-    opacity: .6;
+    opacity: .7;
   }
-  .utc, .time {
+  .time {
     font-size: .8em;
   }
 
@@ -187,16 +138,6 @@
 
   .body {
     flex: 1;
-  }
-
-  .staff-compact {
-    margin: 0 .125em;
-  }
-
-  .staff-compact img {
-    height: 1em;
-    border-radius: 50%;
-    border: 1px solid #eee;
   }
 
   .score {

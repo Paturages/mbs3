@@ -13,35 +13,6 @@
   $: if ($matches && $me?.player?.group && !myMatches) {
     myMatches = $matches.filter(match => match.players.find(({ player }) => player.id == $me.id));
   }
-  
-  const toggleAvailable = (entity: 'referee' | 'streamer' | 'commentator', match: IMatch) => async () => {
-    const existingEntry = match[`available_${entity}s`].find(x => x[entity].id == $me.id);
-    const res = await api(`/items/matches/${match.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        [`available_${entity}s`]: existingEntry ? { delete: [existingEntry.rel_id] } : { create: [{ [`${entity}s_id`]: $me.id }] }
-      })
-    });
-    if (res.errors) {
-      alert(res.errors[0].message);
-    } else {
-      matches.set($matches.map(m => {
-        if (m.id != match.id) return m;
-        if (existingEntry) {
-          m[`available_${entity}s`] = m[`available_${entity}s`].filter(x => x[entity].id != $me.id);
-        } else {
-          m[`available_${entity}s`].push({
-            rel_id: res.data[`available_${entity}s`].pop(),
-            [entity]: $me[entity]
-          });
-        }
-        return m;
-      }));
-    }
-  };
 </script>
 
 <div class="links">
@@ -70,12 +41,7 @@
   </div>
   <div class="matches">
     {#each $matches as match, i (match.id)}
-      <Match
-        {match}
-        toggleRefereeAvailable={$me?.referee && toggleAvailable('referee', match)}
-        toggleStreamerAvailable={$me?.streamer && toggleAvailable('streamer', match)}
-        toggleCommentatorAvailable={$me?.commentator && toggleAvailable('commentator', match)}
-      />
+      <Match {match} />
     {/each}
   </div>
 {/if}

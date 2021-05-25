@@ -40,6 +40,7 @@ export default `query GetMatches($stage: String!) {
     players {
       player: players_id {
         id
+        elite
         username
         avatar
         seed
@@ -48,6 +49,8 @@ export default `query GetMatches($stage: String!) {
       }
     }
     time
+    loser
+    dependencies
     referee {
       id
       username

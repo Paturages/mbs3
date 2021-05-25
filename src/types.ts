@@ -105,6 +105,10 @@ export interface Match {
   picks: Pick[];
   scores: Score[];
   wbd?: Player;
+  loser: boolean;
+
+  dependencies?: Match[];
+  dependents?: Match[];
   
   available_referees?: {
     rel_id: number;
