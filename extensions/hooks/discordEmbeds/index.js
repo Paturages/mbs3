@@ -10,8 +10,8 @@ module.exports = function registerHook({ database }) {
       }
     },
     "items.update": async function ({ collection, payload, item }) {
-      // On match link update
-      if (collection == 'matches' && payload.link) {
+      // On match link update or wbd
+      if (collection == 'matches' && (payload.link || payload.wbd)) {
         await sendDiscordEmbedFromMatchId(+item, database);
       }
     },
