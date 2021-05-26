@@ -11,7 +11,8 @@
     <img src={`https://osu.ppy.sh/images/flags/${player.country_code}.png`} alt={player.country} />
   </div>
   <div class="name">
-    {player.username} (#{player.seed}, {player.timezone})
+    {player.username}
+    <div class="details">#{player.seed} - {player.timezone}</div>
   </div>
 </a>
 
@@ -32,5 +33,8 @@
   }
   .flag img {
     height: 1em;
+  }
+  .details {
+    font-size: .8em;
   }
 </style>
