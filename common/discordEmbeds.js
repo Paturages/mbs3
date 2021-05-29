@@ -89,7 +89,7 @@ exports.sendDiscordEmbedFromMatchId = async (matchId, database) => {
   stage.winCondition = 1 + (stage.best_of / 2 >> 0);
   match.points1 = match.wbd == players[0].id ? 'WBD' : 0;
   match.points2 = match.wbd == players[1].id ? 'WBD' : 0;
-  picks.forEach(pick => {
+  if (!match.wbd) picks.forEach(pick => {
     const score1 = scores.find(s => s.map == pick.id && s.player == players[0].id);
     const score2 = scores.find(s => s.map == pick.id && s.player == players[1].id);
     if (score1 || score2) {
