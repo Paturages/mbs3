@@ -19,13 +19,14 @@ const pool = new Pool({
   port: DB_PORT
 });
 
-const stage = 'ro16';
-const label = 'Round of 16';
+const stage = 'qf';
+const label = 'Quarterfinals';
 
 (async () => {
   const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', [stage]);
+  console.log(maps.length, 'maps');
   for (let i = 0; i < maps.length; i += 4) {
-    await got.patch(ANNOUNCEMENT_HOOK, {
+    const res = await got.post(ANNOUNCEMENT_HOOK, {
       json: {
         "content": i ? null : ("**" + label + "**"),
         "embeds": maps.slice(i, i+4).map(map => {

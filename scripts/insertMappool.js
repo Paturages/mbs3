@@ -19,25 +19,25 @@ const pool = new Pool({
   port: DB_PORT
 });
 
-const stage = 'ro16';
+const stage = 'qf';
 
 (async () => {
   const { rows: [admin] } = await pool.query(`select token from directus_users where first_name = $1 and last_name = $2`, ['Admin', 'User']);
   pool.end();
   const maps = [
-    ['Rice', 'https://osu.ppy.sh/beatmaps/1215685', 2],
-    ['Rice', 'https://osu.ppy.sh/beatmaps/2663564', 2],
-    ['Rice', 'https://osu.ppy.sh/beatmaps/1869523'],
-    ['Rice', 'https://osu.ppy.sh/beatmaps/2918442'],
-    ['Rice', 'https://osu.ppy.sh/beatmaps/2481154'],
-    ['Rice', 'https://osu.ppy.sh/beatmaps/2999092'],
-    ['LN', 'https://osu.ppy.sh/beatmaps/2745911', 2],
-    ['LN', 'https://osu.ppy.sh/beatmaps/2856841', 2],
-    ['LN', 'https://osu.ppy.sh/beatmaps/3011048', 2],
-    ['Hybrid', 'https://osu.ppy.sh/beatmaps/2541097'],
-    ['Hybrid', 'https://osu.ppy.sh/beatmaps/2586726'],
-    ['Tiebreaker (rice)', 'https://osu.ppy.sh/beatmaps/2681840'],
-    ['Tiebreaker (hybrid)', 'https://osu.ppy.sh/beatmaps/2027535']
+    ['Rice', '2248050', 2],
+    ['Rice', '892220', 2],
+    ['Rice', '2553647'],
+    ['Rice', '1978443'],
+    ['Rice', '2206806'],
+    ['Rice', '2217143'],
+    ['LN', '2487451', 2],
+    ['LN', '2382774', 2],
+    ['LN', '2039701', 2],
+    ['Hybrid', '2669198'],
+    ['Hybrid', '1729302'],
+    ['Tiebreaker (rice)', '1466198'],
+    ['Tiebreaker (hybrid)', '2419040']
   ];
   for (let order = 1; order <= maps.length; order += 1) {
     const [category, id, weight] = maps[order-1];
