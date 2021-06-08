@@ -91,6 +91,20 @@
 		{:else if $page == 'qf!rolls'}
 			<BracketRolls stage="qf" />
 
+		{:else if $page == 'sf'}
+			<BracketMatches stage="sf" />
+		{:else if $page == 'sf!maps'}
+			<BracketMaps stage="sf" />
+		{:else if $page == 'sf!rolls'}
+			<BracketRolls stage="sf" />
+
+		{:else if $page == 'f'}
+			<BracketMatches stage="f" />
+		{:else if $page == 'f!maps'}
+			<BracketMaps stage="f" />
+		{:else if $page == 'f!rolls'}
+			<BracketRolls stage="f" />
+
 		{:else}
 			<Staff />
 		{/if}

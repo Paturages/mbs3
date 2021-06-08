@@ -202,9 +202,9 @@
 
   $: if ($me && $stages && !$matches) {
     let storedMatchId = localStorage.getItem('referee:match');
-    // Subtract one day to account for "overtime", i.e. matches that technically happen on monday
-    const nowMinusOne = new Date(Date.now() - 3600 * 24 * 1000).toISOString();
-    stage = $stages.find(s => s.date_end > nowMinusOne);
+    // Subtract two days to account for "overtime", i.e. matches that technically happen on monday
+    const nowMinusTwo = new Date(Date.now() - 3600 * 24 * 2000).toISOString();
+    stage = $stages.find(s => s.date_end > nowMinusTwo);
     winCondition = 1 + (stage.best_of / 2 >> 0);
     init(stage.slug).then(() => {
       selectedMatch = $matches.find(m => String(m.id) == storedMatchId);

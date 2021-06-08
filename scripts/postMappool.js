@@ -19,8 +19,8 @@ const pool = new Pool({
   port: DB_PORT
 });
 
-const stage = 'qf';
-const label = 'Quarterfinals';
+const stage = 'sf';
+const label = 'Semifinals';
 
 (async () => {
   const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', [stage]);
@@ -58,6 +58,9 @@ const label = 'Quarterfinals';
             author: {
               name: `[${map.category}] ${map.artist} - ${map.name} [${map.difficulty}]`,
               url: `https://osu.ppy.sh/beatmaps/${map.id}`
+            },
+            footer: {
+              text: `!mp map ${map.id} 3`
             }
           };
         })

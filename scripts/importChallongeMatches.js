@@ -21,8 +21,8 @@ const pool = new Pool({
   port: DB_PORT
 });
 
-const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challonge.com/v1/tournaments/${CHALLONGE_TOURNAMENT_ID}`;
-const currentStage = 'ro16';
+const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challonge.com/v1/tournaments/${CHALLONGE_TOURNAMENT_ID}${process.argv[2] || ''}`;
+const currentStage = 'sf';
 
 (async () => {
   console.log('Fetching matches...');

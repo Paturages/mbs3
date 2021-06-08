@@ -42,6 +42,14 @@ export const pages = new Set([
   'qf!maps',
   'qf!rolls',
 
+  'sf',
+  'sf!maps',
+  'sf!rolls',
+
+  'f',
+  'f!maps',
+  'f!rolls',
+
   'scuffed!drawing',
   'referee!helper'
 ])

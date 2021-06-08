@@ -19,25 +19,27 @@ const pool = new Pool({
   port: DB_PORT
 });
 
-const stage = 'qf';
+const stage = 'sf';
 
 (async () => {
   const { rows: [admin] } = await pool.query(`select token from directus_users where first_name = $1 and last_name = $2`, ['Admin', 'User']);
   pool.end();
   const maps = [
-    ['Rice', '2248050', 2],
-    ['Rice', '892220', 2],
-    ['Rice', '2553647'],
-    ['Rice', '1978443'],
-    ['Rice', '2206806'],
-    ['Rice', '2217143'],
-    ['LN', '2487451', 2],
-    ['LN', '2382774', 2],
-    ['LN', '2039701', 2],
-    ['Hybrid', '2669198'],
-    ['Hybrid', '1729302'],
-    ['Tiebreaker (rice)', '1466198'],
-    ['Tiebreaker (hybrid)', '2419040']
+    ['Rice', '2829360', 2],
+    ['Rice', '2996967', 2],
+    ['Rice', '981646'],
+    ['Rice', '2854334'],
+    ['Rice', '1913067'],
+    ['Rice', '2767953'],
+    ['Rice', '2723224'],
+    ['LN', '2641964', 2],
+    ['LN', '3034826', 2],
+    ['LN', '2110798', 2],
+    ['Hybrid', '1995529'],
+    ['Hybrid', '2938244'],
+    ['Hybrid', '2316593'],
+    ['Tiebreaker (rice)', '1703189'],
+    ['Tiebreaker (hybrid)', '2129202']
   ];
   for (let order = 1; order <= maps.length; order += 1) {
     const [category, id, weight] = maps[order-1];
