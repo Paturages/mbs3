@@ -164,13 +164,13 @@ let access_token;
     });
 
     if (shouldChangeTimezone) {
-      await api('/custom/profile/timezone', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ offset: new Date().getTimezoneOffset() })
-      });
+      // await api('/custom/profile/timezone', {
+      //   method: 'PATCH',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({ offset: new Date().getTimezoneOffset() })
+      // });
     }
   }
 })();
