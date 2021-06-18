@@ -206,7 +206,7 @@
     const nowMinusTwo = new Date(Date.now() - 3600 * 24 * 2000).toISOString();
     stage = $stages.find(s => s.date_end > nowMinusTwo);
     winCondition = 1 + (stage.best_of / 2 >> 0);
-    init('sf').then(() => {
+    init(stage.slug).then(() => {
       selectedMatch = $matches.find(m => String(m.id) == storedMatchId);
       riceTiebreaker = $maps.find(m => m.category == 'Tiebreaker (rice)');
       hybridTiebreaker = $maps.find(m => m.category == 'Tiebreaker (hybrid)');

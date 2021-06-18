@@ -22,7 +22,7 @@ const pool = new Pool({
 });
 
 const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challonge.com/v1/tournaments/${CHALLONGE_TOURNAMENT_ID}${process.argv[2] || ''}`;
-const currentStage = 'sf';
+const currentStage = 'f';
 
 (async () => {
   console.log('Fetching matches...');
@@ -33,12 +33,12 @@ const currentStage = 'sf';
   for (const { match: challongeMatch } of challongeMatches) {
     const { participant: p1 } = participants.find(({ participant }) => participant.id == challongeMatch.player1_id);
     const { participant: p2 } = participants.find(({ participant }) => participant.id == challongeMatch.player2_id);
-    console.log(p1.name, ' vs. ', p2.name);
     const { rows: [match] } = await pool.query(
       `insert into matches (stage, loser) values ($1, $2) returning id`,
       // Challonge round values are negative if they're in the loser's bracket, e.g. losers round 2 is "-2"
       [currentStage, challongeMatch.round < 0]
     );
+    console.log('M' + match.id, p1.name, ' vs. ', p2.name);
     await pool.query(
       `insert into matches_players (matches_id, players_id) values ($1, $2), ($1, $3)`,
       [match.id, p1.misc, p2.misc]

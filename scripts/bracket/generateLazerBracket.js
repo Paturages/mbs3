@@ -192,7 +192,20 @@ const BRACKET = {
               },
             })) || [],
         })),
-        Teams: players.map((player) => ({
+        Teams: players.concat([
+          {
+            username: 'Mappool',
+            country: 'Map',
+            country_code: 'MAP',
+            seed: 0,
+          },
+          {
+            username: 'Showcase',
+            country: 'Map',
+            country_code: 'MAP',
+            seed: 0,
+          },
+        ]).map((player) => ({
           FullName: player.username,
           FlagName: player.country_code,
           Acronym: player.username.toUpperCase(),
