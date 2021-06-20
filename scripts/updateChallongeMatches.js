@@ -22,7 +22,7 @@ const pool = new Pool({
 });
 
 const baseUrl = `https://${CHALLONGE_USERNAME}:${CHALLONGE_API_KEY}@api.challonge.com/v1/tournaments/${CHALLONGE_TOURNAMENT_ID}${process.argv[2] || ''}`;
-const currentStage = 'sf';
+const currentStage = 'gf';
 
 // group_player_ids[0] is for group stage players, for some reason
 const getId = (participant, stage) => stage == 'groups' ? participant.group_player_ids[0] : participant.id;
