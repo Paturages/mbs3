@@ -565,9 +565,6 @@
                 "name": "Semifinals"
               }
             }
-          },
-          {
-            "match": null
           }
         ]
       },
@@ -1090,12 +1087,6 @@
                 "name": "Finals"
               }
             }
-          },
-          {
-            "match": null
-          },
-          {
-            "match": null
           }
         ]
       },
@@ -1728,9 +1719,6 @@
                 "name": "Semifinals"
               }
             }
-          },
-          {
-            "match": null
           }
         ]
       },
@@ -1917,9 +1905,6 @@
             }
           },
           {
-            "match": null
-          },
-          {
             "match": {
               "id": 468,
               "stage": {
@@ -2094,9 +2079,6 @@
                 "name": "Finals"
               }
             }
-          },
-          {
-            "match": null
           },
           {
             "match": {
@@ -3785,9 +3767,6 @@
                 "name": "Semifinals"
               }
             }
-          },
-          {
-            "match": null
           },
           {
             "match": {
@@ -5932,15 +5911,6 @@
                 "name": "Round of 16"
               }
             }
-          },
-          {
-            "match": null
-          },
-          {
-            "match": null
-          },
-          {
-            "match": null
           }
         ]
       },
