@@ -13,13 +13,14 @@ export const init = async (newStage: string) => {
   matches.set(null);
   maps.set(null);
 
-  const { data } = await api('/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query, variables: { stage: newStage } })
-  });
+  // const { data } = await api('/graphql', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({ query, variables: { stage: newStage } })
+  // });
+  const { data } = await api(`/data/${newStage}.matches.json`);
 
   data.matches.forEach(match => {
     // Properly display seed order in matches

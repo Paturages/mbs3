@@ -22,7 +22,7 @@
     <div class="host-title">Hosted by</div>
     Paturages & Davvy
   </div>
-  <div class="me">
+  <!-- <div class="me">
     {#if $me}
       Logged in as
       <b>{$me.username}</b> -
@@ -42,7 +42,7 @@
     {:else if $referees.length}
       <a href={loginUrl}>Login</a>
     {/if}
-  </div>
+  </div> -->
 </div>
 
 <style>

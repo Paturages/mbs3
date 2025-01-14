@@ -1,0 +1,1925 @@
+{
+  "data": {
+    "maps": [
+      {
+        "id": "2955197",
+        "artist": "LUZE",
+        "name": "3.14 (TT mix)",
+        "weight": 1,
+        "difficulty": "[4K] Stage 1: Incomputable",
+        "charter": "Kamikaze",
+        "charter_id": "2124783",
+        "category": "Tech",
+        "bpm": 159,
+        "length": "1:51 (1:50)",
+        "od": 8,
+        "hp": 8,
+        "sr": 3.04,
+        "cover": "https://assets.ppy.sh/beatmaps/1436263/covers/cover.jpg?1618764693"
+      },
+      {
+        "id": "2954876",
+        "artist": "OMORI Sound Team",
+        "name": "Forest Frenzy",
+        "weight": 1,
+        "difficulty": "[4K] Stage 2: Bun",
+        "charter": "-mint-",
+        "charter_id": "8976576",
+        "category": "LN",
+        "bpm": 143,
+        "length": "2:07 (2:07)",
+        "od": 7,
+        "hp": 7,
+        "sr": 2.19,
+        "cover": "https://assets.ppy.sh/beatmaps/1436084/covers/cover.jpg?1618753205"
+      },
+      {
+        "id": "2955389",
+        "artist": "EmoCosine",
+        "name": "MAGENTA POTION",
+        "weight": 1,
+        "difficulty": "[4K] Stage 3: Colorful",
+        "charter": "DannyPX",
+        "charter_id": "11253722",
+        "category": "Hybrid",
+        "bpm": 150,
+        "length": "2:23 (2:23)",
+        "od": 8,
+        "hp": 7.5,
+        "sr": 3.1,
+        "cover": "https://assets.ppy.sh/beatmaps/1436378/covers/cover.jpg?1618772034"
+      },
+      {
+        "id": "2954852",
+        "artist": "Toromaru",
+        "name": "Enigma II",
+        "weight": 1,
+        "difficulty": "[4K] Stage 4: Oblique",
+        "charter": "guden",
+        "charter_id": "11626065",
+        "category": "Hard rice",
+        "bpm": 201,
+        "length": "1:48 (1:46)",
+        "od": 8,
+        "hp": 8,
+        "sr": 3.5,
+        "cover": "https://assets.ppy.sh/beatmaps/1436069/covers/cover.jpg?1618752149"
+      }
+    ],
+    "qualifier_lobbies": [
+      {
+        "name": "QE01",
+        "link": "https://osu.ppy.sh/community/matches/81319237",
+        "players": [
+          {
+            "id": "10981171",
+            "username": "kit-"
+          }
+        ],
+        "time": "2021-04-20T09:00:00Z",
+        "referee": {
+          "id": "1375479",
+          "username": "Paturages"
+        },
+        "available_referees": []
+      },
+      {
+        "name": "QE02",
+        "link": "https://osu.ppy.sh/community/matches/81579690",
+        "players": [
+          {
+            "id": "13145344",
+            "username": "dylan52528"
+          },
+          {
+            "id": "4937439",
+            "username": "GrilledCheeese"
+          },
+          {
+            "id": "8250678",
+            "username": "Fl0oW"
+          }
+        ],
+        "time": "2021-04-23T14:00Z",
+        "referee": {
+          "id": "7253958",
+          "username": "Sayira"
+        },
+        "available_referees": [
+          {
+            "rel_id": 107,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "QE03",
+        "link": "https://osu.ppy.sh/community/matches/81584582",
+        "players": [
+          {
+            "id": "9895270",
+            "username": "marbl"
+          }
+        ],
+        "time": "2021-04-23T15:00Z",
+        "referee": {
+          "id": "1375479",
+          "username": "Paturages"
+        },
+        "available_referees": []
+      },
+      {
+        "name": "Q01",
+        "link": "https://osu.ppy.sh/community/matches/81635551",
+        "players": [
+          {
+            "id": "12643659",
+            "username": "Darnagon"
+          },
+          {
+            "id": "13053483",
+            "username": "foxygamer666xyz"
+          },
+          {
+            "id": "16589564",
+            "username": "Yultini"
+          },
+          {
+            "id": "6752242",
+            "username": "ZelLink"
+          },
+          {
+            "id": "8184715",
+            "username": "Syako"
+          },
+          {
+            "id": "9709652",
+            "username": "junglesnipes"
+          }
+        ],
+        "time": "2021-04-24T00:00Z",
+        "referee": {
+          "id": "15776185",
+          "username": "Gerwin13"
+        },
+        "available_referees": [
+          {
+            "rel_id": 104,
+            "referee": {
+              "id": "15776185",
+              "username": "Gerwin13"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q02",
+        "link": "https://osu.ppy.sh/community/matches/81642534",
+        "players": [
+          {
+            "id": "15255368",
+            "username": "- Sky -"
+          },
+          {
+            "id": "16479936",
+            "username": "marcel24"
+          },
+          {
+            "id": "19177783",
+            "username": "Tiago_LLFD"
+          },
+          {
+            "id": "2307285",
+            "username": "IControl"
+          },
+          {
+            "id": "7789926",
+            "username": "bvyans"
+          }
+        ],
+        "time": "2021-04-24T02:00Z",
+        "referee": {
+          "id": "15776185",
+          "username": "Gerwin13"
+        },
+        "available_referees": [
+          {
+            "rel_id": 105,
+            "referee": {
+              "id": "15776185",
+              "username": "Gerwin13"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q03",
+        "link": "https://osu.ppy.sh/community/matches/81649937",
+        "players": [
+          {
+            "id": "5028866",
+            "username": "ibacot"
+          },
+          {
+            "id": "6180024",
+            "username": "ph03n1x"
+          },
+          {
+            "id": "8182717",
+            "username": "Espurr"
+          },
+          {
+            "id": "9908055",
+            "username": "Ihram-San"
+          }
+        ],
+        "time": "2021-04-24T04:00Z",
+        "referee": {
+          "id": "13382147",
+          "username": "[-Leon-]"
+        },
+        "available_referees": [
+          {
+            "rel_id": 101,
+            "referee": {
+              "id": "13382147",
+              "username": "[-Leon-]"
+            }
+          },
+          {
+            "rel_id": 106,
+            "referee": {
+              "id": "15776185",
+              "username": "Gerwin13"
+            }
+          },
+          {
+            "rel_id": 108,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q04",
+        "link": "https://osu.ppy.sh/community/matches/81656564",
+        "players": [
+          {
+            "id": "15409748",
+            "username": "vortexx"
+          },
+          {
+            "id": "17651938",
+            "username": "cuber1020"
+          },
+          {
+            "id": "20020441",
+            "username": "cygerion"
+          }
+        ],
+        "time": "2021-04-24T06:00Z",
+        "referee": {
+          "id": "6037121",
+          "username": "-TANAKITO-"
+        },
+        "available_referees": [
+          {
+            "rel_id": 32,
+            "referee": {
+              "id": "9066390",
+              "username": "Satsukel"
+            }
+          },
+          {
+            "rel_id": 51,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 78,
+            "referee": {
+              "id": "6037121",
+              "username": "-TANAKITO-"
+            }
+          },
+          {
+            "rel_id": 103,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          },
+          {
+            "rel_id": 109,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q05",
+        "link": "https://osu.ppy.sh/community/matches/81659151",
+        "players": [
+          {
+            "id": "10409963",
+            "username": "LieTieOsu"
+          }
+        ],
+        "time": "2021-04-24T07:00Z",
+        "referee": {
+          "id": "6037121",
+          "username": "-TANAKITO-"
+        },
+        "available_referees": [
+          {
+            "rel_id": 33,
+            "referee": {
+              "id": "9066390",
+              "username": "Satsukel"
+            }
+          },
+          {
+            "rel_id": 52,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 79,
+            "referee": {
+              "id": "6037121",
+              "username": "-TANAKITO-"
+            }
+          },
+          {
+            "rel_id": 84,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          },
+          {
+            "rel_id": 110,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q06",
+        "link": "https://osu.ppy.sh/community/matches/81661164",
+        "players": [
+          {
+            "id": "11818585",
+            "username": "Baguette2Pain"
+          },
+          {
+            "id": "13981456",
+            "username": "Fallen_HK"
+          },
+          {
+            "id": "3617111",
+            "username": "PokeSky"
+          },
+          {
+            "id": "5765923",
+            "username": "CloudBeater"
+          }
+        ],
+        "time": "2021-04-24T08:00Z",
+        "referee": {
+          "id": "9066390",
+          "username": "Satsukel"
+        },
+        "available_referees": [
+          {
+            "rel_id": 34,
+            "referee": {
+              "id": "9066390",
+              "username": "Satsukel"
+            }
+          },
+          {
+            "rel_id": 53,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 80,
+            "referee": {
+              "id": "6037121",
+              "username": "-TANAKITO-"
+            }
+          },
+          {
+            "rel_id": 85,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          },
+          {
+            "rel_id": 111,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q07",
+        "link": "https://osu.ppy.sh/community/matches/81663109",
+        "players": [
+          {
+            "id": "12528915",
+            "username": "Flickardo"
+          },
+          {
+            "id": "16214723",
+            "username": "Qutilt"
+          },
+          {
+            "id": "8945180",
+            "username": "molneya"
+          },
+          {
+            "id": "9671048",
+            "username": "- PLARHELLME -"
+          }
+        ],
+        "time": "2021-04-24T09:00Z",
+        "referee": {
+          "id": "9066390",
+          "username": "Satsukel"
+        },
+        "available_referees": [
+          {
+            "rel_id": 35,
+            "referee": {
+              "id": "9066390",
+              "username": "Satsukel"
+            }
+          },
+          {
+            "rel_id": 54,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 69,
+            "referee": {
+              "id": "13382147",
+              "username": "[-Leon-]"
+            }
+          },
+          {
+            "rel_id": 81,
+            "referee": {
+              "id": "6037121",
+              "username": "-TANAKITO-"
+            }
+          },
+          {
+            "rel_id": 86,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          },
+          {
+            "rel_id": 112,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          },
+          {
+            "rel_id": 120,
+            "referee": {
+              "id": "7756939",
+              "username": "Erkfir"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q08",
+        "link": "https://osu.ppy.sh/community/matches/81665128",
+        "players": [
+          {
+            "id": "10883287",
+            "username": "-YUUKINA-"
+          }
+        ],
+        "time": "2021-04-24T10:00Z",
+        "referee": {
+          "id": "7253958",
+          "username": "Sayira"
+        },
+        "available_referees": [
+          {
+            "rel_id": 43,
+            "referee": {
+              "id": "13382147",
+              "username": "[-Leon-]"
+            }
+          },
+          {
+            "rel_id": 82,
+            "referee": {
+              "id": "6037121",
+              "username": "-TANAKITO-"
+            }
+          },
+          {
+            "rel_id": 87,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          },
+          {
+            "rel_id": 119,
+            "referee": {
+              "id": "7756939",
+              "username": "Erkfir"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q09",
+        "link": "https://osu.ppy.sh/community/matches/81667458",
+        "players": [
+          {
+            "id": "10473045",
+            "username": "No0b"
+          },
+          {
+            "id": "11354950",
+            "username": "mickeyparm"
+          },
+          {
+            "id": "7246165",
+            "username": "Kageno"
+          },
+          {
+            "id": "8379046",
+            "username": "AmateurMonkeyYT"
+          }
+        ],
+        "time": "2021-04-24T11:00Z",
+        "referee": {
+          "id": "15776185",
+          "username": "Gerwin13"
+        },
+        "available_referees": [
+          {
+            "rel_id": 50,
+            "referee": {
+              "id": "15776185",
+              "username": "Gerwin13"
+            }
+          },
+          {
+            "rel_id": 83,
+            "referee": {
+              "id": "6037121",
+              "username": "-TANAKITO-"
+            }
+          },
+          {
+            "rel_id": 88,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          },
+          {
+            "rel_id": 122,
+            "referee": {
+              "id": "7756939",
+              "username": "Erkfir"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q10",
+        "link": "https://osu.ppy.sh/community/matches/81670370",
+        "players": [
+          {
+            "id": "10069850",
+            "username": "Normiplier"
+          },
+          {
+            "id": "14559339",
+            "username": "MCJze"
+          },
+          {
+            "id": "14927231",
+            "username": "TheTechKidYT"
+          },
+          {
+            "id": "16072554",
+            "username": "_Yoki"
+          },
+          {
+            "id": "9950122",
+            "username": "Gtrafh"
+          }
+        ],
+        "time": "2021-04-24T12:00Z",
+        "referee": {
+          "id": "14230684",
+          "username": "Fr05tyGD"
+        },
+        "available_referees": [
+          {
+            "rel_id": 36,
+            "referee": {
+              "id": "9066390",
+              "username": "Satsukel"
+            }
+          },
+          {
+            "rel_id": 55,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 94,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q11",
+        "link": "https://osu.ppy.sh/community/matches/81673670",
+        "players": [
+          {
+            "id": "11842432",
+            "username": "iHydrogenXHD"
+          },
+          {
+            "id": "12677757",
+            "username": "ProstoOK"
+          },
+          {
+            "id": "13661408",
+            "username": "Ventilo le vrai"
+          },
+          {
+            "id": "251683",
+            "username": "Musty"
+          },
+          {
+            "id": "4026124",
+            "username": "Infinitstart"
+          },
+          {
+            "id": "9535497",
+            "username": "Gatto Nero"
+          }
+        ],
+        "time": "2021-04-24T13:00Z",
+        "referee": {
+          "id": "9066390",
+          "username": "Satsukel"
+        },
+        "available_referees": [
+          {
+            "rel_id": 37,
+            "referee": {
+              "id": "9066390",
+              "username": "Satsukel"
+            }
+          },
+          {
+            "rel_id": 49,
+            "referee": {
+              "id": "13382147",
+              "username": "[-Leon-]"
+            }
+          },
+          {
+            "rel_id": 56,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 74,
+            "referee": {
+              "id": "14230684",
+              "username": "Fr05tyGD"
+            }
+          },
+          {
+            "rel_id": 95,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q12",
+        "link": "https://osu.ppy.sh/mp/81677025",
+        "players": [
+          {
+            "id": "10278428",
+            "username": "LeJamJam"
+          },
+          {
+            "id": "11548612",
+            "username": "Brokulek_OwO"
+          },
+          {
+            "id": "15659637",
+            "username": "Krasy_"
+          },
+          {
+            "id": "2735466",
+            "username": "Exilfaker"
+          },
+          {
+            "id": "5472693",
+            "username": "Agent5d"
+          }
+        ],
+        "time": "2021-04-24T14:00Z",
+        "referee": {
+          "id": "13382147",
+          "username": "[-Leon-]"
+        },
+        "available_referees": [
+          {
+            "rel_id": 38,
+            "referee": {
+              "id": "9066390",
+              "username": "Satsukel"
+            }
+          },
+          {
+            "rel_id": 44,
+            "referee": {
+              "id": "13382147",
+              "username": "[-Leon-]"
+            }
+          },
+          {
+            "rel_id": 57,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 96,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q13",
+        "link": "https://osu.ppy.sh/community/matches/81680856",
+        "players": [
+          {
+            "id": "11345268",
+            "username": "Lion80fr"
+          },
+          {
+            "id": "13017818",
+            "username": "twistedyoyo20"
+          },
+          {
+            "id": "13101668",
+            "username": "p0kiii"
+          },
+          {
+            "id": "13650129",
+            "username": "[MATHIS]"
+          },
+          {
+            "id": "17195504",
+            "username": "Yayamon"
+          },
+          {
+            "id": "18188796",
+            "username": "eubcwidcubwi"
+          },
+          {
+            "id": "6335238",
+            "username": "-Sisa"
+          },
+          {
+            "id": "9041586",
+            "username": "Nyroxx_"
+          }
+        ],
+        "time": "2021-04-24T15:00Z",
+        "referee": {
+          "id": "13382147",
+          "username": "[-Leon-]"
+        },
+        "available_referees": [
+          {
+            "rel_id": 45,
+            "referee": {
+              "id": "13382147",
+              "username": "[-Leon-]"
+            }
+          },
+          {
+            "rel_id": 58,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 97,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          },
+          {
+            "rel_id": 113,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q14",
+        "link": "https://osu.ppy.sh/mp/81685569",
+        "players": [
+          {
+            "id": "10417994",
+            "username": "Mikan080"
+          },
+          {
+            "id": "11985125",
+            "username": "Fizall"
+          },
+          {
+            "id": "13984214",
+            "username": "TheAmazing976_"
+          },
+          {
+            "id": "14973453",
+            "username": "peteploy123"
+          }
+        ],
+        "time": "2021-04-24T16:00Z",
+        "referee": {
+          "id": "5331420",
+          "username": "Mortelspawn_"
+        },
+        "available_referees": [
+          {
+            "rel_id": 59,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 70,
+            "referee": {
+              "id": "13382147",
+              "username": "[-Leon-]"
+            }
+          },
+          {
+            "rel_id": 114,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q15",
+        "link": "https://osu.ppy.sh/community/matches/81690649",
+        "players": [
+          {
+            "id": "12503371",
+            "username": "Charleyccc"
+          }
+        ],
+        "time": "2021-04-24T17:00Z",
+        "referee": {
+          "id": "5069913",
+          "username": "loli_seale"
+        },
+        "available_referees": [
+          {
+            "rel_id": 7,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 115,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q16",
+        "link": "https://osu.ppy.sh/community/matches/81695295",
+        "players": [
+          {
+            "id": "13455818",
+            "username": "Drew_TheMaster"
+          },
+          {
+            "id": "2383766",
+            "username": "Seemoon"
+          },
+          {
+            "id": "4258883",
+            "username": "vipera767"
+          },
+          {
+            "id": "9188198",
+            "username": "daveyard"
+          }
+        ],
+        "time": "2021-04-24T18:00Z",
+        "referee": {
+          "id": "5069913",
+          "username": "loli_seale"
+        },
+        "available_referees": [
+          {
+            "rel_id": 8,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 116,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q17",
+        "link": "https://osu.ppy.sh/community/matches/81701413",
+        "players": [
+          {
+            "id": "11216472",
+            "username": "Panda_0ne"
+          },
+          {
+            "id": "11263916",
+            "username": "qej"
+          },
+          {
+            "id": "12083116",
+            "username": "Render_1"
+          },
+          {
+            "id": "13443798",
+            "username": "xmallax"
+          },
+          {
+            "id": "17889002",
+            "username": "Pice"
+          },
+          {
+            "id": "18175073",
+            "username": "Kouhei79"
+          },
+          {
+            "id": "3765760",
+            "username": "Krokieet"
+          },
+          {
+            "id": "8720555",
+            "username": "StartAndSelect"
+          }
+        ],
+        "time": "2021-04-24T19:00Z",
+        "referee": {
+          "id": "5069913",
+          "username": "loli_seale"
+        },
+        "available_referees": [
+          {
+            "rel_id": 9,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 117,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q18",
+        "link": "https://osu.ppy.sh/community/matches/81706400",
+        "players": [
+          {
+            "id": "11358695",
+            "username": "Noasz"
+          },
+          {
+            "id": "11404841",
+            "username": "Mokip"
+          },
+          {
+            "id": "12563193",
+            "username": "Zulsramno"
+          },
+          {
+            "id": "14729666",
+            "username": "HachaOso"
+          },
+          {
+            "id": "14856326",
+            "username": "Terfight"
+          },
+          {
+            "id": "16088215",
+            "username": "xBlayd"
+          },
+          {
+            "id": "17538478",
+            "username": "[RUE]Chat_Pitre"
+          },
+          {
+            "id": "2931858",
+            "username": "BumbleBeesTea"
+          }
+        ],
+        "time": "2021-04-24T20:00Z",
+        "referee": {
+          "id": "5069913",
+          "username": "loli_seale"
+        },
+        "available_referees": [
+          {
+            "rel_id": 10,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 118,
+            "referee": {
+              "id": "5069913",
+              "username": "loli_seale"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q19",
+        "link": "https://osu.ppy.sh/community/matches/81711817",
+        "players": [
+          {
+            "id": "13392709",
+            "username": "Emre1504"
+          },
+          {
+            "id": "3867109",
+            "username": "Maou"
+          },
+          {
+            "id": "4965323",
+            "username": "DieButterStulle"
+          },
+          {
+            "id": "513834",
+            "username": "Katsumi"
+          },
+          {
+            "id": "6186473",
+            "username": "Parax_UnDeath"
+          },
+          {
+            "id": "6375060",
+            "username": "Enohx"
+          },
+          {
+            "id": "8694649",
+            "username": "DrugManager"
+          },
+          {
+            "id": "9489153",
+            "username": "QEpicAce"
+          }
+        ],
+        "time": "2021-04-24T21:00Z",
+        "referee": {
+          "id": "1375479",
+          "username": "Paturages"
+        },
+        "available_referees": [
+          {
+            "rel_id": 11,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q20",
+        "link": "https://osu.ppy.sh/community/matches/81716886",
+        "players": [
+          {
+            "id": "10116288",
+            "username": "rein13"
+          },
+          {
+            "id": "14486251",
+            "username": "Franco_8890"
+          },
+          {
+            "id": "2570828",
+            "username": "Megatron is bad"
+          },
+          {
+            "id": "3600549",
+            "username": "arth"
+          },
+          {
+            "id": "7957385",
+            "username": "Kaseda"
+          }
+        ],
+        "time": "2021-04-24T22:00Z",
+        "referee": {
+          "id": "1375479",
+          "username": "Paturages"
+        },
+        "available_referees": [
+          {
+            "rel_id": 12,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q21",
+        "link": "https://osu.ppy.sh/community/matches/81721092",
+        "players": [
+          {
+            "id": "15628036",
+            "username": "TheMoonLoop"
+          },
+          {
+            "id": "16607634",
+            "username": "Flammers18"
+          },
+          {
+            "id": "17989444",
+            "username": "-Xuste-"
+          },
+          {
+            "id": "18423393",
+            "username": "RaffawWl"
+          },
+          {
+            "id": "4631315",
+            "username": "Hitorion"
+          },
+          {
+            "id": "5101133",
+            "username": "Sawaf"
+          }
+        ],
+        "time": "2021-04-24T23:00Z",
+        "referee": {
+          "id": "1375479",
+          "username": "Paturages"
+        },
+        "available_referees": [
+          {
+            "rel_id": 13,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q22",
+        "link": "https://osu.ppy.sh/community/matches/81725321",
+        "players": [
+          {
+            "id": "15514347",
+            "username": "JeremyIsWrong"
+          },
+          {
+            "id": "18423554",
+            "username": "breadwithbutter"
+          },
+          {
+            "id": "6051693",
+            "username": "Wolferal"
+          },
+          {
+            "id": "6318977",
+            "username": "svc3255"
+          },
+          {
+            "id": "868700",
+            "username": "KentangBakar"
+          },
+          {
+            "id": "8916149",
+            "username": "artumax"
+          }
+        ],
+        "time": "2021-04-25T00:00Z",
+        "referee": {
+          "id": "8642224",
+          "username": "Konohana Lucia"
+        },
+        "available_referees": [
+          {
+            "rel_id": 14,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q23",
+        "link": "https://osu.ppy.sh/community/matches/81731956",
+        "players": [
+          {
+            "id": "11040524",
+            "username": "jman1205"
+          },
+          {
+            "id": "12755411",
+            "username": "Dai-jo-bu"
+          },
+          {
+            "id": "17193161",
+            "username": "Meguumiin"
+          },
+          {
+            "id": "17906556",
+            "username": "TheeGerman"
+          },
+          {
+            "id": "18207992",
+            "username": "Zau1 345"
+          },
+          {
+            "id": "6642597",
+            "username": "Rukairi"
+          },
+          {
+            "id": "9536977",
+            "username": "Ethaaaan"
+          }
+        ],
+        "time": "2021-04-25T02:00Z",
+        "referee": {
+          "id": "8642224",
+          "username": "Konohana Lucia"
+        },
+        "available_referees": [
+          {
+            "rel_id": 15,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q24",
+        "link": "https://osu.ppy.sh/community/matches/81737744",
+        "players": [
+          {
+            "id": "12312838",
+            "username": "reallemonmaster"
+          },
+          {
+            "id": "13608389",
+            "username": "CYDER"
+          },
+          {
+            "id": "4183406",
+            "username": "Sladak"
+          },
+          {
+            "id": "8134650",
+            "username": "UnitedWeGhost"
+          }
+        ],
+        "time": "2021-04-25T04:00Z",
+        "referee": {
+          "id": "7756939",
+          "username": "Erkfir"
+        },
+        "available_referees": [
+          {
+            "rel_id": 16,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 123,
+            "referee": {
+              "id": "7756939",
+              "username": "Erkfir"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q25",
+        "link": "https://osu.ppy.sh/community/matches/81745517",
+        "players": [
+          {
+            "id": "14778697",
+            "username": "[F o r e v e r]"
+          }
+        ],
+        "time": "2021-04-25T06:00Z",
+        "referee": {
+          "id": "9066390",
+          "username": "Satsukel"
+        },
+        "available_referees": [
+          {
+            "rel_id": 17,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 39,
+            "referee": {
+              "id": "9066390",
+              "username": "Satsukel"
+            }
+          },
+          {
+            "rel_id": 68,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q27",
+        "link": "https://osu.ppy.sh/mp/81749668",
+        "players": [
+          {
+            "id": "9351030",
+            "username": "Haryume"
+          }
+        ],
+        "time": "2021-04-25T08:00Z",
+        "referee": {
+          "id": "5331420",
+          "username": "Mortelspawn_"
+        },
+        "available_referees": [
+          {
+            "rel_id": 19,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 41,
+            "referee": {
+              "id": "9066390",
+              "username": "Satsukel"
+            }
+          },
+          {
+            "rel_id": 66,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 92,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q28",
+        "link": "https://osu.ppy.sh/community/matches/81751462",
+        "players": [
+          {
+            "id": "10211875",
+            "username": "Naikyo"
+          }
+        ],
+        "time": "2021-04-25T09:00Z",
+        "referee": {
+          "id": "7756939",
+          "username": "Erkfir"
+        },
+        "available_referees": [
+          {
+            "rel_id": 20,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 42,
+            "referee": {
+              "id": "9066390",
+              "username": "Satsukel"
+            }
+          },
+          {
+            "rel_id": 65,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 91,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          },
+          {
+            "rel_id": 124,
+            "referee": {
+              "id": "7756939",
+              "username": "Erkfir"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q31",
+        "link": "https://osu.ppy.sh/community/matches/81758726",
+        "players": [
+          {
+            "id": "10262909",
+            "username": "daput"
+          },
+          {
+            "id": "10780764",
+            "username": "MPWercix"
+          },
+          {
+            "id": "13378002",
+            "username": "Sinsa92"
+          },
+          {
+            "id": "2222301",
+            "username": "DrawnGirl"
+          },
+          {
+            "id": "4145998",
+            "username": "Bombiuszek"
+          }
+        ],
+        "time": "2021-04-25T12:00Z",
+        "referee": {
+          "id": "7253958",
+          "username": "Sayira"
+        },
+        "available_referees": [
+          {
+            "rel_id": 23,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 98,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q33",
+        "link": "https://osu.ppy.sh/community/matches/81765079",
+        "players": [
+          {
+            "id": "16198858",
+            "username": "NikanzuGZ"
+          },
+          {
+            "id": "17957861",
+            "username": "[ Heez ]"
+          },
+          {
+            "id": "20037405",
+            "username": "[ Raiid ]"
+          }
+        ],
+        "time": "2021-04-25T14:00Z",
+        "referee": {
+          "id": "13382147",
+          "username": "[-Leon-]"
+        },
+        "available_referees": [
+          {
+            "rel_id": 25,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 47,
+            "referee": {
+              "id": "13382147",
+              "username": "[-Leon-]"
+            }
+          },
+          {
+            "rel_id": 62,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q35",
+        "link": "https://osu.ppy.sh/mp/81772528",
+        "players": [
+          {
+            "id": "10399917",
+            "username": "uNearly"
+          },
+          {
+            "id": "11694276",
+            "username": "playCAP"
+          },
+          {
+            "id": "5305349",
+            "username": "jaegereren0928"
+          }
+        ],
+        "time": "2021-04-25T16:00Z",
+        "referee": {
+          "id": "5331420",
+          "username": "Mortelspawn_"
+        },
+        "available_referees": [
+          {
+            "rel_id": 27,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 60,
+            "referee": {
+              "id": "5331420",
+              "username": "Mortelspawn_"
+            }
+          },
+          {
+            "rel_id": 72,
+            "referee": {
+              "id": "13382147",
+              "username": "[-Leon-]"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q36",
+        "link": "https://osu.ppy.sh/community/matches/81776489",
+        "players": [
+          {
+            "id": "15286154",
+            "username": "bfguitar24"
+          },
+          {
+            "id": "16379858",
+            "username": "Diamond Lily"
+          },
+          {
+            "id": "17854100",
+            "username": "Sizz"
+          },
+          {
+            "id": "18834550",
+            "username": "RhymesWithMash"
+          }
+        ],
+        "time": "2021-04-25T17:00Z",
+        "referee": {
+          "id": "8642224",
+          "username": "Konohana Lucia"
+        },
+        "available_referees": [
+          {
+            "rel_id": 28,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 129,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q37",
+        "link": "https://osu.ppy.sh/community/matches/81780903",
+        "players": [
+          {
+            "id": "10167542",
+            "username": "vernonlim"
+          },
+          {
+            "id": "13806979",
+            "username": "Wakeboard777"
+          },
+          {
+            "id": "19365665",
+            "username": "morsh dawg"
+          },
+          {
+            "id": "3187959",
+            "username": "-Sparky-"
+          },
+          {
+            "id": "4588239",
+            "username": "Aizeia"
+          },
+          {
+            "id": "8036887",
+            "username": "PainTensei"
+          },
+          {
+            "id": "8631719",
+            "username": "Defectum"
+          },
+          {
+            "id": "9088283",
+            "username": "Stak0s"
+          }
+        ],
+        "time": "2021-04-25T18:00Z",
+        "referee": {
+          "id": "1375479",
+          "username": "Paturages"
+        },
+        "available_referees": [
+          {
+            "rel_id": 29,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 128,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q38",
+        "link": "https://osu.ppy.sh/community/matches/81786159",
+        "players": [
+          {
+            "id": "11501808",
+            "username": "ga_bicha"
+          },
+          {
+            "id": "136385",
+            "username": "xtrem3x"
+          },
+          {
+            "id": "14762867",
+            "username": "kellyalessa"
+          },
+          {
+            "id": "16717193",
+            "username": "MrJ23o"
+          },
+          {
+            "id": "16748982",
+            "username": "PEDROX_BR"
+          },
+          {
+            "id": "17823683",
+            "username": "ArnaldoCasanova"
+          },
+          {
+            "id": "17918347",
+            "username": "- Inumaki -"
+          },
+          {
+            "id": "18025458",
+            "username": "KoKousen"
+          }
+        ],
+        "time": "2021-04-25T19:00Z",
+        "referee": {
+          "id": "8642224",
+          "username": "Konohana Lucia"
+        },
+        "available_referees": [
+          {
+            "rel_id": 30,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 127,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Q39",
+        "link": "https://osu.ppy.sh/community/matches/81791141",
+        "players": [
+          {
+            "id": "13875577",
+            "username": "el_tochi"
+          },
+          {
+            "id": "14409184",
+            "username": "meenlon"
+          },
+          {
+            "id": "16281696",
+            "username": "seb1426"
+          },
+          {
+            "id": "17174691",
+            "username": "Adracon"
+          },
+          {
+            "id": "17422924",
+            "username": "Doelon"
+          },
+          {
+            "id": "8802914",
+            "username": "-Arko"
+          }
+        ],
+        "time": "2021-04-25T20:00Z",
+        "referee": {
+          "id": "1375479",
+          "username": "Paturages"
+        },
+        "available_referees": [
+          {
+            "rel_id": 31,
+            "referee": {
+              "id": "8642224",
+              "username": "Konohana Lucia"
+            }
+          },
+          {
+            "rel_id": 130,
+            "referee": {
+              "id": "7253958",
+              "username": "Sayira"
+            }
+          }
+        ]
+      },
+      {
+        "name": "QE04",
+        "link": "https://osu.ppy.sh/community/matches/81795616",
+        "players": [
+          {
+            "id": "10062281",
+            "username": "NathanGt"
+          },
+          {
+            "id": "10184326",
+            "username": "samlogo10"
+          },
+          {
+            "id": "15922698",
+            "username": "Kabo_boi"
+          },
+          {
+            "id": "16329901",
+            "username": "Ender_Ded"
+          },
+          {
+            "id": "16404881",
+            "username": "Gwens"
+          },
+          {
+            "id": "19506369",
+            "username": "-Ena-"
+          },
+          {
+            "id": "9506428",
+            "username": "semloh"
+          }
+        ],
+        "time": "2021-04-25T21:00Z",
+        "referee": {
+          "id": "1375479",
+          "username": "Paturages"
+        },
+        "available_referees": []
+      }
+    ]
+  }
+}

@@ -19,8 +19,8 @@ const pool = new Pool({
   port: DB_PORT
 });
 
-const stage = 'f';
-const label = 'Finals/Grand Finals';
+const stage = 'gf';
+const label = 'Grand Finals';
 
 (async () => {
   const { rows: maps } = await pool.query('select * from maps where stage = $1 order by "order"', [stage]);

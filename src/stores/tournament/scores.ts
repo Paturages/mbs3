@@ -31,13 +31,14 @@ export const init = async (newStage: string, rawPlayers: Player[]) => {
   stage.set(newStage);
   mapRanking.set(null);
 
-  const { data } = await api('/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query, variables: { stage: newStage } })
-  });
+  // const { data } = await api('/graphql', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({ query, variables: { stage: newStage } })
+  // });
+  const { data } = await api(`/data/${newStage}.scores.json`);
 
   // there are at least 3 or 4 different meanings of map here please help
   const initMapPlayers = (map: TournamentMap): [string, TournamentMap] => [

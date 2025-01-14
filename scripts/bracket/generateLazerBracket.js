@@ -19,8 +19,8 @@ const Ruleset = {
 };
 
 const getLengthFromString = (str) => {
-  const [raw] = str.split(" ");
-  const [minutes, seconds] = raw.split(":");
+  const [, drain] = str.split(" ");
+  const [minutes, seconds] = drain.slice(1, -1).split(":");
   return 60000 * minutes + 1000 * seconds;
 };
 
@@ -143,10 +143,10 @@ const BRACKET = {
             .map((match) => match.id),
           beatmaps:
             stage.maps?.map((map) => ({
-              ID: map.id,
+              ID: map.id.replace(/\?/g, ''),
               Mods: map.category.split(" ")[0].toUpperCase(), // Only take the first word of "Tiebreaker (rice)"
               BeatmapInfo: {
-                id: map.id,
+                id: map.id.replace(/\?/g, ''),
                 Status: -3,
                 BeatmapSet: {
                   Status: -3,

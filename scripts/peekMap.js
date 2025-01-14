@@ -6,7 +6,8 @@ const {
 } = process.env;
 
 const got = require("got");
-const beatmapId = '2658672';
+const beatmapId = '3526592';
+const userId = '1375479';
 
 (async () => {
   const {
@@ -21,8 +22,8 @@ const beatmapId = '2658672';
     responseType: "json",
   });
   
-  const { body: map } = await got(
-    `https://osu.ppy.sh/api/v2/beatmaps/${beatmapId}`,
+  const { body } = await got(
+    `https://osu.ppy.sh/api/v2/beatmapsets/1128610`,
     {
       headers: {
         Authorization: `Bearer ${access_token}`,
@@ -31,5 +32,5 @@ const beatmapId = '2658672';
     }
   );
 
-  console.log(map);
+  console.log(JSON.stringify(body, null, 2));
 })();

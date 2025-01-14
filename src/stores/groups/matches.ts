@@ -7,13 +7,14 @@ export const groupsMatches = writable<Match[]>(null);
 export const groupsMaps = writable<Map[]>(null);
 
 export const init = async () => {
-  const { data } = await api('/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query })
-  });
+  // const { data } = await api('/graphql', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({ query })
+  // });
+  const { data } = await api(`/data/groups.matches.json`);
 
   data.matches.forEach(match => {
     // Properly display seed order in matches

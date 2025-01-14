@@ -35,13 +35,14 @@ export const init = async (rawPlayers: Player[]) => {
   const regularPlayers = rawPlayers.filter(p => !p.elite);
   const elitePlayers = rawPlayers.filter(p => p.elite);
 
-  const { data } = await api('/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query })
-  });
+  // const { data } = await api('/graphql', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({ query })
+  // });
+  const { data } = await api(`/data/qualifiers.scores.json`);
 
   // there are at least 3 or 4 different meanings of map here please help
   const initMapPlayers = (map: OsuMap): [string, QualifierMap] => [

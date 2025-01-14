@@ -2,7 +2,8 @@ import type { Me, Player, Referee, Commentator, Streamer, Stage } from '../types
 import { writable } from 'svelte/store';
 import query from './core.gql';
 
-const { API_URL } = __myapp.env;
+// const { API_URL } = __myapp.env;
+const API_URL = ''; // static data
 
 export const me = writable<Me>(null);
 export const players = writable<Player[]>(null);
@@ -98,13 +99,14 @@ export const api = (path: string, options: Parameters<typeof fetch>[1] = { heade
 
 let access_token;
 (async () => {
-  const { data } = await api('/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query })
-  });
+  // const { data } = await api('/graphql', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({ query })
+  // });
+  const { data } = await api('/data/core.json');
   stages.set(data.stages);
   players.set(data.players);
   const playersMap = new Map<string, Player>(data.players.map(player => [player.id, player]));
@@ -114,6 +116,8 @@ let access_token;
   const commentatorsMap = new Map<string, Commentator>(data.commentators.map(commentator => [commentator.id, commentator]));
   streamers.set(data.streamers);
   const streamersMap = new Map<string, Streamer>(data.streamers.map(streamer => [streamer.id, streamer]));
+
+  return; // static mode
   
   const res = await fetch(`${API_URL}/auth/refresh`, {
     method: 'POST',

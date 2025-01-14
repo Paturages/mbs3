@@ -1,0 +1,426 @@
+{
+  "data": {
+    "rolls": [
+      {
+        "player": {
+          "id": "10069850",
+          "username": "Normiplier"
+        },
+        "value": 100
+      },
+      {
+        "player": {
+          "id": "16214723",
+          "username": "Qutilt"
+        },
+        "value": 99
+      },
+      {
+        "player": {
+          "id": "17918347",
+          "username": "- Inumaki -"
+        },
+        "value": 97
+      },
+      {
+        "player": {
+          "id": "13145344",
+          "username": "dylan52528"
+        },
+        "value": 92
+      },
+      {
+        "player": {
+          "id": "11548612",
+          "username": "Brokulek_OwO"
+        },
+        "value": 92
+      },
+      {
+        "player": {
+          "id": "2222301",
+          "username": "DrawnGirl"
+        },
+        "value": 91
+      },
+      {
+        "player": {
+          "id": "15659637",
+          "username": "Krasy_"
+        },
+        "value": 90
+      },
+      {
+        "player": {
+          "id": "10167542",
+          "username": "vernonlim"
+        },
+        "value": 89
+      },
+      {
+        "player": {
+          "id": "16379858",
+          "username": "Diamond Lily"
+        },
+        "value": 86
+      },
+      {
+        "player": {
+          "id": "5765923",
+          "username": "CloudBeater"
+        },
+        "value": 86
+      },
+      {
+        "player": {
+          "id": "8945180",
+          "username": "molneya"
+        },
+        "value": 84
+      },
+      {
+        "player": {
+          "id": "14559339",
+          "username": "MCJze"
+        },
+        "value": 82
+      },
+      {
+        "player": {
+          "id": "13806979",
+          "username": "Wakeboard777"
+        },
+        "value": 82
+      },
+      {
+        "player": {
+          "id": "9489153",
+          "username": "QEpicAce"
+        },
+        "value": 82
+      },
+      {
+        "player": {
+          "id": "9506428",
+          "username": "semloh"
+        },
+        "value": 80
+      },
+      {
+        "player": {
+          "id": "6180024",
+          "username": "ph03n1x"
+        },
+        "value": 79
+      },
+      {
+        "player": {
+          "id": "11358695",
+          "username": "Noasz"
+        },
+        "value": 79
+      },
+      {
+        "player": {
+          "id": "16088215",
+          "username": "xBlayd"
+        },
+        "value": 79
+      },
+      {
+        "player": {
+          "id": "5028866",
+          "username": "ibacot"
+        },
+        "value": 77
+      },
+      {
+        "player": {
+          "id": "17538478",
+          "username": "[RUE]Chat_Pitre"
+        },
+        "value": 76
+      },
+      {
+        "player": {
+          "id": "17174691",
+          "username": "Adracon"
+        },
+        "value": 76
+      },
+      {
+        "player": {
+          "id": "4026124",
+          "username": "Infinitstart"
+        },
+        "value": 75
+      },
+      {
+        "player": {
+          "id": "16479936",
+          "username": "marcel24"
+        },
+        "value": 73
+      },
+      {
+        "player": {
+          "id": "8694649",
+          "username": "DrugManager"
+        },
+        "value": 72
+      },
+      {
+        "player": {
+          "id": "13661408",
+          "username": "Ventilo le vrai"
+        },
+        "value": 71
+      },
+      {
+        "player": {
+          "id": "11354950",
+          "username": "mickeyparm"
+        },
+        "value": 70
+      },
+      {
+        "player": {
+          "id": "9188198",
+          "username": "daveyard"
+        },
+        "value": 69
+      },
+      {
+        "player": {
+          "id": "19506369",
+          "username": "-Ena-"
+        },
+        "value": 69
+      },
+      {
+        "player": {
+          "id": "18834550",
+          "username": "RhymesWithMash"
+        },
+        "value": 69
+      },
+      {
+        "player": {
+          "id": "4183406",
+          "username": "Sladak"
+        },
+        "value": 67
+      },
+      {
+        "player": {
+          "id": "20037405",
+          "username": "[ Raiid ]"
+        },
+        "value": 65
+      },
+      {
+        "player": {
+          "id": "17854100",
+          "username": "Sizz"
+        },
+        "value": 61
+      },
+      {
+        "player": {
+          "id": "9041586",
+          "username": "Nyroxx_"
+        },
+        "value": 60
+      },
+      {
+        "player": {
+          "id": "13378002",
+          "username": "Sinsa92"
+        },
+        "value": 57
+      },
+      {
+        "player": {
+          "id": "6752242",
+          "username": "ZelLink"
+        },
+        "value": 56
+      },
+      {
+        "player": {
+          "id": "8182717",
+          "username": "Espurr"
+        },
+        "value": 55
+      },
+      {
+        "player": {
+          "id": "251683",
+          "username": "Musty"
+        },
+        "value": 55
+      },
+      {
+        "player": {
+          "id": "13392709",
+          "username": "Emre1504"
+        },
+        "value": 54
+      },
+      {
+        "player": {
+          "id": "8250678",
+          "username": "Fl0oW"
+        },
+        "value": 53
+      },
+      {
+        "player": {
+          "id": "9536977",
+          "username": "Ethaaaan"
+        },
+        "value": 50
+      },
+      {
+        "player": {
+          "id": "8184715",
+          "username": "Syako"
+        },
+        "value": 49
+      },
+      {
+        "player": {
+          "id": "8631719",
+          "username": "Defectum"
+        },
+        "value": 45
+      },
+      {
+        "player": {
+          "id": "3867109",
+          "username": "Maou"
+        },
+        "value": 44
+      },
+      {
+        "player": {
+          "id": "16198858",
+          "username": "NikanzuGZ"
+        },
+        "value": 43
+      },
+      {
+        "player": {
+          "id": "6186473",
+          "username": "Parax_UnDeath"
+        },
+        "value": 37
+      },
+      {
+        "player": {
+          "id": "14762867",
+          "username": "kellyalessa"
+        },
+        "value": 36
+      },
+      {
+        "player": {
+          "id": "14973453",
+          "username": "peteploy123"
+        },
+        "value": 31
+      },
+      {
+        "player": {
+          "id": "6051693",
+          "username": "Wolferal"
+        },
+        "value": 29
+      },
+      {
+        "player": {
+          "id": "11040524",
+          "username": "jman1205"
+        },
+        "value": 24
+      },
+      {
+        "player": {
+          "id": "10062281",
+          "username": "NathanGt"
+        },
+        "value": 22
+      },
+      {
+        "player": {
+          "id": "18188796",
+          "username": "eubcwidcubwi"
+        },
+        "value": 21
+      },
+      {
+        "player": {
+          "id": "16404881",
+          "username": "Gwens"
+        },
+        "value": 19
+      },
+      {
+        "player": {
+          "id": "3187959",
+          "username": "-Sparky-"
+        },
+        "value": 19
+      },
+      {
+        "player": {
+          "id": "9671048",
+          "username": "- PLARHELLME -"
+        },
+        "value": 18
+      },
+      {
+        "player": {
+          "id": "8720555",
+          "username": "StartAndSelect"
+        },
+        "value": 15
+      },
+      {
+        "player": {
+          "id": "11818585",
+          "username": "Baguette2Pain"
+        },
+        "value": 14
+      },
+      {
+        "player": {
+          "id": "4937439",
+          "username": "GrilledCheeese"
+        },
+        "value": 13
+      },
+      {
+        "player": {
+          "id": "4588239",
+          "username": "Aizeia"
+        },
+        "value": 13
+      },
+      {
+        "player": {
+          "id": "13443798",
+          "username": "xmallax"
+        },
+        "value": 7
+      },
+      {
+        "player": {
+          "id": "10780764",
+          "username": "MPWercix"
+        },
+        "value": 3
+      }
+    ]
+  }
+}

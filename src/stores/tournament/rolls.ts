@@ -7,12 +7,13 @@ export const stage = writable<string>(null);
 export const rolls = writable<Roll[]>(null);
 
 export const init = async (newStage: string) => {
-  const { data } = await api('/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query, variables: { stage: newStage } })
-  });
+  // const { data } = await api('/graphql', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({ query, variables: { stage: newStage } })
+  // });
+  const { data } = await api(`/data/${newStage}.rolls.json`);
   rolls.set(data.rolls);
 };
